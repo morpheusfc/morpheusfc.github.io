@@ -1,35 +1,37 @@
 /* Dados vindos do Pro Clubs Tracker (clube 37568). Última atualização: 14/10/2026. */
 const club = {w:68,d:16,l:61,gf:346,ga:317,games:145,sr:1655};
 /* psn: ID do jogador no PlayStation. Vazio = ainda não informado. p vazio = sem posição (nunca jogou).
-   img: nome do arquivo da foto dentro de assets/players/ (ex.: img:"habutre.jpg"). Sem img = silhueta padrão. Ideal: retrato vertical, ~400x480. */
+   img: nome do arquivo da foto dentro de assets/players/ (ex.: img:"habutre.jpg"). Sem img = silhueta padrão. Ideal: retrato vertical, ~400x480.
+   aka: nomes ANTIGOS do jogador (ex.: aka:["Kakashi"]). Quando alguém troca de nome no jogo, o nome novo vira o "n" e o antigo vai para cá:
+        assim a atualização com o tracker junta tudo no mesmo card (foto, PSN, histórico) e a busca do Elenco acha pelos dois nomes. */
 const players = [
-  {n:"Leo",p:"ST",o:73,j:123,g:27,a:22,m:1,psn:""},
-  {n:"Habutre",p:"ST",o:83,j:113,g:72,a:50,m:12,psn:"",img:"Habutre.jpeg"},
-  {n:"Bll4ck",p:"ST",o:83,j:106,g:107,a:48,m:14,psn:"",img:"will.jpg"},
-  {n:"Vibox Beats",p:"CM",o:81,j:95,g:5,a:11,m:17,psn:""},
-  {n:"dtb",p:"ST",o:83,j:71,g:39,a:21,m:5,psn:""},
-  {n:"LZ",p:"CB",o:85,j:68,g:4,a:2,m:6,psn:""},
-  {n:"TIAO",p:"CB",o:78,j:67,g:5,a:7,m:2,psn:""},
-  {n:"Pastor",p:"CB",o:82,j:52,g:3,a:5,m:4,psn:""},
- {n:"Saul",p:"CM",o:83,j:49,g:18,a:42,m:2,psn:"alice_farias09",img:"saul.jpeg"},
-  {n:"Kakashi",p:"ST",o:74,j:48,g:10,a:27,m:4,psn:""},
-  {n:"G. Arrascaeta",p:"CB",o:78,j:27,g:8,a:21,m:6,psn:""},
+  {n:"Leo",p:"ST",o:73,j:123,g:27,a:22,m:1,psn:"",aka:[]},
+  {n:"Habutre",p:"ST",o:83,j:113,g:72,a:50,m:12,psn:"",img:"Habutre.jpeg",aka:[]},
+  {n:"Bll4ck",p:"ST",o:83,j:106,g:107,a:48,m:14,psn:"",img:"will.jpg",aka:[]},
+  {n:"Vibox Beats",p:"CM",o:81,j:95,g:5,a:11,m:17,psn:"",aka:[]},
+  {n:"dtb",p:"ST",o:83,j:71,g:39,a:21,m:5,psn:"",aka:[]},
+  {n:"LZ",p:"CB",o:85,j:68,g:4,a:2,m:6,psn:"",aka:[]},
+  {n:"TIAO",p:"CB",o:78,j:67,g:5,a:7,m:2,psn:"",aka:[]},
+  {n:"Pastor",p:"CB",o:82,j:52,g:3,a:5,m:4,psn:"Maneel444",img:"pastor.jpeg",aka:[]},
+ {n:"Saul",p:"CM",o:83,j:49,g:18,a:42,m:2,psn:"alice_farias09",img:"saul.jpeg",aka:[]},
+  {n:"Kakashi",p:"ST",o:74,j:48,g:10,a:27,m:4,psn:"",aka:[]},
+  {n:"G. Arrascaeta",p:"CB",o:78,j:27,g:8,a:21,m:6,psn:"",aka:[]},
   /*{n:"Pedrim",p:"ST",o:82,j:14,g:11,a:9,m:3,psn:""},*/
-  {n:"Floren",p:"CM",o:78,j:10,g:0,a:0,m:0,psn:""},
-  {n:"E. Caveira",p:"ST",o:80,j:9,g:1,a:3,m:0,psn:""},
-  {n:"C. Liduenha",p:"ST",o:82,j:8,g:4,a:3,m:1,psn:""},
-  {n:"Z. Love",p:"ST",o:83,j:7,g:5,a:1,m:1,psn:""},
-  {n:"Ryan",p:"CB",o:84,j:7,g:2,a:0,m:0,psn:""},
-  {n:"Messi",p:"CB",o:78,j:6,g:0,a:0,m:2,psn:""},
-  {n:"B. Reis",p:"CM",o:76,j:5,g:0,a:2,m:1,psn:""},
-  {n:"V. Conceição",p:"CB",o:80,j:4,g:1,a:0,m:0,psn:""},
-  {n:"z. zAlemao16",p:"CB",o:83,j:3,g:0,a:1,m:0,psn:""},
-  {n:"Habib",p:"CB",o:75,j:2,g:0,a:0,m:0,psn:""},
-  {n:"S. Kennedy sfd",p:"GK",o:87,j:1,g:0,a:0,m:0,psn:""},
-  {n:"RyanFelix055",p:"",o:0,j:0,g:0,a:0,m:0,psn:"RyanFelix055"},
-  {n:"ERL7ON",p:"",o:0,j:0,g:0,a:0,m:0,psn:"ERL7ON"},
-  {n:"TeTex-_-",p:"",o:0,j:0,g:0,a:0,m:0,psn:"TeTex-_-"},
-  {n:"Daviluisvc",p:"",o:0,j:0,g:0,a:0,m:0,psn:"Daviluisvc"}
+  {n:"Floren",p:"CM",o:78,j:10,g:0,a:0,m:0,psn:"",aka:[]},
+  {n:"E. Caveira",p:"ST",o:80,j:9,g:1,a:3,m:0,psn:"",aka:[]},
+  {n:"C. Liduenha",p:"ST",o:82,j:8,g:4,a:3,m:1,psn:"",aka:[]},
+  {n:"Z. Love",p:"ST",o:83,j:7,g:5,a:1,m:1,psn:"",aka:[]},
+  {n:"Ryan",p:"CB",o:84,j:7,g:2,a:0,m:0,psn:"",aka:[]},
+  {n:"Messi",p:"CB",o:78,j:6,g:0,a:0,m:2,psn:"",aka:[]},
+  {n:"B. Reis",p:"CM",o:76,j:5,g:0,a:2,m:1,psn:"",aka:[]},
+  {n:"V. Conceição",p:"CB",o:80,j:4,g:1,a:0,m:0,psn:"",aka:[]},
+  {n:"z. zAlemao16",p:"CB",o:83,j:3,g:0,a:1,m:0,psn:"",aka:[]},
+  {n:"Habib",p:"CB",o:75,j:2,g:0,a:0,m:0,psn:"",aka:[]},
+  {n:"S. Kennedy sfd",p:"GK",o:87,j:1,g:0,a:0,m:0,psn:"",aka:[]},
+  {n:"RyanFelix055",p:"",o:0,j:0,g:0,a:0,m:0,psn:"RyanFelix055",aka:[]},
+  {n:"ERL7ON",p:"",o:0,j:0,g:0,a:0,m:0,psn:"ERL7ON",aka:[]},
+  {n:"TeTex-_-",p:"",o:0,j:0,g:0,a:0,m:0,psn:"TeTex-_-",aka:[]},
+  {n:"Daviluisvc",p:"",o:0,j:0,g:0,a:0,m:0,psn:"Daviluisvc",aka:[]}
 ];
 
 /* Configuração do clube. discord: cole aqui o convite (ex.: "https://discord.gg/xxxx"). Vazio = botões de Discord ficam escondidos. */
@@ -57,3 +59,8 @@ config.recrutamento = {
   posicoes: "todas",
   cooldownSegundos: 60
 };
+
+/* PSNs que mudaram de nome. Formato: "PSN antiga": "PSN atual".
+   As partidas já guardadas continuam com a PSN que o jogador tinha no dia do jogo; este mapa faz as tabelas de jogadores,
+   gols, assistências e MVP mostrarem o nome ATUAL. Exemplo: config.apelidos = { "Habutrers": "HabutreNovo" }; */
+config.apelidos = {};

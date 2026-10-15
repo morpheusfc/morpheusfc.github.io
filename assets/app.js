@@ -14,6 +14,10 @@ const fmt = s => esc(s)
 /* Foto ou vídeo: nome de arquivo (pasta assets/<tipo>/) ou endereço completo (nuvem). */
 const media = (kind, f) => /^https?:\/\//.test(f) ? f : `assets/${kind}/${f}`;
 const ready = window.CMS_READY || Promise.resolve();
+/* PSN antiga -> PSN atual (config.apelidos em data.js): mostra o nome atual também nas partidas já guardadas. */
+const curPsn = n => (typeof config !== "undefined" && config.apelidos && config.apelidos[n]) || n;
+/* Busca de jogador: nome do Pro, PSN ou qualquer nome antigo (aka). */
+const matchName = (p, q) => [p.n, p.psn, ...(p.aka || [])].some(s => String(s || "").toLowerCase().includes(q));
 
 /* ---------- Nav e rodapé ---------- */
 const PAGES = [["index.html","inicio","Início"],["elenco.html","elenco","Elenco"],["partidas.html","partidas","Partidas"],["amistosos.html","amistosos","Amistosos"],["videos.html","videos","Vídeos"],["noticias.html","noticias","News"],["recrutamento.html","recrutamento","Recrutamento"]];
@@ -53,7 +57,7 @@ function fmtDate(iso){
   const p = n => String(n).padStart(2,"0");
   return `${rel} · ${p(d.getDate())}/${p(d.getMonth()+1)} às ${p(d.getHours())}:${p(d.getMinutes())}`;
 }
-const listNames = (rows, k) => rows.filter(p=>p[k]).map(p=>p.n+(p[k]>1?` (${p[k]})`:"")).join(", ");
+const listNames = (rows, k) => rows.filter(p=>p[k]).map(p=>curPsn(p.n)+(p[k]>1?` (${p[k]})`:"")).join(", ");
 
 function statBars(m){
   return STAT_LABELS.map((l,i)=>{
@@ -69,7 +73,7 @@ function playerTable(name, rows){
   const sorted = rows.slice().sort((a,b)=>b.r-a.r);
   return `<h4>${esc(name)}</h4><div class="tscroll"><table class="ptable">
     <thead><tr><th>Jogador</th><th>Pos</th><th>Nota</th><th>G</th><th>A</th><th>Chutes</th><th>Passes</th><th>Des.</th></tr></thead><tbody>
-    ${sorted.map(p=>`<tr class="${p.motm?"motm":""}"><td>${p.motm?"⭐ ":""}${esc(p.n)}</td><td>${POS_NAME[p.pos]||p.pos}</td><td>${p.r.toFixed(1)}</td><td>${p.g||"-"}</td><td>${p.a||"-"}</td><td>${p.s||"-"}</td><td>${p.p||"-"}</td><td>${p.t||"-"}</td></tr>`).join("")}
+    ${sorted.map(p=>`<tr class="${p.motm?"motm":""}"><td>${p.motm?"⭐ ":""}${esc(curPsn(p.n))}</td><td>${POS_NAME[p.pos]||p.pos}</td><td>${p.r.toFixed(1)}</td><td>${p.g||"-"}</td><td>${p.a||"-"}</td><td>${p.s||"-"}</td><td>${p.p||"-"}</td><td>${p.t||"-"}</td></tr>`).join("")}
     </tbody></table></div>`;
 }
 function matchDetail(m){
@@ -81,7 +85,7 @@ function matchDetail(m){
     <div class="hl">
       <div><span>⚽ Gols do Morpheus</span><b>${esc(goals)}</b></div>
       <div><span>🅰️ Assistências</span><b>${esc(assists)}</b></div>
-      <div><span>⭐ MVP da partida</span><b>${mv?esc(mv.n)+" · "+mv.r.toFixed(1)+" ("+esc(mv.team)+")":"-"}</b></div>
+      <div><span>⭐ MVP da partida</span><b>${mv?esc(curPsn(mv.n))+" · "+mv.r.toFixed(1)+" ("+esc(mv.team)+")":"-"}</b></div>
       ${oppGoals?`<div><span>Gols do ${esc(m.opp)}</span><b>${esc(oppGoals)}</b></div>`:""}
     </div>
     <div class="dtabs" role="tablist">
@@ -179,7 +183,7 @@ if (page === "partidas") {
 if (page === "elenco") {
   let pos = "T", q = "", sort = "j", showInactive = false;
   const draw = () => {
-    let list = players.filter(p => (showInactive || p.j>0) && (pos==="T" || p.p===pos) && p.n.toLowerCase().includes(q) );
+    let list = players.filter(p => (showInactive || p.j>0) && (pos==="T" || p.p===pos) && matchName(p, q) );
     list = list.slice().sort((a,b)=>b[sort]-a[sort]);
     $("#cards").innerHTML = list.length ? list.map(playerCard).join("") : "";
     $("#none").hidden = list.length>0;
