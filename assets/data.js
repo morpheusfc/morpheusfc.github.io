@@ -5,13 +5,13 @@ const club = {w:68,d:16,l:61,gf:346,ga:317,games:145,sr:1655};
 const players = [
   {n:"Leo",p:"ST",o:73,j:123,g:27,a:22,m:1,psn:""},
   {n:"Habutre",p:"ST",o:83,j:113,g:72,a:50,m:12,psn:"",img:"Habutre.jpeg"},
-  {n:"Bll4ck",p:"ST",o:83,j:106,g:107,a:48,m:14,psn:""},
+  {n:"Bll4ck",p:"ST",o:83,j:106,g:107,a:48,m:14,psn:"",img:"will.jpg"},
   {n:"Vibox Beats",p:"CM",o:81,j:95,g:5,a:11,m:17,psn:""},
   {n:"dtb",p:"ST",o:83,j:71,g:39,a:21,m:5,psn:""},
   {n:"LZ",p:"CB",o:85,j:68,g:4,a:2,m:6,psn:""},
   {n:"TIAO",p:"CB",o:78,j:67,g:5,a:7,m:2,psn:""},
   {n:"Pastor",p:"CB",o:82,j:52,g:3,a:5,m:4,psn:""},
-  {n:"Saul",p:"CM",o:83,j:49,g:18,a:42,m:2,psn:"alice_farias09",img:"saul.jpeg"},
+ {n:"Saul",p:"CM",o:83,j:49,g:18,a:42,m:2,psn:"alice_farias09",img:"saul.jpeg"},
   {n:"Kakashi",p:"ST",o:74,j:48,g:10,a:27,m:4,psn:""},
   {n:"G. Arrascaeta",p:"CB",o:78,j:27,g:8,a:21,m:6,psn:""},
   /*{n:"Pedrim",p:"ST",o:82,j:14,g:11,a:9,m:3,psn:""},*/
