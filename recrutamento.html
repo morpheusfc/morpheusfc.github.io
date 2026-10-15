@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recrutamento | Morpheus FC</title>
+<meta name="description" content="Faça um teste para entrar no Morpheus FC, clube de Pro Clubs do EA FC 27.">
+<link rel="icon" href="assets/escudo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="recrutamento">
+<nav id="nav"></nav>
+
+<header class="page-head"><div class="wrap">
+  <div class="eyebrow">Recrutamento</div>
+  <h1>Vem pro Morpheus</h1>
+  <p>Procuramos gente que joga em equipe, aparece nos horários e leva o jogo a sério, sem estresse.</p>
+</div></header>
+
+<main class="page-body recruit"><div class="wrap">
+  <div>
+    <h2 class="sec-title">O que oferecemos</h2>
+    <ul class="perks">
+      <li>Aceitamos todas as plataformas e regiões</li>
+      <li>Teste de uma ou duas partidas, sem pressão</li>
+      <li>Comunidade no Discord para marcar jogos e treinar</li>
+      <li>Posições procuradas: todas</li>
+    </ul>
+    <p style="margin-top:28px"><a href="#" class="btn btn-ghost" data-discord>Entrar no Discord</a></p>
+  </div>
+  <form class="panel" id="app">
+    <div class="row2">
+      <label>PSN / Gamertag<input required name="tag" placeholder="Seu ID no jogo"></label>
+      <label>Plataforma
+        <select name="plat"><option>PlayStation</option><option>Xbox</option><option>PC</option></select>
+      </label>
+    </div>
+    <div class="row2">
+      <label>Posição
+        <select name="pos"><option>Goleiro</option><option>Zagueiro</option><option>Meio-campo</option><option>Atacante</option></select>
+      </label>
+      <label>Horários<input name="hor" placeholder="Ex.: 20h às 23h"></label>
+    </div>
+    <label>Conta um pouco sobre você<textarea name="msg" rows="3" placeholder="Experiência, estilo de jogo, Discord..."></textarea></label>
+    <button class="btn btn-gold" type="submit">Copiar candidatura</button>
+    <div id="out" hidden>Copiado. Cole no canal de recrutamento do nosso Discord.</div>
+  </form>
+</div></main>
+
+<footer id="footer"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/matches.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/scenes.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Morpheus FC | Pro Clubs</title>
+<meta name="description" content="Site oficial do Morpheus FC, clube de Pro Clubs do EA FC 27. Elenco, resultados e recrutamento.">
+<link rel="icon" href="assets/escudo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="inicio">
+<nav id="nav"></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="pill"><span class="dot"></span> Pro Clubs · EA FC 27 · Todas as plataformas</div>
+      <h1>Sonhe alto.<br><em>Jogue</em> sério.</h1>
+      <p class="lead">Somos o Morpheus FC. Competimos de verdade, mas sem perder a resenha. Bora jogar junto?</p>
+      <div class="cta">
+        <a href="recrutamento.html" class="btn btn-gold">Quero fazer teste</a>
+        <a href="#" class="btn btn-ghost" data-discord>Entrar no Discord</a>
+      </div>
+    </div>
+    <div class="crest"><img src="assets/escudo.jpg" alt="Escudo do Morpheus FC: capacete espartano dourado"></div>
+  </div>
+</header>
+
+<div class="stats"><div class="wrap"><div class="stat-grid" id="stats"></div></div></div>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Temporada atual</div>
+    <h2 class="sec-title">Últimos jogos</h2>
+    <p class="sec-sub">Os 5 resultados mais recentes. O histórico completo está na página de partidas.</p>
+    <div class="two">
+      <div class="panel">
+        <h3>Jogos</h3>
+        <div class="form" id="form"></div>
+        <div id="matches"></div>
+        <div class="more"><a href="partidas.html" class="btn btn-ghost btn-sm">Ver todas as partidas</a></div>
+      </div>
+      <div class="panel leaders">
+        <h3>Rank</h3>
+        <div id="leaders"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="squad">
+  <div class="wrap">
+    <div class="eyebrow">O time</div>
+    <h2 class="sec-title">Quem veste a camisa</h2>
+    <p class="sec-sub">Os jogadores com mais jogos pelo clube.</p>
+    <div class="cards" id="cards"></div>
+    <div class="more"><a href="elenco.html" class="btn btn-ghost">Ver elenco completo</a></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-band">
+      <div><h3>Procurando clube?</h3><p>Aceitamos todas as plataformas e regiões. Faça um teste sem pressão.</p></div>
+      <a href="recrutamento.html" class="btn btn-gold">Quero entrar</a>
+    </div>
+  </div>
+</section>
+
+<footer id="footer"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/matches.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/scenes.js"></script>
+</body>
+</html>

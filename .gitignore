@@ -1,0 +1,9 @@
+﻿# Arquivos que NÃO sobem para o GitHub
+_backup/
+supabase-*.sql
+.claude/
+desktop.ini
+Thumbs.db
+*.tmp
+# vídeos originais pesados (só os "-web"/comprimidos vão para o site)
+assets/videos/0[0-9]_*

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elenco | Morpheus FC</title>
+<meta name="description" content="Todos os jogadores do Morpheus FC com overall, posição e estatísticas.">
+<link rel="icon" href="assets/escudo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="elenco">
+<nav id="nav"></nav>
+
+<header class="page-head"><div class="wrap">
+  <div class="eyebrow">O time</div>
+  <h1>Elenco</h1>
+  <p>Todos que já vestiram a camisa do Morpheus. Filtre por posição, busque por nome ou ordene pelo que importa.</p>
+</div></header>
+
+<main class="page-body"><div class="wrap">
+  <div class="toolbar">
+    <button class="fbtn" data-pos="T">Todos</button>
+    <button class="fbtn" data-pos="ST">Atacantes</button>
+    <button class="fbtn" data-pos="CM">Meio-campo</button>
+    <button class="fbtn" data-pos="CB">Defensores</button>
+    <button class="fbtn" data-pos="GK">Goleiros</button>
+    <input class="grow" id="q" type="search" placeholder="Buscar jogador" aria-label="Buscar jogador">
+    <select id="sort" aria-label="Ordenar por">
+      <option value="j">Mais jogos</option>
+      <option value="o">Maior overall</option>
+      <option value="g">Mais gols</option>
+      <option value="a">Mais assistências</option>
+      <option value="m">Mais vezes MVP</option>
+    </select>
+    <button class="fbtn" id="inact">Mostrar sem jogos</button>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="cards" id="cards"></div>
+  <div class="empty-state" id="none" hidden>Nenhum jogador encontrado.</div>
+  <p class="note">Estatísticas totais do clube, vindas do Pro Clubs Tracker. A lista de ativos será revisada.</p>
+</div></main>
+
+<footer id="footer"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/matches.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/scenes.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amistosos | Morpheus FC</title>
+<meta name="description" content="Marque um amistoso com o Morpheus FC, clube de Pro Clubs do EA FC 27. Envie o pedido com dia e horário.">
+<link rel="icon" href="assets/escudo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="amistosos">
+<nav id="nav"></nav>
+
+<header class="page-head"><div class="wrap">
+  <div class="eyebrow">Bola rolando</div>
+  <h1>Amistosos</h1>
+  <p>Quer treinar contra o Morpheus? Preencha o pedido com o dia e o horário que preferir. Respondemos pelo contato que você informar.</p>
+</div></header>
+
+<main class="page-body"><div class="wrap amis">
+  <div class="amis-info">
+    <div class="panel">
+      <h3>Como funciona</h3>
+      <ol class="steps">
+        <li><b>Envie o pedido</b><span>Informe o nome do clube, o capitão, o contato e o dia e horário.</span></li>
+        <li><b>Nós respondemos</b><span>Falamos com o capitão pelo contato informado para confirmar ou combinar outro horário.</span></li>
+        <li><b>Jogo confirmado</b><span>O amistoso entra na agenda ao lado e é só entrar em campo.</span></li>
+      </ol>
+      <p class="amis-hours" id="hours"></p>
+    </div>
+    <div class="panel">
+      <h3>Próximos amistosos</h3>
+      <div id="agenda"><p class="sec-sub" style="margin:0">Carregando agenda…</p></div>
+    </div>
+  </div>
+
+  <div id="formBox">
+    <form class="panel" id="amForm" novalidate>
+      <h3>Pedir um amistoso</h3>
+      <label><span>Nome do time <span class="req">*</span></span>
+        <input name="team" required maxlength="60" autocomplete="organization" placeholder="Ex.: Os Fantásticos FC">
+      </label>
+      <div class="row2">
+        <label><span>Capitão (PSN / gamertag) <span class="req">*</span></span>
+          <input name="captain" required maxlength="40" autocomplete="off" placeholder="Seu ID no jogo">
+        </label>
+        <label>Plataforma
+          <select name="platform"><option>PlayStation</option><option>Xbox</option><option>PC</option></select>
+        </label>
+      </div>
+      <label><span>Contato <span class="req">*</span></span>
+        <input name="contact" required maxlength="80" autocomplete="off" placeholder="Discord (usuário), WhatsApp ou Instagram">
+        <small>É por aqui que vamos responder. Só a diretoria do Morpheus vê esse dado.</small>
+      </label>
+      <div class="row2">
+        <label><span>Dia <span class="req">*</span></span><input type="date" name="play_date" required></label>
+        <label><span>Horário <span class="req">*</span></span><input type="time" name="play_time" required></label>
+      </div>
+      <details class="amis-more">
+        <summary>Outra opção de dia e horário (opcional)</summary>
+        <div class="row2">
+          <label>Dia<input type="date" name="alt_date"></label>
+          <label>Horário<input type="time" name="alt_time"></label>
+        </div>
+      </details>
+      <div class="row2">
+        <label>Divisão do clube (opcional)
+          <select name="division">
+            <option value="">Não sei / prefiro não informar</option>
+            <option>Divisão 1</option><option>Divisão 2</option><option>Divisão 3</option><option>Divisão 4</option><option>Divisão 5</option>
+            <option>Divisão 6</option><option>Divisão 7</option><option>Divisão 8</option><option>Divisão 9</option><option>Divisão 10</option>
+          </select>
+        </label>
+        <label>Quantos jogadores (opcional)
+          <input type="number" name="players" min="1" max="11" inputmode="numeric" placeholder="1 a 11">
+        </label>
+      </div>
+      <label>Observações (opcional)
+        <textarea name="notes" rows="3" maxlength="500" placeholder="Algo que a gente deva saber: formação, regras combinadas, etc."></textarea>
+      </label>
+      <div class="hp" aria-hidden="true"><label>Não preencha este campo<input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <button class="btn btn-gold" type="submit" id="amSend">Enviar pedido</button>
+      <div class="am-msg" id="amMsg" hidden role="alert"></div>
+    </form>
+  </div>
+</div></main>
+
+<footer id="footer"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/scenes.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vídeos | Morpheus FC</title>
+<meta name="description" content="Lances e partidas do Morpheus FC no Pro Clubs.">
+<link rel="icon" href="assets/escudo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="videos">
+<nav id="nav"></nav>
+
+<header class="page-head"><div class="wrap">
+  <div class="eyebrow">Replay</div>
+  <h1>Vídeos</h1>
+  <p>Os melhores lances e as partidas completas do Morpheus. Golaço, defesa difícil e resenha ficam registrados aqui.</p>
+</div></header>
+
+<main class="page-body"><div class="wrap">
+  <div class="toolbar">
+    <button class="fbtn" data-vf="T">Todos</button>
+    <button class="fbtn" data-vf="lance">Lances</button>
+    <button class="fbtn" data-vf="partida">Partidas</button>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="vgrid" id="vgrid"></div>
+  <div class="empty-state" id="vnone" hidden>
+    <b>Ainda não há vídeos por aqui.</b><br>
+    Os primeiros lances do Morpheus aparecem nesta página assim que forem postados.
+  </div>
+</div></main>
+
+<dialog id="vmodal" aria-label="Player de vídeo">
+  <button class="vclose" id="vclose" aria-label="Fechar vídeo">×</button>
+  <div class="vstage" id="vstage"></div>
+  <div class="vinfo" id="vinfo"></div>
+</dialog>
+
+<footer id="footer"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/matches.js"></script>
+<script src="assets/videos.js"></script>
+<script src="assets/config.js"></script>
+<script src="assets/cms.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/scenes.js"></script>
+</body>
+</html>

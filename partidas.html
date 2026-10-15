@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Partidas | Morpheus FC</title>
+<meta name="description" content="Resultados recentes do Morpheus FC no Pro Clubs.">
+<link rel="icon" href="assets/escudo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="partidas">
+<nav id="nav"></nav>
+
+<header class="page-head"><div class="wrap">
+  <div class="eyebrow">Temporada atual</div>
+  <h1>Partidas</h1>
+  <p>Os jogos mais recentes do clube. Clique em uma partida para ver gols, assistências, MVP e as notas de todos.</p>
+</div></header>
+
+<main class="page-body"><div class="wrap">
+  <div class="res-bar" id="resbar"></div>
+  <div class="panel">
+    <div class="toolbar">
+      <button class="fbtn" data-f="T">Todos</button>
+      <button class="fbtn" data-f="V">Vitórias</button>
+      <button class="fbtn" data-f="E">Empates</button>
+      <button class="fbtn" data-f="D">Derrotas</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="form" id="form"></div>
+    <div id="matches"></div>
+  </div>
+</div></main>
+
+<footer id="footer"></footer>
+<script src="assets/data.js"></script>
+<script src="assets/matches.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/scenes.js"></script>
+</body>
+</html>
