@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Recrutamento | Morpheus FC</title>
-<meta name="description" content="Faça um teste para entrar no Morpheus FC, clube de Pro Clubs do EA FC 27.">
+<meta name="description" content="Candidate-se para entrar no Morpheus FC, clube de Pro Clubs do EA FC 27. Envie sua candidatura e faça um teste.">
 <link rel="icon" href="assets/escudo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,42 +17,96 @@
 <header class="page-head"><div class="wrap">
   <div class="eyebrow">Recrutamento</div>
   <h1>Vem pro Morpheus</h1>
-  <p>Procuramos gente que joga em equipe, aparece nos horários e leva o jogo a sério, sem estresse.</p>
+  <p>Procuramos gente que joga em equipe, aparece nos horários e leva o jogo a sério, sem estresse. Envie sua candidatura e a diretoria responde pelo contato que você informar.</p>
 </div></header>
 
 <main class="page-body recruit"><div class="wrap">
-  <div>
-    <h2 class="sec-title">O que oferecemos</h2>
-    <ul class="perks">
-      <li>Aceitamos todas as plataformas e regiões</li>
-      <li>Teste de uma ou duas partidas, sem pressão</li>
-      <li>Comunidade no Discord para marcar jogos e treinar</li>
-      <li>Posições procuradas: todas</li>
-    </ul>
-    <p style="margin-top:28px"><a href="#" class="btn btn-ghost" data-discord>Entrar no Discord</a></p>
+  <div class="rec-info">
+    <div>
+      <h2 class="sec-title">O que oferecemos</h2>
+      <ul class="perks">
+        <li>Aceitamos todas as plataformas e regiões</li>
+        <li>Teste de uma ou duas partidas, sem pressão</li>
+        <li>Comunidade no Discord para marcar jogos e treinar</li>
+        <li id="posLine">Posições procuradas: todas</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Como funciona</h3>
+      <ol class="steps">
+        <li><b>Envie a candidatura</b><span>Preencha o formulário com seu ID, posição e como falar com você.</span></li>
+        <li><b>Teste em campo</b><span>Se o perfil combinar, chamamos você para jogar uma ou duas partidas com o time.</span></li>
+        <li><b>Resposta da diretoria</b><span>Depois do teste, avisamos se você entrou. Sem pressão e sem enrolação.</span></li>
+      </ol>
+      <p class="amis-hours" style="margin-top:4px">Sua candidatura só é vista pela diretoria do Morpheus.</p>
+    </div>
+    <p><a href="#" class="btn btn-ghost" data-discord>Entrar no Discord</a></p>
   </div>
-  <form class="panel" id="app">
-    <div class="row2">
-      <label>PSN / Gamertag<input required name="tag" placeholder="Seu ID no jogo"></label>
-      <label>Plataforma
-        <select name="plat"><option>PlayStation</option><option>Xbox</option><option>PC</option></select>
+
+  <div id="recBox">
+    <form class="panel" id="recForm" novalidate>
+      <h3>Enviar candidatura</h3>
+      <div class="row2">
+        <label><span>PSN / Gamertag <span class="req">*</span></span>
+          <input name="psn" required maxlength="40" autocomplete="off" placeholder="Seu ID no jogo">
+        </label>
+        <label>Plataforma
+          <select name="platform"><option>PlayStation</option><option>Xbox</option><option>PC</option></select>
+        </label>
+      </div>
+      <label>Como quer ser chamado (opcional)
+        <input name="nick" maxlength="40" autocomplete="nickname" placeholder="Seu nome ou apelido">
       </label>
-    </div>
-    <div class="row2">
-      <label>Posição
-        <select name="pos"><option>Goleiro</option><option>Zagueiro</option><option>Meio-campo</option><option>Atacante</option></select>
+      <div class="row2">
+        <label><span>Posição preferida <span class="req">*</span></span>
+          <select name="pos" required>
+            <option value="">Escolha…</option>
+            <option>Goleiro</option><option>Zagueiro</option><option>Meio-campo</option><option>Atacante</option>
+            <option value="Qualquer">Qualquer posição</option>
+          </select>
+        </label>
+        <label>Segunda opção (opcional)
+          <select name="pos_alt">
+            <option value="">Nenhuma</option>
+            <option>Goleiro</option><option>Zagueiro</option><option>Meio-campo</option><option>Atacante</option>
+          </select>
+        </label>
+      </div>
+      <label><span>Contato <span class="req">*</span></span>
+        <input name="contact" required maxlength="80" autocomplete="off" placeholder="Discord (usuário), WhatsApp ou Instagram">
+        <small>É por aqui que vamos chamar você para o teste.</small>
       </label>
-      <label>Horários<input name="hor" placeholder="Ex.: 20h às 23h"></label>
-    </div>
-    <label>Conta um pouco sobre você<textarea name="msg" rows="3" placeholder="Experiência, estilo de jogo, Discord..."></textarea></label>
-    <button class="btn btn-gold" type="submit">Copiar candidatura</button>
-    <div id="out" hidden>Copiado. Cole no canal de recrutamento do nosso Discord.</div>
-  </form>
+      <label>Horários em que você joga (opcional)
+        <input name="availability" maxlength="120" placeholder="Ex.: noites a partir das 20h; fins de semana">
+      </label>
+      <div class="row2">
+        <label>Experiência (opcional)
+          <select name="experience">
+            <option value="">Prefiro não informar</option>
+            <option>Iniciante</option><option>Intermediário</option><option>Avançado</option>
+          </select>
+        </label>
+        <label>Último clube (opcional)
+          <input name="previous_club" maxlength="60" placeholder="Onde jogou antes">
+        </label>
+      </div>
+      <label>Link de lances seus (opcional)
+        <input name="clips" type="url" maxlength="200" inputmode="url" placeholder="https://… (YouTube, Medal, Twitch)">
+        <small>Um vídeo curto com seus melhores momentos ajuda bastante.</small>
+      </label>
+      <label>Conta um pouco sobre você (opcional)
+        <textarea name="message" rows="4" maxlength="600" placeholder="Estilo de jogo, o que procura em um clube, por que quer entrar…"></textarea>
+      </label>
+      <div class="hp" aria-hidden="true"><label>Não preencha este campo<input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <button class="btn btn-gold" type="submit" id="recSend">Enviar candidatura</button>
+      <div class="am-msg" id="recMsg" hidden role="alert"></div>
+    </form>
+  </div>
 </div></main>
 
 <footer id="footer"></footer>
 <script src="assets/data.js"></script>
-<script src="assets/matches.js"></script>
+<script src="assets/config.js"></script>
 <script src="assets/app.js"></script>
 <script src="assets/scenes.js"></script>
 </body>

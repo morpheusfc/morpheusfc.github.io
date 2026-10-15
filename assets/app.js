@@ -195,12 +195,63 @@ if (page === "elenco") {
 }
 
 if (page === "recrutamento") {
-  $("#app").addEventListener("submit", e => {
-    e.preventDefault();
-    const f = new FormData(e.target);
-    const txt = `Candidatura Morpheus FC\nPSN: ${f.get("tag")}\nPlataforma: ${f.get("plat")}\nPosição: ${f.get("pos")}\nHorários: ${f.get("hor")||"-"}\nSobre: ${f.get("msg")||"-"}`;
-    const done = () => { $("#out").hidden = false; };
-    (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).catch(()=>{}).finally(done);
+  const S = window.SUPABASE || {}, on = !!(S.url && S.key);
+  const headers = extra => Object.assign({ apikey: S.key }, S.key && S.key.startsWith("eyJ") ? { Authorization: "Bearer " + S.key } : {}, extra);
+  const R = config.recrutamento || {};
+  const f = $("#recForm"), msg = $("#recMsg"), btn = $("#recSend");
+  $("#posLine").textContent = "Posições procuradas: " + (R.posicoes || "todas");
+  const show = (t, ok) => { msg.hidden = false; msg.textContent = t; msg.className = "am-msg " + (ok ? "ok" : "err"); };
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+
+  const summary = p => `Candidatura para o Morpheus FC\nID: ${p.psn} (${p.platform})` + (p.nick ? `\nNome: ${p.nick}` : "")
+    + `\nPosição: ${p.pos}` + (p.pos_alt ? ` / ${p.pos_alt}` : "") + `\nContato: ${p.contact}`
+    + (p.availability ? `\nHorários: ${p.availability}` : "") + (p.experience ? `\nExperiência: ${p.experience}` : "")
+    + (p.previous_club ? `\nÚltimo clube: ${p.previous_club}` : "") + (p.clips ? `\nLances: ${p.clips}` : "") + (p.message ? `\nSobre: ${p.message}` : "");
+
+  const done = p => {
+    $("#recBox").innerHTML = `<div class="panel am-done">
+      <div class="am-check" aria-hidden="true">✓</div>
+      <h3>Candidatura enviada!</h3>
+      <p class="sec-sub" style="margin:0 0 16px">Obrigado, <b>${esc(p.nick || p.psn)}</b>! A diretoria vai analisar e falar com você pelo contato informado para combinar o teste.</p>
+      <ul class="am-sum"><li><span>ID</span><b>${esc(p.psn)}</b></li><li><span>Posição</span><b>${esc(p.pos)}${p.pos_alt ? " / " + esc(p.pos_alt) : ""}</b></li><li><span>Contato</span><b>${esc(p.contact)}</b></li></ul>
+      <button class="btn btn-ghost" type="button" onclick="location.reload()">Enviar outra candidatura</button></div>`;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  f.addEventListener("submit", async e => {
+    e.preventDefault(); msg.hidden = true;
+    const v = Object.fromEntries(new FormData(f));
+    if (v.website) { done({ psn: "", pos: "", contact: "" }); return; }   /* campo-armadilha para robôs */
+    const p = { psn: (v.psn||"").trim(), nick: (v.nick||"").trim(), platform: v.platform || "PlayStation", pos: v.pos || "", pos_alt: v.pos_alt || "",
+      contact: (v.contact||"").trim(), availability: (v.availability||"").trim(), experience: v.experience || "", previous_club: (v.previous_club||"").trim(),
+      clips: (v.clips||"").trim(), message: (v.message||"").trim() };
+    if (p.psn.length < 2) return show("Informe o seu ID (PSN ou gamertag).");
+    if (!p.pos) return show("Escolha a posição em que você quer jogar.");
+    if (p.contact.length < 3) return show("Informe um contato para falarmos com você (Discord, WhatsApp ou Instagram).");
+    if (p.clips && !/^https?:\/\/\S+$/i.test(p.clips)) return show("O link dos lances precisa começar com https://");
+    if (p.pos_alt && p.pos_alt === p.pos) p.pos_alt = "";
+    const wait = (R.cooldownSegundos || 60) * 1000 - (Date.now() - Number(store.get("rec_last") || 0));
+    if (wait > 0) return show(`Você acabou de enviar uma candidatura. Aguarde ${Math.ceil(wait/1000)} segundos para enviar outra.`);
+
+    const fallback = why => {
+      show(why + " Copie a candidatura abaixo e envie para nós pelo Discord.");
+      const t = summary(p);
+      msg.insertAdjacentHTML("beforeend", `<br><button class="btn btn-ghost btn-sm" type="button" id="recCopy">Copiar candidatura</button>`);
+      $("#recCopy").onclick = () => { (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { $("#recCopy").textContent = "Copiado!"; }, () => { $("#recCopy").textContent = "Não foi possível copiar"; }); };
+    };
+    if (!on) return fallback("O envio automático ainda não está disponível.");
+    btn.disabled = true; btn.textContent = "Enviando…";
+    try {
+      const r = await fetch(`${S.url}/rest/v1/candidaturas`, { method: "POST", headers: headers({ "Content-Type": "application/json", Prefer: "return=minimal" }), body: JSON.stringify(p) });
+      if (r.ok) { store.set("rec_last", String(Date.now())); done(p); return; }
+      btn.disabled = false; btn.textContent = "Enviar candidatura";
+      if (r.status === 409) return show("Já recebemos uma candidatura em análise para esse ID. Aguarde o nosso contato.");
+      if (r.status === 400) return show("Alguma informação não foi aceita. Confira os campos e tente de novo.");
+      fallback("Não foi possível enviar agora.");
+    } catch (err) {
+      btn.disabled = false; btn.textContent = "Enviar candidatura";
+      fallback("Sem conexão com o servidor.");
+    }
   });
 }
 

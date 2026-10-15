@@ -411,3 +411,10 @@ label small{color:var(--muted);font-size:12px;font-weight:400}
   radial-gradient(60% 80% at 50% 45%,rgba(233,185,73,.20),transparent 70%),
   url(bg/pitch.svg) center/115% no-repeat,#0b0b10;display:grid;place-items:center}
 .amis-banner.default::before{content:"";width:34%;aspect-ratio:1;background:url(escudo.jpg) center/cover;border-radius:16px;opacity:.9;box-shadow:0 0 40px rgba(233,185,73,.25)}
+
+/* ===== Recrutamento ===== */
+.rec-info{display:grid;gap:22px;align-content:start}
+.recruit .wrap{align-items:start}
+@media (max-width:860px){.rec-info{order:2}}
+.am-nick{color:var(--muted);font-size:14px}
+.am-grid a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}

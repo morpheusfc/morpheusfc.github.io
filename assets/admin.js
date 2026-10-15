@@ -86,6 +86,7 @@
           <button class="fbtn" data-tab="news">Notícias</button>
           <button class="fbtn" data-tab="videos">Vídeos</button>
           <button class="fbtn" data-tab="friendlies">Amistosos <span class="adm-count" id="newCount" hidden></span></button>
+          <button class="fbtn" data-tab="recruit">Recrutamento <span class="adm-count" id="recCount" hidden></span></button>
         </div>
         <div class="adm-user"><span>${esc(userEmail || "")}</span><button class="fbtn" id="logout">Sair</button></div>
       </div>
@@ -93,7 +94,7 @@
     qa("[data-tab]").forEach(b => b.onclick = () => { tab = b.dataset.tab; shell(userEmail); });
     qa("[data-tab]").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
     q("#logout").onclick = () => sb.auth.signOut();
-    ({ news: newsView, videos: videosView, friendlies: friendliesView }[tab] || newsView)();
+    ({ news: newsView, videos: videosView, friendlies: friendliesView, recruit: recruitView }[tab] || newsView)();
     refreshNewCount();
   }
 
@@ -411,10 +412,12 @@
   const STATUS = { novo: "Novo", confirmado: "Confirmado", recusado: "Recusado", realizado: "Realizado" };
   let amFilter = "";
   async function refreshNewCount(){
-    const el = q("#newCount"); if (!el) return;
-    const { count, error } = await sb.from("amistosos").select("id", { count: "exact", head: true }).eq("status", "novo");
-    if (error || !count) { el.hidden = true; return; }
-    el.textContent = count; el.hidden = false;
+    for (const [sel, table] of [["#newCount", "amistosos"], ["#recCount", "candidaturas"]]) {
+      const el = q(sel); if (!el) continue;
+      const { count, error } = await sb.from(table).select("id", { count: "exact", head: true }).eq("status", "novo");
+      if (error || !count) { el.hidden = true; continue; }
+      el.textContent = count; el.hidden = false;
+    }
   }
   const hhmm = t => String(t || "").slice(0, 5);
   const when = (date, time) => { const d = dateOf(date); return `${shortDate(date).slice(0, 5)} (${SEMANA[d.getDay()]}) às ${hhmm(time)}`; };
@@ -494,6 +497,91 @@
       const { error: e } = await sb.from("amistosos").delete().eq("id", a.id);
       if (e) return say(errText(e), false);
       friendliesView(); refreshNewCount();
+    });
+  }
+
+  /* ---------- recrutamento ---------- */
+  const STATUS_REC = { novo: "Nova", em_teste: "Em teste", aprovado: "Aprovado", recusado: "Recusado" };
+  let recFilter = "";
+  const recName = a => a.nick || a.psn;
+  const recMsgs = {
+    invite:  a => `Olá, ${recName(a)}! Aqui é do Morpheus FC. Recebemos a sua candidatura para ${a.pos === "Qualquer" ? "o clube" : a.pos}. Queremos chamar você para um teste em campo com o time. Quais dias e horários ficam bons para você?`,
+    welcome: a => `Olá, ${recName(a)}! Aqui é do Morpheus FC. Você foi aprovado, seja bem-vindo ao clube! Vamos enviar o convite para você entrar no clube no jogo e o acesso ao nosso Discord.`,
+    decline: a => `Olá, ${recName(a)}! Aqui é do Morpheus FC. Obrigado pelo interesse e pelo seu tempo. Desta vez não vamos seguir com a sua entrada, mas as portas continuam abertas para uma nova tentativa. Boa sorte!`
+  };
+  const fmtDateTime = iso => { const d = new Date(iso); if (isNaN(d)) return ""; const p = n => String(n).padStart(2, "0"); return `${p(d.getDate())}/${p(d.getMonth() + 1)} às ${p(d.getHours())}:${p(d.getMinutes())}`; };
+
+  async function recruitView(){
+    const view = q("#view");
+    view.innerHTML = `<div class="empty-state">Carregando…</div>`;
+    const { data: rows, error } = await sb.from("candidaturas").select("*").order("created_at", { ascending: false });
+    if (error) {
+      view.innerHTML = `<div class="panel"><h3>Recrutamento ainda não configurado</h3><p class="sec-sub" style="margin:0">A tabela de candidaturas ainda não existe no Supabase. Abra o arquivo <b>supabase-recrutamento.sql</b>, copie tudo e rode em <b>SQL Editor &gt; New query &gt; Run</b>. Depois recarregue esta página.<br><small>${esc(errText(error))}</small></p></div>`;
+      return;
+    }
+    const groups = {
+      novo: rows.filter(a => a.status === "novo"), em_teste: rows.filter(a => a.status === "em_teste"),
+      aprovado: rows.filter(a => a.status === "aprovado"), recusado: rows.filter(a => a.status === "recusado"), todos: rows
+    };
+    if (!recFilter) recFilter = groups.novo.length ? "novo" : groups.em_teste.length ? "em_teste" : "todos";
+    const list = groups[recFilter] || [];
+    const chip = (k, label) => `<button class="fbtn${recFilter === k ? " on" : ""}" data-rf="${k}">${label} (${groups[k].length})</button>`;
+    const info = (label, val) => val ? `<div><span>${label}</span><b>${val}</b></div>` : "";
+    const safeLink = u => /^https?:\/\/\S+$/i.test(u) ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(u.length > 46 ? u.slice(0, 46) + "…" : u)}</a>` : esc(u);
+    view.innerHTML = `
+      <div class="toolbar">${chip("novo", "Novas")}${chip("em_teste", "Em teste")}${chip("aprovado", "Aprovados")}${chip("recusado", "Recusados")}${chip("todos", "Todas")}</div>
+      ${list.length ? list.map(a => `
+        <article class="panel am-card st-${esc(a.status)}" data-id="${esc(a.id)}">
+          <div class="am-top"><div><b class="am-team">${esc(a.psn)}</b>${a.nick ? ` <span class="am-nick">(${esc(a.nick)})</span>` : ""}</div><span class="am-pill ${esc(a.status === "em_teste" ? "novo" : a.status === "aprovado" ? "confirmado" : a.status)}">${STATUS_REC[a.status] || esc(a.status)}</span></div>
+          <div class="am-grid">
+            ${info("Plataforma", esc(a.platform))}
+            ${info("Posição", esc(a.pos === "Qualquer" ? "Qualquer posição" : a.pos) + (a.pos_alt ? ` · 2ª: ${esc(a.pos_alt)}` : ""))}
+            <div><span>Contato</span><b>${esc(a.contact)}</b> <button class="fbtn" data-copy="${esc(a.contact)}" type="button">Copiar</button></div>
+            ${info("Horários", esc(a.availability))}${info("Experiência", esc(a.experience))}${info("Último clube", esc(a.previous_club))}
+            ${a.clips ? info("Lances", safeLink(a.clips)) : ""}
+            ${info("Recebida", esc(fmtDateTime(a.created_at)))}
+          </div>
+          ${a.message ? `<p class="am-notes">“${esc(a.message)}”</p>` : ""}
+          <label class="am-adm">Anotação interna (só você vê)<input data-note value="${esc(a.admin_note)}" maxlength="500" placeholder="Ex.: teste marcado para sexta, 21h"></label>
+          <div class="adm-btns am-actions">
+            ${a.status === "novo" ? `<button class="btn btn-gold btn-sm" data-st="em_teste">Chamar para teste</button><button class="fbtn" data-st="recusado">Recusar</button>` : ""}
+            ${a.status === "em_teste" ? `<button class="btn btn-gold btn-sm" data-st="aprovado">Aprovar</button><button class="fbtn" data-st="recusado">Recusar</button>` : ""}
+            ${a.status === "aprovado" || a.status === "recusado" ? `<button class="fbtn" data-st="novo">Reabrir</button>` : ""}
+            <button class="fbtn" data-msg="invite" type="button">Msg de convite</button>
+            <button class="fbtn" data-msg="welcome" type="button">Msg de boas-vindas</button>
+            <button class="fbtn" data-msg="decline" type="button">Msg de recusa</button>
+            <button class="fbtn danger" data-delr type="button">Excluir</button>
+          </div>
+        </article>`).join("") : `<div class="empty-state">${recFilter === "novo" ? "Nenhuma candidatura nova no momento." : "Nada por aqui ainda."}</div>`}
+      <div id="msg" hidden></div>`;
+
+    qa("[data-rf]").forEach(b => b.onclick = () => { recFilter = b.dataset.rf; recruitView(); });
+    const find = el => rows.find(x => x.id === el.closest(".am-card").dataset.id);
+    qa("[data-copy]").forEach(b => b.onclick = async () => { const ok = await copy(b.dataset.copy); b.textContent = ok ? "Copiado!" : "Falhou"; setTimeout(() => { b.textContent = "Copiar"; }, 1500); });
+    qa("[data-msg]").forEach(b => b.onclick = async () => {
+      const ok = await copy(recMsgs[b.dataset.msg](find(b)));
+      const old = b.textContent; b.textContent = ok ? "Copiada!" : "Falhou"; setTimeout(() => { b.textContent = old; }, 1500);
+    });
+    qa("[data-st]").forEach(b => b.onclick = async () => {
+      const a = find(b), st = b.dataset.st;
+      const { error: e } = await sb.from("candidaturas").update({ status: st }).eq("id", a.id);
+      if (e) return say(/duplicate|unique|23505/i.test(errText(e)) ? "Já existe outra candidatura em análise com esse ID. Resolva aquela primeiro." : errText(e), false);
+      recFilter = st === "recusado" ? recFilter : st;
+      recruitView(); refreshNewCount();
+      if (st === "aprovado") setTimeout(() => say("Aprovado! Lembre de convidar o jogador no clube dentro do jogo e de incluí-lo no elenco do site."), 50);
+    });
+    qa("[data-note]").forEach(i => i.onchange = async () => {
+      const a = find(i);
+      const { error: e } = await sb.from("candidaturas").update({ admin_note: i.value.trim() }).eq("id", a.id);
+      if (e) return say(errText(e), false);
+      a.admin_note = i.value.trim(); say("Anotação salva.");
+    });
+    qa("[data-delr]").forEach(b => b.onclick = async () => {
+      const a = find(b);
+      if (!confirm(`Excluir a candidatura de ${a.psn}? Isso não pode ser desfeito.`)) return;
+      const { error: e } = await sb.from("candidaturas").delete().eq("id", a.id);
+      if (e) return say(errText(e), false);
+      recruitView(); refreshNewCount();
     });
   }
 

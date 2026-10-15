@@ -49,3 +49,11 @@ config.amistosos = {
   cooldownSegundos: 60,
   imagem: "amistoso.jpg"
 };
+
+/* Página de Recrutamento.
+   posicoes: texto da linha "Posições procuradas: ..." (ex.: "todas" ou "goleiro e meio-campo").
+   cooldownSegundos: tempo mínimo entre duas candidaturas enviadas do mesmo aparelho. */
+config.recrutamento = {
+  posicoes: "todas",
+  cooldownSegundos: 60
+};
