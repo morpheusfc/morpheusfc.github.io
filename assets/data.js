@@ -37,7 +37,7 @@ const config = { discord: "", tracker: "https://proclubstracker.com/club/37568?p
 
 /* Fotos de fundo opcionais (arquivos dentro de assets/bg/). Vazio = só as cenas desenhadas em código.
    Chaves: hero, jogos, elenco, cta, partidas, videos, amistosos, recrutamento. Ex.: config.photos.hero = "torcida.jpg" */
-config.photos = { hero:"hero.png", jogos:"jogos.png", elenco:"elenco.png", cta:"", partidas:"jogos.png", videos:"videos.png", amistosos:"", recrutamento:"" };
+config.photos = { hero:"hero.jpg", jogos:"jogos.jpg", elenco:"elenco.jpg", cta:"", partidas:"jogos.jpg", videos:"videos.jpg", amistosos:"", recrutamento:"" };
 
 /* Página de Amistosos.
    horarios: texto mostrado no topo da página (quando o clube costuma jogar). Edite à vontade.
@@ -47,5 +47,5 @@ config.photos = { hero:"hero.png", jogos:"jogos.png", elenco:"elenco.png", cta:"
 config.amistosos = {
   horarios: "Costumamos jogar à noite, a partir das 21h (horário de Brasília). Sugira o dia e o horário que ficarem melhores para o seu clube.",
   cooldownSegundos: 60,
-  imagem: "amistoso.png"
+  imagem: "amistoso.jpg"
 };

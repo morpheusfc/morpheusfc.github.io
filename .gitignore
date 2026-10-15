@@ -7,3 +7,6 @@ Thumbs.db
 *.tmp
 # vídeos originais pesados (só os "-web"/comprimidos vão para o site)
 assets/videos/0[0-9]_*
+
+# imagens originais (alta resolução), só neste computador
+_originais/
