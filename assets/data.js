@@ -41,8 +41,11 @@ config.photos = { hero:"hero.png", jogos:"jogos.png", elenco:"elenco.png", cta:"
 
 /* Página de Amistosos.
    horarios: texto mostrado no topo da página (quando o clube costuma jogar). Edite à vontade.
-   cooldownSegundos: tempo mínimo entre dois pedidos enviados do mesmo aparelho. */
+   cooldownSegundos: tempo mínimo entre dois pedidos enviados do mesmo aparelho.
+   imagem: foto do topo do bloco "Próximos amistosos" (arquivo dentro de assets/bg/, ex.: "amistosos.jpg").
+           Tamanho ideal: 1200 x 600 px (formato 2:1), JPG ou WebP, até 300 KB. Vazio = arte padrão do clube. */
 config.amistosos = {
   horarios: "Costumamos jogar à noite, a partir das 21h (horário de Brasília). Sugira o dia e o horário que ficarem melhores para o seu clube.",
-  cooldownSegundos: 60
+  cooldownSegundos: 60,
+  imagem: "amistoso.png"
 };

@@ -319,6 +319,10 @@ if (page === "amistosos") {
   const A = config.amistosos || {};
   const f = $("#amForm"), msg = $("#amMsg"), btn = $("#amSend");
   $("#hours").textContent = A.horarios || "";
+  /* Imagem do bloco "Próximos amistosos": a do config, ou a arte padrão do clube se não houver ou falhar */
+  const banner = $("#amBanner"), bimg = $("#amBannerImg");
+  if (A.imagem) { bimg.alt = "Amistosos do Morpheus FC"; bimg.onerror = () => { bimg.hidden = true; banner.classList.add("default"); }; bimg.src = media("bg", A.imagem); bimg.hidden = false; }
+  else banner.classList.add("default");
   const d0 = new Date(), todayISO = `${d0.getFullYear()}-${pad(d0.getMonth()+1)}-${pad(d0.getDate())}`;
   f.play_date.min = todayISO; f.alt_date.min = todayISO;
   const show = (t, ok) => { msg.hidden = false; msg.textContent = t; msg.className = "am-msg " + (ok ? "ok" : "err"); };
