@@ -392,18 +392,26 @@ if (page === "amistosos") {
       if (!r.ok) throw new Error(r.status);
       const all = await r.json();
       /* próximos: confirmados de hoje em diante; realizados: ficam na lista com o selo "✓ Realizado", do mais recente para o mais antigo */
-      const next = all.filter(x => x.status !== "realizado" && x.play_date >= todayISO);
+      const open = all.filter(x => x.status !== "realizado");
+      const next = open.filter(x => x.play_date >= todayISO);
+      /* confirmados cuja data já passou e ainda não foram marcados como realizados: aguardam o resultado */
+      const wait = open.filter(x => x.play_date < todayISO).sort((a, b) => (b.play_date + b.play_time).localeCompare(a.play_date + a.play_time));
       const done = all.filter(x => x.status === "realizado").sort((a, b) => (b.play_date + b.play_time).localeCompare(a.play_date + a.play_time));
-      const row = (x, ok) => {
-        const d = dateOf(x.play_date);
-        return `<div class="ag-row${ok ? " done" : ""}"><div class="ag-date"><b>${pad(d.getDate())}/${pad(d.getMonth()+1)}</b><span>${SEMANA[d.getDay()].slice(0,3)}</span></div>
+      const row = (x, kind) => {
+        const d = dateOf(x.play_date), ok = kind === "done";
+        const hasScore = ok && x.score_us != null && x.score_them != null;
+        const res = hasScore ? (x.score_us > x.score_them ? "w" : x.score_us < x.score_them ? "l" : "d") : "";
+        return `<div class="ag-row${ok ? " done" : kind === "wait" ? " wait" : ""}"><div class="ag-date"><b>${pad(d.getDate())}/${pad(d.getMonth()+1)}</b><span>${SEMANA[d.getDay()].slice(0,3)}</span></div>
           <div class="ag-info"><b>Morpheus FC x ${esc(x.team)}</b><small>${esc(x.play_time.slice(0,5))} · ${esc(x.platform)}</small></div>
-          ${ok ? `<span class="ag-badge" title="Amistoso realizado"><i aria-hidden="true">✓</i> Realizado</span>` : ""}</div>`;
+          ${hasScore ? `<span class="ag-score ${res}" title="Placar">${x.score_us} x ${x.score_them}</span>` : ""}
+          ${ok ? `<span class="ag-badge" title="Amistoso realizado"><i aria-hidden="true">✓</i> Realizado</span>` : kind === "wait" ? `<span class="ag-badge wait" title="Jogo já passou; aguardando o resultado">Aguardando resultado</span>` : ""}</div>`;
       };
       const vazio = t => `<p class="sec-sub" style="margin:0">${t}</p>`;
-      box.innerHTML = !next.length && !done.length ? vazio("Nenhum amistoso confirmado ainda. Que tal ser o primeiro?")
-        : (next.length ? next.map(x => row(x, false)).join("") : vazio("Nenhum amistoso agendado no momento. Que tal marcar um?"))
-          + (done.length ? `<div class="ag-sep"><span>Já realizados</span></div>` + done.map(x => row(x, true)).join("") : "");
+      const sep = t => `<div class="ag-sep"><span>${t}</span></div>`;
+      box.innerHTML = !next.length && !wait.length && !done.length ? vazio("Nenhum amistoso confirmado ainda. Que tal ser o primeiro?")
+        : (next.length ? next.map(x => row(x, "next")).join("") : vazio("Nenhum amistoso agendado no momento. Que tal marcar um?"))
+          + (wait.length ? sep("Aguardando resultado") + wait.map(x => row(x, "wait")).join("") : "")
+          + (done.length ? sep("Já realizados") + done.map(x => row(x, "done")).join("") : "");
     } catch (e) {
       box.innerHTML = `<p class="sec-sub" style="margin:0">A agenda aparece aqui assim que os amistosos forem confirmados.</p>`;
     }

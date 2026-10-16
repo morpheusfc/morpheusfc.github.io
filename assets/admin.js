@@ -459,6 +459,7 @@
             ${info("Divisão", esc(a.division))}${info("Jogadores", a.players ? esc(a.players) : "")}
           </div>
           ${a.notes ? `<p class="am-notes">“${esc(a.notes)}”</p>` : ""}
+          ${a.status === "confirmado" || a.status === "realizado" ? `<div class="am-score">Placar: Morpheus <input type="number" min="0" max="99" data-sc="us" value="${a.score_us ?? ""}" aria-label="Gols do Morpheus"> x <input type="number" min="0" max="99" data-sc="them" value="${a.score_them ?? ""}" aria-label="Gols do adversário"> ${esc(a.team)}</div>` : ""}
           <label class="am-adm">Anotação interna (só você vê)<input data-note value="${esc(a.admin_note)}" maxlength="500" placeholder="Ex.: falei no Discord, aguardando resposta"></label>
           <div class="adm-btns am-actions">
             ${a.status === "novo" ? `<button class="btn btn-gold btn-sm" data-st="confirmado">Confirmar</button><button class="fbtn" data-st="recusado">Recusar</button>` : ""}
@@ -480,10 +481,27 @@
     });
     qa("[data-st]").forEach(b => b.onclick = async () => {
       const a = find(b);
-      const { error: e } = await sb.from("amistosos").update({ status: b.dataset.st }).eq("id", a.id);
-      if (e) return say(errText(e), false);
+      const upd = { status: b.dataset.st };
+      if (b.dataset.st === "realizado") Object.assign(upd, scoreOf(b));
+      const { error: e } = await sb.from("amistosos").update(upd).eq("id", a.id);
+      if (e) return say(errText(e) + (/score_/.test(errText(e)) ? " (rode o supabase-amistosos.sql atualizado no Supabase)" : ""), false);
       if (b.dataset.st === "confirmado") amFilter = "confirmado"; else if (b.dataset.st === "novo") amFilter = "novo";
       friendliesView(); refreshNewCount();
+    });
+    /* placar: campos vazios = sem placar (null); só entra no update quando os dois estão preenchidos */
+    const scoreOf = el => {
+      const card = el.closest(".am-card"), us = card.querySelector('[data-sc="us"]'), them = card.querySelector('[data-sc="them"]');
+      if (!us || !them || us.value === "" || them.value === "") return {};
+      return { score_us: Math.max(0, Math.min(99, parseInt(us.value, 10) || 0)), score_them: Math.max(0, Math.min(99, parseInt(them.value, 10) || 0)) };
+    };
+    qa("[data-sc]").forEach(i => i.onchange = async () => {
+      const a = find(i), card = i.closest(".am-card");
+      const u = card.querySelector('[data-sc="us"]').value, t = card.querySelector('[data-sc="them"]').value;
+      const upd = u === "" && t === "" ? { score_us: null, score_them: null } : scoreOf(i);
+      if (!Object.keys(upd).length) return;
+      const { error: e } = await sb.from("amistosos").update(upd).eq("id", a.id);
+      if (e) return say(errText(e) + " (rode o supabase-amistosos.sql atualizado no Supabase)", false);
+      Object.assign(a, upd); say("Placar salvo.");
     });
     qa("[data-note]").forEach(i => i.onchange = async () => {
       const a = find(i);
