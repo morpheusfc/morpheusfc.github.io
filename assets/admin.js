@@ -288,11 +288,14 @@
     const kind = r.src.startsWith("youtube:") ? "yt" : r.src.startsWith("file:") ? "file" : r.src.startsWith("link:") ? "link" : "yt";
     const val = r.src.includes(":") ? r.src.slice(r.src.indexOf(":") + 1) : "";
     const mdate = m => { const d = new Date(m.date); return `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}`; };
+    /* número do vídeo: 1 = o primeiro cadastrado (empates: data e nome). Só existe no painel, para facilitar a referência */
+    const byAge = [...rows].sort((a, b) => String(a.created_at || "").localeCompare(String(b.created_at || "")) || String(a.date).localeCompare(String(b.date)) || String(a.id).localeCompare(String(b.id)));
+    const vidNum = v => byAge.findIndex(x => x.id === v.id) + 1;
     const pending = (typeof videos !== "undefined" ? videos : []).filter(v => !rows.some(x => x.id === v.id));
     view.innerHTML = (editRow ? "" : importBanner("vídeos", pending.length)) + `
       <div class="adm-grid">
         <form class="panel" id="form">
-          <h3>${editRow ? "Editar vídeo" : "Novo vídeo"}</h3>
+          <h3>${editRow ? `Editar vídeo #${vidNum(editRow)}` : "Novo vídeo"}</h3>
           <label>Título<input name="title" required value="${esc(r.title)}"></label>
           <div class="row2">
             <label>Tipo<select name="type"><option value="lance"${r.type==="lance"?" selected":""}>Lance</option><option value="partida"${r.type==="partida"?" selected":""}>Partida completa</option></select></label>
@@ -329,7 +332,7 @@
         <div class="panel">
           <h3>Vídeos publicados pelo painel</h3>
           ${rows.length ? rows.map(v => `<div class="adm-row">
-              <div><b>${esc(v.title)}</b><small>${v.type === "partida" ? "Partida" : "Lance"} · ${esc(v.date)}</small></div>
+              <div><span class="adm-badge vid-num" title="Número do vídeo (só aparece aqui no painel): ordem de cadastro">#${vidNum(v)}</span> <b>${esc(v.title)}</b><small>${v.type === "partida" ? "Partida" : "Lance"} · ${esc(v.date)}</small></div>
               <div class="adm-btns"><button class="fbtn" data-top="${esc(v.id)}" title="Coloca no topo entre os vídeos da mesma data">Destacar</button><button class="fbtn" data-edit="${esc(v.id)}">Editar</button><button class="fbtn danger" data-del="${esc(v.id)}">Excluir</button></div>
             </div>`).join("") : `<p class="sec-sub" style="margin:0">Nenhum vídeo publicado pelo painel ainda.</p>`}
         </div>

@@ -18,7 +18,7 @@ const videos = [
   {id:"magia-do-passe", title:"A magia do passe", type:"lance", date:"2026-10-15",
    src:"file:magia-do-passe.mp4", thumb:"passe-capa.jpg",
    desc:"Visão além do alcance e a perfeição do passe do time. Simplesmente mágico.", match:""},
-  {id:"maltrata-assistencia-33", title:"Ótima assistência de Habutre aos 33'", type:"lance", date:"2026-10-14",
+  {id:"maltrata-assistencia-33", title:"Ótima assistência de Habutre aos 33' e Beiça marca!", type:"lance", date:"2026-10-14",
    src:"file:maltrata-assistencia-33.mp4", thumb:"maltrata-assistencia-capa.jpg",
    desc:"Jogada na área do Maltrata FC, com o jogo empatado em 1 a 1", match:"870367"},
   {id:"maltrata-gol-17", title:"Habutre empata o jogo aos 17'", type:"lance", date:"2026-10-14",
