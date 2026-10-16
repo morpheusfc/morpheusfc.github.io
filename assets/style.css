@@ -418,3 +418,13 @@ label small{color:var(--muted);font-size:12px;font-weight:400}
 @media (max-width:860px){.rec-info{order:2}}
 .am-nick{color:var(--muted);font-size:14px}
 .am-grid a{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
+
+/* ===== Amistosos: jogos realizados ficam na lista com selo ===== */
+.ag-row .ag-info{flex:1;min-width:0}
+.ag-badge{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--win);border:1px solid var(--win);background:rgba(61,220,151,.10);border-radius:99px;padding:3px 11px;white-space:nowrap}
+.ag-badge i{font-style:normal;font-weight:800;font-size:13px}
+.ag-row.done .ag-date{border-color:rgba(61,220,151,.45)}
+.ag-row.done .ag-date b{color:var(--win)}
+.ag-sep{display:flex;align-items:center;gap:12px;margin:16px 0 2px;font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.ag-sep::before,.ag-sep::after{content:"";flex:1;border-top:1px solid var(--line)}
+.ag-sep+.ag-row{border-top:0}

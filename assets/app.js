@@ -390,12 +390,20 @@ if (page === "amistosos") {
     try {
       const r = await fetch(`${S.url}/rest/v1/amistosos_publico?select=*&order=play_date.asc,play_time.asc`, { headers: headers() });
       if (!r.ok) throw new Error(r.status);
-      const rows = (await r.json()).filter(x => x.play_date >= todayISO);
-      box.innerHTML = rows.length ? rows.map(x => {
+      const all = await r.json();
+      /* próximos: confirmados de hoje em diante; realizados: ficam na lista com o selo "✓ Realizado", do mais recente para o mais antigo */
+      const next = all.filter(x => x.status !== "realizado" && x.play_date >= todayISO);
+      const done = all.filter(x => x.status === "realizado").sort((a, b) => (b.play_date + b.play_time).localeCompare(a.play_date + a.play_time));
+      const row = (x, ok) => {
         const d = dateOf(x.play_date);
-        return `<div class="ag-row"><div class="ag-date"><b>${pad(d.getDate())}/${pad(d.getMonth()+1)}</b><span>${SEMANA[d.getDay()].slice(0,3)}</span></div>
-          <div><b>Morpheus FC x ${esc(x.team)}</b><small>${esc(x.play_time.slice(0,5))} · ${esc(x.platform)}</small></div></div>`;
-      }).join("") : `<p class="sec-sub" style="margin:0">Nenhum amistoso confirmado ainda. Que tal ser o primeiro?</p>`;
+        return `<div class="ag-row${ok ? " done" : ""}"><div class="ag-date"><b>${pad(d.getDate())}/${pad(d.getMonth()+1)}</b><span>${SEMANA[d.getDay()].slice(0,3)}</span></div>
+          <div class="ag-info"><b>Morpheus FC x ${esc(x.team)}</b><small>${esc(x.play_time.slice(0,5))} · ${esc(x.platform)}</small></div>
+          ${ok ? `<span class="ag-badge" title="Amistoso realizado"><i aria-hidden="true">✓</i> Realizado</span>` : ""}</div>`;
+      };
+      const vazio = t => `<p class="sec-sub" style="margin:0">${t}</p>`;
+      box.innerHTML = !next.length && !done.length ? vazio("Nenhum amistoso confirmado ainda. Que tal ser o primeiro?")
+        : (next.length ? next.map(x => row(x, false)).join("") : vazio("Nenhum amistoso agendado no momento. Que tal marcar um?"))
+          + (done.length ? `<div class="ag-sep"><span>Já realizados</span></div>` + done.map(x => row(x, true)).join("") : "");
     } catch (e) {
       box.innerHTML = `<p class="sec-sub" style="margin:0">A agenda aparece aqui assim que os amistosos forem confirmados.</p>`;
     }
