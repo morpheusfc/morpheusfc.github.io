@@ -16,7 +16,7 @@
 */
 const videos = [
   {id:"magia-do-passe", title:"A magia do passe", type:"lance", date:"2026-10-15",
-   src:"file:magia-do-passe.mp4", thumb:"magia-do-passe-capa.jpg",
+   src:"file:magia-do-passe.mp4", thumb:"passe-capa.jpg",
    desc:"Visão além do alcance e a perfeição do passe do time. Simplesmente mágico.", match:""},
   {id:"maltrata-assistencia-33", title:"Ótima assistência de Habutre aos 33'", type:"lance", date:"2026-10-14",
    src:"file:maltrata-assistencia-33.mp4", thumb:"maltrata-assistencia-capa.jpg",
