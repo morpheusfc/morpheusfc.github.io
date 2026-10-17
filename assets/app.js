@@ -328,7 +328,7 @@ if (page === "noticias") ready.then(() => {
     </header>`;
   };
   const card = (a, size) => `<a class="story ${size}" href="#/${esc(a.id)}">
-      ${size==="lead" || size==="md" ? cover(a) : ""}
+      ${cover(a)}
       <div class="kick">${esc(a.kicker)}</div>
       <h2>${esc(a.title)}</h2>
       <p>${esc(a.summary)}</p>
