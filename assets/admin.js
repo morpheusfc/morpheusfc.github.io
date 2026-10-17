@@ -200,7 +200,7 @@
     const renderPrev = () => {
       const html = q("#body").value.split(/\n\s*\n/).map(c => c.trim()).filter(Boolean).map(c => {
         const im = c.match(/^!\[(.*?)\]\((.+?)\)$/s);
-        if (im) return `<figure><img src="${esc(mu("news", im[2]))}" alt="">${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`;
+        if (im) return `<figure><img src="${esc(mu("news", im[2]))}" alt="" onload="this.parentNode.classList.toggle('tall',this.naturalHeight>this.naturalWidth)">${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`;
         if (c.startsWith("## ")) return `<h3>${esc(c.slice(3))}</h3>`;
         return `<p>${fmt(c.replace(/\n/g, " "))}</p>`;
       }).join("");

@@ -346,7 +346,7 @@ if (page === "noticias") ready.then(() => {
   };
   const blocks = a => a.body.map(b => typeof b === "string" ? `<p>${fmt(b)}</p>`
     : b.h ? `<h3>${esc(b.h)}</h3>`
-    : `<figure><img src="${esc(media("news", b.img))}" alt="${esc(b.caption||"")}" loading="lazy">${b.caption?`<figcaption>${esc(b.caption)}</figcaption>`:""}</figure>`).join("");
+    : `<figure><img src="${esc(media("news", b.img))}" alt="${esc(b.caption||"")}" loading="lazy" onload="this.parentNode.classList.toggle('tall',this.naturalHeight>this.naturalWidth)">${b.caption?`<figcaption>${esc(b.caption)}</figcaption>`:""}</figure>`).join("");
   const article = a => masthead() + `
     <article class="art">
       <a class="back" href="#/">‹ Voltar ao Morpheus News</a>

@@ -278,6 +278,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .deck{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:21px;color:#cfccd8;margin-bottom:14px}
 .art .by{padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:26px}
 .hero-fig,.art-body figure{margin:0 0 28px}
+.art-body figure.tall{max-width:420px;margin-left:auto;margin-right:auto}
+.art-body figure.tall figcaption{text-align:center}
 .hero-fig img,.art-body figure img{width:100%;display:block;border:1px solid var(--line)}
 .art-body figcaption{font-size:13px;color:var(--muted);margin-top:8px;font-style:italic}
 .art-body p{font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:19px;line-height:1.8;margin-bottom:20px;color:#e6e3dc}
