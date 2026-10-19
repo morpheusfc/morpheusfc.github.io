@@ -110,11 +110,14 @@
     /* Mesma ordem da capa do site: data mais recente primeiro; no mesmo dia, a publicada/destacada por último */
     const ranked = [...rows, ...pending].sort((a, b) => b.date.localeCompare(a.date));
     const rankOf = id => ranked.findIndex(x => x.id === id);
+    /* número da matéria: 1 = a mais antiga por data (empate: pelo nome). Não muda ao editar ou destacar. Só existe no painel, para facilitar a referência */
+    const byAge = [...rows].sort((a, b) => String(a.date).localeCompare(String(b.date)) || String(a.id).localeCompare(String(b.id)));
+    const newsNum = n => byAge.findIndex(x => x.id === n.id) + 1;
     const badge = id => { const i = rankOf(id); return i === 0 ? `<span class="adm-badge top">★ Manchete (em destaque)</span>` : i > 0 && i <= 2 ? `<span class="adm-badge">Lateral da capa</span>` : ""; };
     view.innerHTML = (editRow ? "" : importBanner("matérias", pending.length)) + `
       <div class="adm-grid">
         <form class="panel" id="form">
-          <h3>${editRow ? "Editar matéria" : "Nova matéria"}</h3>
+          <h3>${editRow ? `Editar matéria #${newsNum(editRow)}` : "Nova matéria"}</h3>
           <label>Manchete<input name="title" required value="${esc(r.title)}"></label>
           <div class="row2">
             <label>Categoria<input name="kicker" list="kickers" required value="${esc(r.kicker)}"><datalist id="kickers">${kickers.map(k => `<option value="${k}">`).join("")}</datalist></label>
@@ -165,7 +168,7 @@
           <h3>Matérias publicadas pelo painel</h3>
           ${rows.length ? `<div class="adm-help" style="margin-bottom:6px">A manchete da capa é a matéria de data mais recente. Entre matérias do mesmo dia, use <b>Destacar</b> para subir uma delas.</div>` : ""}
           ${rows.length ? rows.map(n => `<div class="adm-row${rankOf(n.id) === 0 ? " is-top" : ""}">
-              <div>${badge(n.id)}<b>${esc(n.title)}</b><small>${esc(n.kicker)} · ${esc(n.date)}</small></div>
+              <div>${badge(n.id)}<span class="adm-badge vid-num" title="Número da matéria (só aparece aqui no painel): ordem por data">#${newsNum(n)}</span> <b>${esc(n.title)}</b><small>${esc(n.kicker)} · ${esc(n.date)}</small></div>
               <div class="adm-btns"><a class="fbtn" href="noticias.html#/${encodeURIComponent(n.id)}" target="_blank" rel="noopener">Ver</a>
                 ${rankOf(n.id) === 0 ? "" : `<button class="fbtn" data-top="${esc(n.id)}" title="Coloca no topo entre as matérias da mesma data">Destacar</button>`}<button class="fbtn" data-edit="${esc(n.id)}">Editar</button><button class="fbtn danger" data-del="${esc(n.id)}">Excluir</button></div>
             </div>`).join("") : `<p class="sec-sub" style="margin:0">Nenhuma matéria publicada pelo painel ainda.</p>`}
@@ -288,8 +291,8 @@
     const kind = r.src.startsWith("youtube:") ? "yt" : r.src.startsWith("file:") ? "file" : r.src.startsWith("link:") ? "link" : "yt";
     const val = r.src.includes(":") ? r.src.slice(r.src.indexOf(":") + 1) : "";
     const mdate = m => { const d = new Date(m.date); return `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}`; };
-    /* número do vídeo: 1 = o primeiro cadastrado (empates: data e nome). Só existe no painel, para facilitar a referência */
-    const byAge = [...rows].sort((a, b) => String(a.created_at || "").localeCompare(String(b.created_at || "")) || String(a.date).localeCompare(String(b.date)) || String(a.id).localeCompare(String(b.id)));
+    /* número do vídeo: 1 = o mais antigo por data (empate: pelo nome). Não muda ao editar ou destacar. Só existe no painel, para facilitar a referência */
+    const byAge = [...rows].sort((a, b) => String(a.date).localeCompare(String(b.date)) || String(a.id).localeCompare(String(b.id)));
     const vidNum = v => byAge.findIndex(x => x.id === v.id) + 1;
     const pending = (typeof videos !== "undefined" ? videos : []).filter(v => !rows.some(x => x.id === v.id));
     view.innerHTML = (editRow ? "" : importBanner("vídeos", pending.length)) + `
@@ -332,7 +335,7 @@
         <div class="panel">
           <h3>Vídeos publicados pelo painel</h3>
           ${rows.length ? rows.map(v => `<div class="adm-row">
-              <div><span class="adm-badge vid-num" title="Número do vídeo (só aparece aqui no painel): ordem de cadastro">#${vidNum(v)}</span> <b>${esc(v.title)}</b><small>${v.type === "partida" ? "Partida" : "Lance"} · ${esc(v.date)}</small></div>
+              <div><span class="adm-badge vid-num" title="Número do vídeo (só aparece aqui no painel): ordem por data">#${vidNum(v)}</span> <b>${esc(v.title)}</b><small>${v.type === "partida" ? "Partida" : "Lance"} · ${esc(v.date)}</small></div>
               <div class="adm-btns"><button class="fbtn" data-top="${esc(v.id)}" title="Coloca no topo entre os vídeos da mesma data">Destacar</button><button class="fbtn" data-edit="${esc(v.id)}">Editar</button><button class="fbtn danger" data-del="${esc(v.id)}">Excluir</button></div>
             </div>`).join("") : `<p class="sec-sub" style="margin:0">Nenhum vídeo publicado pelo painel ainda.</p>`}
         </div>
