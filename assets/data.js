@@ -67,3 +67,7 @@ config.recrutamento = {
    As partidas já guardadas continuam com a PSN que o jogador tinha no dia do jogo; este mapa faz as tabelas de jogadores,
    gols, assistências e MVP mostrarem o nome ATUAL. Exemplo: config.apelidos = { "Habutrers": "HabutreNovo" }; */
 config.apelidos = {};
+
+/* Capas locais por matéria: use quando uma matéria do painel estiver sem capa. Formato: "id-da-materia": "arquivo.jpg" (arquivo em assets/news/).
+   Se a matéria já tiver capa no painel, a do painel é a que vale. O id aparece no link da matéria (noticias.html#/id). */
+config.capas = { "goleada-5x1": "beica-goleada.jpg" };

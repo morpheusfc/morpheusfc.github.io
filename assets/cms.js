@@ -37,7 +37,7 @@
     if (typeof noticias !== "undefined") {
       try {
         const rows = await get("news", "date.desc,created_at.desc");
-        merge(noticias, rows.map(r => ({id:r.id, kicker:r.kicker, title:r.title, summary:r.summary, author:r.author, date:r.date, cover:r.cover, body:window.parseBody(r.body)})));
+        merge(noticias, rows.map(r => ({id:r.id, kicker:r.kicker, title:r.title, summary:r.summary, author:r.author, date:r.date, cover:r.cover || ((typeof config !== "undefined" && config.capas && config.capas[r.id]) || ""), body:window.parseBody(r.body)})));
       } catch (e) { console.warn("Notícias da nuvem indisponíveis:", e.message); }
     }
     if (typeof videos !== "undefined") {
