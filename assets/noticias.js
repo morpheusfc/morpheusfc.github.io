@@ -8,6 +8,20 @@
    Fotos ficam na pasta assets/news/. */
 const noticias = [
   {
+    id:"volta-a-rotina", kicker:"Bastidores", title:"Fim do recesso: Morpheus volta à rotina e garante que ninguém esqueceu como se joga",
+    date:"2026-10-19", author:"Redação Morpheus",
+    summary:"Depois de um fim de semana sem jogos e sem treino, o clube retorna hoje à rotina. O News fez o balanço do descanso: zero jogos, zero gols sofridos e muito controle na gaveta.",
+    body:[
+      "Segunda-feira, 19 de outubro de 2026. Acabou o descanso. Depois de um fim de semana inteiro sem jogos e sem treino, o Morpheus FC retorna hoje à rotina. E, em respeito à tradição do jornalismo esportivo, o Morpheus News traz o balanço oficial do recesso.",
+      {h:"O balanço do fim de semana"},
+      "**Jogos disputados:** 0. **Gols sofridos:** 0. **Cartões vermelhos:** 0. Em números absolutos, foi o melhor desempenho defensivo do clube na temporada: um fim de semana inteiro sem tomar gol de ninguém. O ataque, por outro lado, também ficou em branco, mas ninguém é perfeito.",
+      "O Beiça, líder de gols do clube com 119, passou dois dias sem aumentar a conta, o que, para os padrões dele, já conta como um jejum histórico. Os especialistas ouvidos pelo News (a redação inteira) acreditam que o ritmo volta rápido.",
+      {h:"A volta"},
+      "A última vez que o time entrou em campo foi na madrugada de sábado, com um empate em 1 a 1 contra o Tanquerai FC. Desde então, os controles descansaram, os dedões também, e a diretoria seguiu de olho no teste do goleiro, que continua firme.",
+      "O clube mantém os mesmos 75 jogos ganhos, 17 empatados e 65 perdidos de sexta-feira, e a vontade de aumentar a primeira coluna é grande. Quem estiver com o controle empoeirado, é só soprar, ajustar o fone e entrar na sala. A rotina voltou, e o Morpheus News garante: o descanso foi ótimo, mas a gente já estava com saudade de narrar gol.",
+    ]
+  },
+  {
     id:"joaoplay610-teste-goleiro", kicker:"Análise", title:"JoaoPlay610 segue firme no teste: 16 defesas na noite de ontem",
     date:"2026-10-17", author:"Redação Morpheus", cover:"joao-defesa.jpg",
     summary:"Em teste no gol do Morpheus, JoaoPlay610 jogou três jogos na noite de ontem, fez 16 defesas e ficou na linha da própria média. A diretoria está satisfeita.",
