@@ -5,10 +5,10 @@ const club = {w:75,d:17,l:65,gf:373,ga:334,games:157,sr:1707};
    aka: nomes ANTIGOS do jogador (ex.: aka:["Kakashi"]). Quando alguém troca de nome no jogo, o nome novo vira o "n" e o antigo vai para cá:
         assim a atualização com o tracker junta tudo no mesmo card (foto, PSN, histórico) e a busca do Elenco acha pelos dois nomes. */
 const players = [
-  {n:"Leo",p:"ST",o:78,j:135,g:32,a:22,m:1,psn:"LEOzin117",aka:[]},
+  {n:"Leo",p:"ST",o:78,j:135,g:32,a:22,m:1,psn:"LEOzin117",img:"leo.jpeg",aka:[]},
   {n:"Habutre",p:"ST",o:83,j:125,g:77,a:56,m:12,psn:"Habutrers",img:"Habutre.jpeg",aka:[]},
   {n:"Beiça",p:"ST",o:83,j:116,g:119,a:51,m:16,psn:"Beica97",img:"will.jpg",aka:["Bll4ck"]},
-  {n:"Vibox Beats",p:"CM",o:80,j:100,g:5,a:11,m:17,psn:"ViboxBeats",aka:[]},
+  {n:"Vibox Beats",p:"CM",o:80,j:100,g:5,a:11,m:17,psn:"ViboxBeats",img:"vibox.jpeg",aka:[]},
   {n:"dtb",p:"ST",o:83,j:71,g:39,a:21,m:5,psn:"",aka:[]},
   {n:"TIAO",p:"CB",o:79,j:71,g:5,a:7,m:2,psn:"Trclokko_01",aka:[]},
   {n:"LZ",p:"CB",o:85,j:68,g:4,a:2,m:6,psn:"",aka:[]},
@@ -21,7 +21,7 @@ const players = [
   {n:"E. Caveira",p:"ST",o:80,j:9,g:1,a:3,m:0,psn:"",aka:[]},
   {n:"B. Reis",p:"CM",o:77,j:9,g:0,a:3,m:2,psn:"REIS2703",aka:[]},
   {n:"C. Liduenha",p:"ST",o:82,j:8,g:4,a:3,m:1,psn:"",aka:[]},
-  {n:"S. Kennedy sfd",p:"GK",o:88,j:11,g:0,a:0,m:1,psn:"JoaoPlay610",aka:[]},
+  {n:"S. Kennedy sfd",p:"GK",o:88,j:11,g:0,a:0,m:1,psn:"JoaoPlay610",img:"joao_gk.jpeg",aka:[]},
   {n:"Z. Love",p:"ST",o:83,j:7,g:5,a:1,m:1,psn:"",aka:[]},
   {n:"Ryan",p:"CB",o:84,j:7,g:2,a:0,m:0,psn:"",aka:[]},
   {n:"Messi",p:"CB",o:78,j:6,g:0,a:0,m:2,psn:"",aka:[]},
