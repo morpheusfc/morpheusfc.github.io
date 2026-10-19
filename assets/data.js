@@ -4,37 +4,38 @@ const club = {w:75,d:17,l:65,gf:373,ga:334,games:157,sr:1707};
    img: nome do arquivo da foto dentro de assets/players/ (ex.: img:"habutre.jpg"). Sem img = silhueta padrão. Ideal: retrato vertical, ~400x480.
    aka: nomes ANTIGOS do jogador (ex.: aka:["Kakashi"]). Quando alguém troca de nome no jogo, o nome novo vira o "n" e o antigo vai para cá:
         assim a atualização com o tracker junta tudo no mesmo card (foto, PSN, histórico) e a busca do Elenco acha pelos dois nomes. */
+/* Jogadores entre comentários (linhas começando com barra e asterisco) saíram do time ou não jogam há dias: ficam fora do site. Para voltar, tire o comentário da linha. A atualização com o tracker não os traz de volta. */
 const players = [
   {n:"Leo",p:"ST",o:78,j:135,g:32,a:22,m:1,psn:"LEOzin117",img:"leo.jpeg",aka:[]},
   {n:"Habutre",p:"ST",o:83,j:125,g:77,a:56,m:12,psn:"Habutrers",img:"Habutre.jpeg",aka:[]},
   {n:"Beiça",p:"ST",o:83,j:116,g:119,a:51,m:16,psn:"Beica97",img:"will.jpg",aka:["Bll4ck"]},
   {n:"Vibox Beats",p:"CM",o:80,j:100,g:5,a:11,m:17,psn:"ViboxBeats",img:"vibox.jpeg",aka:[]},
-  {n:"dtb",p:"ST",o:83,j:71,g:39,a:21,m:5,psn:"",aka:[]},
+  {n:"dtb",p:"ST",o:83,j:71,g:39,a:21,m:5,psn:"dtb_mvp",aka:[]},
   {n:"TIAO",p:"CB",o:79,j:71,g:5,a:7,m:2,psn:"Trclokko_01",aka:[]},
-  {n:"LZ",p:"CB",o:85,j:68,g:4,a:2,m:6,psn:"",aka:[]},
+  /*{n:"LZ",p:"CB",o:85,j:68,g:4,a:2,m:6,psn:"",aka:[]},*/
   {n:"Saul",p:"CM",o:83,j:61,g:21,a:49,m:2,psn:"alice_farias09",img:"saul.jpeg",aka:[]},
   {n:"Pastor",p:"CB",o:82,j:55,g:3,a:5,m:4,psn:"Maneel444",img:"pastor.jpeg",aka:[]},
-  {n:"Kakashi",p:"ST",o:74,j:48,g:10,a:27,m:4,psn:"",aka:[]},
-  {n:"G. Arrascaeta",p:"CB",o:78,j:27,g:8,a:21,m:6,psn:"",aka:[]},
+  /*{n:"Kakashi",p:"ST",o:74,j:48,g:10,a:27,m:4,psn:"",aka:[]},*/
+  /*{n:"G. Arrascaeta",p:"CB",o:78,j:27,g:8,a:21,m:6,psn:"",aka:[]},*/
   /*{n:"Pedrim",p:"ST",o:82,j:14,g:11,a:9,m:3,psn:""},*/
-  {n:"Floren",p:"CM",o:78,j:10,g:0,a:0,m:0,psn:"",aka:[]},
-  {n:"E. Caveira",p:"ST",o:80,j:9,g:1,a:3,m:0,psn:"",aka:[]},
+  /*{n:"Floren",p:"CM",o:78,j:10,g:0,a:0,m:0,psn:"",aka:[]},*/
+  /*{n:"E. Caveira",p:"ST",o:80,j:9,g:1,a:3,m:0,psn:"",aka:[]},*/
   {n:"B. Reis",p:"CM",o:77,j:9,g:0,a:3,m:2,psn:"REIS2703",aka:[]},
-  {n:"C. Liduenha",p:"ST",o:82,j:8,g:4,a:3,m:1,psn:"",aka:[]},
+  /*{n:"C. Liduenha",p:"ST",o:82,j:8,g:4,a:3,m:1,psn:"",aka:[]},*/
   {n:"S. Kennedy sfd",p:"GK",o:88,j:11,g:0,a:0,m:1,psn:"JoaoPlay610",img:"joao_gk.jpeg",aka:[]},
-  {n:"Z. Love",p:"ST",o:83,j:7,g:5,a:1,m:1,psn:"",aka:[]},
-  {n:"Ryan",p:"CB",o:84,j:7,g:2,a:0,m:0,psn:"",aka:[]},
-  {n:"Messi",p:"CB",o:78,j:6,g:0,a:0,m:2,psn:"",aka:[]},
+  /*{n:"Z. Love",p:"ST",o:83,j:7,g:5,a:1,m:1,psn:"",aka:[]},*/
+  /*{n:"Ryan",p:"CB",o:84,j:7,g:2,a:0,m:0,psn:"",aka:[]},*/
+  /*{n:"Messi",p:"CB",o:78,j:6,g:0,a:0,m:2,psn:"",aka:[]},*/
   {n:"F. Kadabra",p:"CM",o:76,j:5,g:1,a:1,m:1,psn:"FabioKadabra",aka:[]},
   {n:"N. Martins",p:"CB",o:81,j:8,g:0,a:0,m:1,psn:"Chima_Sem_Erva",aka:[]},
-  {n:"V. Conceição",p:"CB",o:80,j:4,g:1,a:0,m:0,psn:"",aka:[]},
-  {n:"z. zAlemao16",p:"CB",o:83,j:3,g:0,a:1,m:0,psn:"",aka:[]},
-  {n:"Habib",p:"CB",o:75,j:2,g:0,a:0,m:0,psn:"",aka:[]},
+  /*{n:"V. Conceição",p:"CB",o:80,j:4,g:1,a:0,m:0,psn:"",aka:[]},*/
+  /*{n:"z. zAlemao16",p:"CB",o:83,j:3,g:0,a:1,m:0,psn:"",aka:[]},*/
+  /*{n:"Habib",p:"CB",o:75,j:2,g:0,a:0,m:0,psn:"",aka:[]},*/
   {n:"lebers",p:"CM",o:72,j:2,g:0,a:0,m:0,psn:"calebe_075",aka:[]},
-  {n:"RyanFelix055",p:"",o:0,j:0,g:0,a:0,m:0,psn:"RyanFelix055",aka:[]},
-  {n:"ERL7ON",p:"",o:0,j:0,g:0,a:0,m:0,psn:"ERL7ON",aka:[]},
-  {n:"TeTex-_-",p:"",o:0,j:0,g:0,a:0,m:0,psn:"TeTex-_-",aka:[]},
-  {n:"Daviluisvc",p:"",o:0,j:0,g:0,a:0,m:0,psn:"Daviluisvc",aka:[]}
+  /*{n:"RyanFelix055",p:"",o:0,j:0,g:0,a:0,m:0,psn:"RyanFelix055",aka:[]},*/
+  /*{n:"ERL7ON",p:"",o:0,j:0,g:0,a:0,m:0,psn:"ERL7ON",aka:[]},*/
+  /*{n:"TeTex-_-",p:"",o:0,j:0,g:0,a:0,m:0,psn:"TeTex-_-",aka:[]},*/
+  /*{n:"Daviluisvc",p:"",o:0,j:0,g:0,a:0,m:0,psn:"Daviluisvc",aka:[]}*/
 ];
 
 /* Configuração do clube. discord: cole aqui o convite (ex.: "https://discord.gg/xxxx"). Vazio = botões de Discord ficam escondidos. */
