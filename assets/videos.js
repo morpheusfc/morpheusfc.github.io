@@ -15,6 +15,9 @@
      {id:"golaco-beica", title:"Golaço do Beica97", type:"lance", date:"2026-10-13", src:"youtube:dQw4w9WgXcQ", desc:"Final de 5 a 1", match:"100102"}
 */
 const videos = [
+  {id:"defesas-do-goleiro", title:"Paredão: as defesas do goleiro em câmera lenta", type:"lance", date:"2026-10-20",
+   src:"file:defesas-do-goleiro.mp4", thumb:"defesas-do-goleiro-capa.jpg",
+   desc:"Cinco defesas do goleiro do Morpheus, cada uma com replay em câmera lenta e zoom, como na TV.", match:""},
   {id:"magia-do-passe", title:"A magia do passe", type:"lance", date:"2026-10-15",
    src:"file:magia-do-passe.mp4", thumb:"passe-capa.jpg",
    desc:"Visão além do alcance e a perfeição do passe do time. Simplesmente mágico.", match:""},
