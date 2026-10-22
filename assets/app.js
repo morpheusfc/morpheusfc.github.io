@@ -13,7 +13,7 @@ const fmt = s => esc(s)
   .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
 /* Foto ou vídeo: nome de arquivo (pasta assets/<tipo>/) ou endereço completo (nuvem). */
 /* ASSET_V: mude o numero quando trocar uma imagem/video mantendo o mesmo nome de arquivo (forca o navegador a baixar de novo) */
-const ASSET_V = "5";
+const ASSET_V = "6";
 const media = (kind, f) => /^https?:\/\//.test(f) ? f : `assets/${kind}/${f}?v=${ASSET_V}`;
 const ready = window.CMS_READY || Promise.resolve();
 /* PSN antiga -> PSN atual (config.apelidos em data.js): mostra o nome atual também nas partidas já guardadas. */
@@ -163,7 +163,7 @@ if (page === "inicio") {
   formChips($("#form"), matches);
   matchRows($("#matches"), matches.slice(0,5));
   leaders($("#leaders"));
-  $("#cards").innerHTML = players.slice(0,6).map(playerCard).join("");
+  $("#cards").innerHTML = players.filter(p=>p.j>0).slice().sort((a,b)=>b.j-a.j).slice(0,6).map(playerCard).join("");   /* os 6 com mais jogos, igual à ordem padrão do Elenco */
 }
 
 if (page === "partidas") {
