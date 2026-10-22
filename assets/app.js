@@ -13,7 +13,7 @@ const fmt = s => esc(s)
   .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
 /* Foto ou vídeo: nome de arquivo (pasta assets/<tipo>/) ou endereço completo (nuvem). */
 /* ASSET_V: mude o numero quando trocar uma imagem/video mantendo o mesmo nome de arquivo (forca o navegador a baixar de novo) */
-const ASSET_V = "4";
+const ASSET_V = "5";
 const media = (kind, f) => /^https?:\/\//.test(f) ? f : `assets/${kind}/${f}?v=${ASSET_V}`;
 const ready = window.CMS_READY || Promise.resolve();
 /* PSN antiga -> PSN atual (config.apelidos em data.js): mostra o nome atual também nas partidas já guardadas. */
@@ -63,6 +63,7 @@ const listNames = (rows, k) => rows.filter(p=>p[k]).map(p=>curPsn(p.n)+(p[k]>1?`
 
 function statBars(m){
   return STAT_LABELS.map((l,i)=>{
+    if(!m.st[i]) return "";   /* estatística indisponível (ex.: defesas vindas do ProClubsHead) */
     const [h,a] = m.st[i];
     const tot = h + a, hp = tot ? h/tot*100 : 50;
     const lead = h>a ? "us" : a>h ? "them" : "";

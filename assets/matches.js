@@ -10,6 +10,19 @@ const row = a => ({n:a[0],pos:a[1],r:a[2],g:a[3],a:a[4],s:a[5],p:a[6],t:a[7],mot
 const mk = (id,date,opp,gf,ga,st,us,them) => ({id,date,opp,g:[gf,ga],r:gf>ga?"V":gf<ga?"D":"E",st,us:us.map(row),them:them.map(row)});
 
 const matches = [
+  /* As 3 partidas abaixo vieram do ProClubsHead (o tracker estava fora do ar): horários aproximados, sem defesas e sem ID do jogo. */
+  mk("ph-chorumadores","2026-10-21T23:34","CHORUMADORES",4,2,
+    [[4,2],[7,4],[57,50],[77,91],[77,73],[3,2],[8,4],[33,20],null,[0,0],[8.1,6.9]],
+    [["Habutrers","F",9.5,2,1,2,20,2,1],["Beica97","F",9,2,1,4,9,0],["ViboxBeats","M",8.6,0,0,0,16,2],["Maneel444","D",7.4,0,0,0,12,1],["LEOzin117","D",7.3,0,0,1,6,3],["alice_farias09","M",7,0,1,0,14,0]],
+    [["mulirufbpa","M",8,1,0,1,17,2],["luucazz2_","F",7.5,1,1,1,9,0],["Chess_19033","D",7.2,0,0,0,11,0],["leugher","M",6.9,0,0,0,14,1],["Becoluki","M",6.6,0,1,1,16,0],["IamRafaelFoppa","D",6.3,0,0,1,12,0],["Paullo","F",6.1,0,0,0,12,1]]),
+  mk("ph-igrejinha-30","2026-10-21T23:11","Igrejinha FCE",3,0,
+    [[3,0],[9,7],[33,0],[123,40],[84,89],[2,0],[9,0],[47,0],null,[0,0],[8.3,6.6]],
+    [["LEOzin117","D",9.4,0,0,0,20,4,1],["ViboxBeats","M",9.4,0,1,0,21,3],["alice_farias09","M",8.3,1,0,2,33,0],["Beica97","F",8,1,1,3,15,0],["Habutrers","F",7.8,1,0,3,19,2],["Maneel444","D",7.1,0,0,1,15,0]],
+    [["Luaan_Gameplay","F",6.7,0,0,4,24,0],["thiagueiraa","M",6.4,0,0,3,16,0]]),
+  mk("ph-odd-boys","2026-10-21T22:49","ØDD Boys",1,2,
+    [[1,2],[4,7],[25,29],[114,82],[83,78],[0,2],[6,2],[33,13],null,[0,0],[7.1,7.2]],
+    [["ViboxBeats","M",7.9,0,0,0,20,1,1],["alice_farias09","M",7.4,0,0,1,27,0],["Maneel444","D",7.3,0,0,0,17,0],["Beica97","F",7.1,1,0,2,8,1],["Habutrers","F",6.8,0,0,0,27,4],["LEOzin117","M",6.3,0,0,1,15,0]],
+    [["lipe0204","F",7.9,1,1,3,18,0],["Adanthe17","M",7.7,1,1,3,17,1],["Hruan_silva","M",7.2,0,0,0,24,0],["isaiasrcm31","M",6.7,0,0,0,8,1],["LeolimaG","F",6.4,0,0,1,15,0]]),
   mk("570487","2026-10-21T22:26","ThunderTiger",4,3,
     [[4,3],[6,3],[67,100],[123,49],[88,80],[4,0],[5,2],[23,11],[0,0],[0,0],[7.4,8.0]],
     [["ViboxBeats","M",9.7,0,0,0,27,3,1],["Beica97","F",9,3,0,4,9,0],["LEOzin117","M",7.8,1,1,1,16,0],["Habutrers","F",7.7,0,2,0,29,1],["alice_farias09","M",7.5,0,1,1,27,1],["Maneel444","D",7,0,0,0,15,0],["JoaoPlay610","G",3,0,0,0,0,0]],
