@@ -273,6 +273,34 @@ async function carregaCampeonato() {
     </div>
   </div></section>`;
 
+  /* ---- quem ganhou cada prêmio (enquanto o campeonato não termina, mostra o líder atual) ---- */
+  const encerrado = C.status === "encerrado" || !!campeao;
+  const finalJ = mataJogos("final")[0];
+  const vice = (() => { if (!campeao || !finalJ) return null; const a = slot(finalJ.casa, "final"), b = slot(finalJ.fora, "final"); return a && b && a.id === campeao.id ? b : a; })();
+  const lideres = (lista, val) => { if (!lista.length) return []; const m = Math.max(...lista.map(val)); return lista.filter(p => val(p) === m); };
+  const maisJog = (key, un) => { const l = lideres(C.jogadores.filter(p => p[key] > 0), p => p[key]); return l.length ? { tipo: "j", lista: l, nota: l[0][key] + un } : null; };
+  function ganhadorDe(titulo) {
+    const t = norm(titulo);
+    if (/^vice/.test(t)) return vice ? { tipo: "t", lista: [vice], fim: true } : null;
+    if (/^campe/.test(t)) return campeao ? { tipo: "t", lista: [campeao], fim: true } : null;
+    if (/artilh/.test(t)) return maisJog("g", " gols");
+    if (/garcom/.test(t)) return maisJog("a", " assistências");
+    if (/craque|melhor em campo|mvp/.test(t)) return maisJog("m", " vezes melhor em campo");
+    if (/goleiro/.test(t)) { const l = lideres(C.jogadores.filter(p => p.pos === "G" && iegDe(p) !== null), p => Math.round(iegDe(p) * 10)); return l.length ? { tipo: "j", lista: l, nota: iegDe(l[0]).toFixed(1).replace(".", ",") + "% de IEG" } : null; }
+    if (/defesa|vazad/.test(t)) { const j = todos.filter(r => r.j); const m = j.length ? Math.min(...j.map(r => r.gc)) : null; const l = j.filter(r => r.gc === m).map(r => r.t); return l.length ? { tipo: "t", lista: l, nota: m + " gols sofridos" } : null; }
+    return undefined;   /* prêmio sem regra automática: não mostra ganhador */
+  }
+  const ganhadorHtml = titulo => {
+    const g = ganhadorDe(titulo);
+    if (g === undefined) return "";
+    if (g === null) return `<div class="cp-winner vazio"><em>Ganhador</em><span>A definir</span></div>`;
+    const feito = encerrado || g.fim;
+    const rot = g.lista.length > 1 ? (feito ? "Empate" : "Empate na liderança") : (feito ? "Ganhador" : "Líder atual");
+    const item = x => g.tipo === "t"
+      ? `<span class="cp-wl">${escudo(x, "sm")}<span><b>${esc(x.nome)}</b></span></span>`
+      : `<span class="cp-wl">${escudo(byId[x.time], "sm")}<span><b>${esc(x.psn)}</b><small>${esc(byId[x.time].nome)}</small></span></span>`;
+    return `<div class="cp-winner${feito ? " done" : ""}"><em>${rot}</em>${g.lista.map(item).join("")}${g.nota ? `<i>${esc(g.nota)}</i>` : ""}</div>`;
+  };
   const exemplo = campeao || C.times[0];
   const premiacao = `
   <section class="cp-sec alt" id="premiacao">${bg("premiacao")}<div class="wrap">${secLista("Premiação", "Glória eterna no site")}
@@ -284,7 +312,7 @@ async function carregaCampeonato() {
         <p>${campeao ? "Campeão invicto da edição" : "Exemplo do card que o campeão recebe"}</p>
         <div class="cp-cc-stats"><div><b>${regT(exemplo).v}</b><span>vitórias</span></div><div><b>${regT(exemplo).gp}</b><span>gols</span></div><div><b>1º</b><span>lugar</span></div></div>
       </div>
-      <div class="cp-prizes">${C.premios.map(([i, t, d]) => `<div class="cp-prize"><span>${i}</span><div><b>${esc(t)}</b><small>${esc(d)}</small></div></div>`).join("")}</div>
+      <div class="cp-prizes">${C.premios.map(([i, t, d]) => `<div class="cp-prize"><span>${i}</span><div><b>${esc(t)}</b><small>${esc(d)}</small>${ganhadorHtml(t)}</div></div>`).join("")}</div>
     </div>
   </div></section>`;
 
