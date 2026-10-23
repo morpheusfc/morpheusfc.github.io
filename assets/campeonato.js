@@ -99,6 +99,20 @@ async function carregaCampeonato() {
     return;
   }
   const byId = Object.fromEntries(C.times.map(t => [t.id, t]));
+  /* Resultados do arquivo campeonato-dados.js (preenchido quando se pede "atualizar campeonato"): só completam o que o painel ainda não tem. */
+  const norm = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
+  const dados = typeof campeonatoDados !== "undefined" && !C.demo ? campeonatoDados : [];
+  const usados = new Set();
+  const aplica = (j, nc, nf) => {
+    const i = dados.findIndex((d, k) => !usados.has(k) && (d.fase || "grupos") === j.fase && ((norm(d.casa) === nc && norm(d.fora) === nf) || (norm(d.casa) === nf && norm(d.fora) === nc)));
+    if (i < 0) return;
+    usados.add(i);
+    const d = dados[i], inv = norm(d.casa) !== nc;
+    if (j.gc === null && j.gf === null && d.gc != null && d.gf != null) { j.gc = inv ? d.gf : d.gc; j.gf = inv ? d.gc : d.gf; }
+    if (!j.stats && d.stats) j.stats = inv ? { casa: d.stats.fora || [], fora: d.stats.casa || [] } : d.stats;
+    if (!j.data && d.hora) j.data = d.hora;
+  };
+  C.jogos.filter(j => j.fase === "grupos").forEach(j => { if (byId[j.casa] && byId[j.fora]) aplica(j, norm(byId[j.casa].nome), norm(byId[j.fora].nome)); });
   const grupos = [...new Set(C.times.map(t => t.grupo).filter(Boolean))].sort();
   const FASES = { grupos: "Fase de grupos", quartas: "Quartas de final", semis: "Semifinais", final: "Final" };
   const pad = n => String(n).padStart(2, "0");
@@ -140,6 +154,8 @@ async function carregaCampeonato() {
     ? `<span class="cp-team ${cls}">${escudo(s)}<b>${esc(s.nome)}</b></span>`
     : `<span class="cp-team tbd ${cls}"><span class="cp-shield tbd">?</span><b>${esc(s.rotulo)}</b></span>`;
 
+  /* mata-mata: na ordem das fases, para os vencedores já estarem definidos quando a fase seguinte for resolvida */
+  ["quartas", "semis", "final"].forEach(f => mataJogos(f).forEach(j => { const a = slot(j.casa, f), b = slot(j.fora, f); if (a && a.nome && b && b.nome) aplica(j, norm(a.nome), norm(b.nome)); }));
   const campeao = (() => { const f = mataJogos("final")[0]; return f && jogou(f) && f.gc !== f.gf ? slot(f.gc > f.gf ? f.casa : f.fora, "final") : null; })();
   /* jogadores do campeonato: soma das estatísticas guardadas em cada jogo (campo stats), por clube */
   if (C.jogadores === null) {
