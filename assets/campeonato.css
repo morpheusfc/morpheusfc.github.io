@@ -180,3 +180,13 @@
 .cp-champ-line{display:inline-flex;align-items:center;gap:12px;padding:10px 18px 10px 12px;border-radius:14px;border:1px solid var(--gold);background:linear-gradient(90deg,rgba(233,185,73,.22),rgba(8,8,10,.7))}
 .cp-champ-line span{font-family:var(--font-display);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-size:14px}
 .cp-champ-line b{font-family:var(--font-display);font-size:28px;text-transform:uppercase;letter-spacing:.03em}
+
+/* celular: colunas "1fr" crescem com o conteúdo (tabelas largas) e esticam a página; minmax(0,1fr) trava na largura da tela */
+.cp-group,.cp-lists>.panel,.cp-clubstats>.panel,.cp-prize,.cp-prizes>*,.cp-matches,.cp-vs>*,.cp-rank .who{min-width:0}
+@media(max-width:880px){
+  .cp-groups,.cp-lists,.cp-clubstats,.cp-prize-grid,.cp-prizes{grid-template-columns:minmax(0,1fr)}
+  .cp-match{grid-template-columns:minmax(0,1fr)}
+  .cp-vs{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+  .cp-hero-grid{grid-template-columns:minmax(0,1fr)}
+}
+html,body{overflow-x:clip}
