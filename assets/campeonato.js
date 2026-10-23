@@ -39,7 +39,7 @@ const campeonato = (() => {
     inicio: dia(0, 20),
     plataformas: "PlayStation, Xbox e PC",
     /* Fotos de fundo de cada parte (arquivos dentro de assets/bg/). Vazio = só o visual padrão. Tamanho ideal: 1920 x 900 px, JPG, até 250 KB. */
-    fotos: { hero: "", equipes: "", grupos: "", jogos: "", matamata: "", stats: "", premiacao: "", regras: "" },
+    fotos: { hero: "", grupos: "", jogos: "", matamata: "", stats: "", premiacao: "", regras: "" },
     times, jogos: estado === "inscricoes" ? jogos.filter(j => j.fase !== "grupos") : jogos, jogadores,
     premios: [
       ["🏆", "Campeão", "Troféu virtual e card de campeão com o escudo do clube em destaque no site"],
@@ -202,24 +202,16 @@ async function carregaCampeonato() {
       <div><b>${disputados.length ? (golsTotal / disputados.length).toFixed(1).replace(".", ",") : "0"}</b><span>gols por jogo</span></div>
     </div>
   </div></header>
-  <div class="cp-subnav"><div class="wrap">${[["equipes", "Equipes"], ["grupos", "Grupos"], ["jogos", "Jogos"], ["matamata", "Mata-mata"], ["stats", "Estatísticas"], ["premiacao", "Premiação"], ["regras", "Regulamento"]]
+  <div class="cp-subnav"><div class="wrap">${[["grupos", "Grupos"], ["jogos", "Jogos"], ["matamata", "Mata-mata"], ["stats", "Estatísticas"], ["premiacao", "Premiação"], ["regras", "Regulamento"]]
     .map(([id, l]) => `<a href="#${id}">${l}</a>`).join("")}</div></div>`;
 
-  const equipes = `
-  <section class="cp-sec" id="equipes">${bg("equipes")}<div class="wrap">${secLista("Os clubes", "Quem está na disputa")}
-    <p class="sec-sub">${C.times.length} de ${C.numTimes} vagas preenchidas.</p>
-    <div class="cp-vagas"><i style="width:${Math.round(C.times.length / C.numTimes * 100)}%"></i></div>
-    <div class="cp-teams">${C.times.map(t => { const r = regT(t);
-      return `<article class="cp-tcard">${escudo(t, "lg")}<h3>${esc(t.nome)}</h3>
-        <div class="cp-meta">${t.grupo ? `<span class="cp-chip">Grupo ${t.grupo}</span>` : `<span class="cp-chip">Aguardando sorteio</span>`}<span class="cp-chip plat">${esc(t.plataforma)}</span></div>
-        <div class="cp-rec"><div><b>${r.j}</b><span>J</span></div><div><b>${r.v}-${r.e}-${r.d}</b><span>V-E-D</span></div><div><b>${r.gp}:${r.gc}</b><span>Gols</span></div><div><b>${r.pts}</b><span>Pts</span></div></div>
-      </article>`; }).join("")}</div>
-  </div></section>`;
 
   const gruposHtml = `
   <section class="cp-sec alt" id="grupos">${bg("grupos")}<div class="wrap">${secLista("Fase de grupos", "Classificação")}
     <p class="sec-sub">Os ${C.classificam} primeiros de cada grupo avançam para o mata-mata.</p>
-    ${grupos.length ? "" : `<div class="panel cp-wait"><b>Sorteio em breve</b><span>Quando as ${C.numTimes} vagas forem preenchidas, os clubes serão sorteados em ${C.numTimes / C.porGrupo} grupos de ${C.porGrupo}.</span></div>`}
+    ${grupos.length ? "" : `<div class="panel cp-wait"><b>Sorteio em breve</b><span>Quando as ${C.numTimes} vagas forem preenchidas, os clubes serão sorteados em ${C.numTimes / C.porGrupo} grupos de ${C.porGrupo}.</span>
+      <div class="cp-vagas"><i style="width:${Math.round(C.times.length / C.numTimes * 100)}%"></i></div><span>${C.times.length} de ${C.numTimes} vagas preenchidas</span>
+      ${C.times.length ? `<div class="cp-chips">${C.times.map(t => `<span class="cp-tchip">${escudo(t, "sm")}${esc(t.nome)}</span>`).join("")}</div>` : ""}</div>`}
     <div class="cp-groups">${grupos.map(g => `
       <div class="panel cp-group"><h3>Grupo ${g}</h3>
         <div class="cp-scroll"><table class="cp-table"><thead><tr><th>#</th><th>Clube</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody>
@@ -321,7 +313,7 @@ async function carregaCampeonato() {
     <div class="cp-rules">${C.regras.map(([t, d]) => `<details><summary>${esc(t)}</summary><p>${esc(d)}</p></details>`).join("")}</div>
   </div></section>`;
 
-  root.innerHTML = hero + equipes + gruposHtml + jogosHtml + bracket + stats + premiacao + regras;
+  root.innerHTML = hero + gruposHtml + jogosHtml + bracket + stats + premiacao + regras;
 
   /* filtro de jogos */
   const desenhaJogos = f => { document.getElementById("cpJogos").innerHTML = C.jogos.filter(j => j.fase === f).sort((a, b) => (a.data || "9").localeCompare(b.data || "9")).map(jogoRow).join(""); };

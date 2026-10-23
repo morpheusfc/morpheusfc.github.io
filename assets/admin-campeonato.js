@@ -4,7 +4,7 @@ window.admCampeonato = function (ctx) {
   const { sb, q, qa, esc, say, errText } = ctx;
   const FASES = { grupos: "Fase de grupos", quartas: "Quartas de final", semis: "Semifinais", final: "Final" };
   const NUMS = [8, 12, 16, 20, 24];
-  const FOTOS = [["hero", "Capa"], ["equipes", "Equipes"], ["grupos", "Grupos"], ["jogos", "Jogos"], ["matamata", "Mata-mata"], ["stats", "Estatísticas"], ["premiacao", "Premiação"], ["regras", "Regulamento"], ["card", "Card do campeão"]];
+  const FOTOS = [["hero", "Capa"], ["grupos", "Grupos"], ["jogos", "Jogos"], ["matamata", "Mata-mata"], ["stats", "Estatísticas"], ["premiacao", "Premiação"], ["regras", "Regulamento"], ["card", "Card do campeão"]];
   const PREMIOS = `🏆 | Campeão | Troféu virtual e card de campeão com o escudo do clube em destaque no site
 🥈 | Vice-campeão | Medalha virtual e menção no Morpheus News
 ⚽ | Artilheiro | Quem fizer mais gols na competição
