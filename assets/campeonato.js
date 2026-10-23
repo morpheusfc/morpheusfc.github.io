@@ -93,11 +93,13 @@ async function carregaCampeonato() {
   const demoPedido = new URLSearchParams(location.search).has("demo") || new URLSearchParams(location.search).has("estado");
   const C = demoPedido ? campeonato : await carregaCampeonato();
   if (!C) {
-    root.innerHTML = `<header class="cp-hero"><div class="wrap"><div class="cp-hero-grid"><div><span class="cp-badge open"><i></i>Em breve</span>
+    const fotoEmBreve = typeof campeonatoFotos !== "undefined" && campeonatoFotos.hero ? `<div class="cp-bg cp-bg-hero" style="background-image:url('${media("bg", campeonatoFotos.hero)}')" aria-hidden="true"></div>` : "";
+    root.innerHTML = `<header class="cp-hero">${fotoEmBreve}<div class="wrap"><div class="cp-hero-grid"><div><span class="cp-badge open"><i></i>Em breve</span>
       <div class="eyebrow">Morpheus FC</div><h1>Campeonato</h1><p class="cp-slogan">Estamos preparando o primeiro campeonato do Morpheus. Em breve, as inscrições e a tabela aparecem aqui.</p></div>
       <div class="cp-hero-art"><svg class="cp-trophy" viewBox="0 0 120 140" aria-hidden="true"><defs><linearGradient id="cpg0" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbe7a6"/><stop offset=".5" stop-color="#e9b949"/><stop offset="1" stop-color="#a97a16"/></linearGradient></defs><path d="M30 14h60v34c0 22-13 38-30 42-17-4-30-20-30-42z" fill="url(#cpg0)"/><path d="M30 22H12c0 22 8 36 24 40M90 22h18c0 22-8 36-24 40" fill="none" stroke="url(#cpg0)" stroke-width="7" stroke-linecap="round"/><rect x="54" y="88" width="12" height="24" fill="url(#cpg0)"/><path d="M34 112h52l8 20H26z" fill="url(#cpg0)"/></svg></div></div></div></header>`;
     return;
   }
+  C.fotos = Object.assign({}, typeof campeonatoFotos !== "undefined" ? campeonatoFotos : {}, C.fotos || {});
   const byId = Object.fromEntries(C.times.map(t => [t.id, t]));
   /* Resultados do arquivo campeonato-dados.js (preenchido quando se pede "atualizar campeonato"): só completam o que o painel ainda não tem. */
   const norm = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
@@ -177,7 +179,7 @@ async function carregaCampeonato() {
     <rect x="54" y="88" width="12" height="24" fill="url(#cpg)"/><path d="M34 112h52l8 20H26z" fill="url(#cpg)"/>
     <path d="M60 30l5 10 11 1.5-8 7.5 2 11-10-5.500-10 5.500 2-11-8-7.500 11-1.500z" fill="#17120a" opacity=".28"/></svg>`;
 
-  const bg = k => C.fotos && C.fotos[k] ? `<div class="cp-bg" style="background-image:url('assets/bg/${esc(C.fotos[k])}?v=${ASSET_V}')" aria-hidden="true"></div>` : "";
+  const bg = k => C.fotos && C.fotos[k] ? `<div class="cp-bg cp-bg-${k}" style="background-image:url('assets/bg/${esc(C.fotos[k])}?v=${ASSET_V}')" aria-hidden="true"></div>` : "";
   const STATUS = { inscricoes: ["Inscrições abertas", "open"], andamento: ["Em andamento", "live"], encerrado: ["Encerrado", "end"] }[C.status] || ["", ""];
 
   /* ---------- montagem ---------- */
@@ -193,7 +195,7 @@ async function carregaCampeonato() {
         <p class="cp-slogan">${esc(C.slogan)}</p>
         <div class="cp-count" id="cpCount" aria-live="off"></div>
       </div>
-      <div class="cp-hero-art">${campeao ? `<div class="cp-champ-mini">${TROFEU}<span>Campeão</span>${escudo(campeao, "lg")}<b>${esc(campeao.nome)}</b></div>` : TROFEU}</div>
+      <div class="cp-hero-art">${campeao ? `<div class="cp-champ-mini">${TROFEU}<span>Campeão</span>${escudo(campeao, "lg")}<b>${esc(campeao.nome)}</b></div>` : (C.fotos && C.fotos.hero ? "" : TROFEU)}</div>
     </div>
     <div class="cp-numbers">
       <div><b>${C.numTimes}</b><span>clubes</span></div>
