@@ -4,7 +4,7 @@ window.admCampeonato = function (ctx) {
   const { sb, q, qa, esc, say, errText } = ctx;
   const FASES = { grupos: "Fase de grupos", quartas: "Quartas de final", semis: "Semifinais", final: "Final" };
   const NUMS = [8, 12, 16, 20, 24];
-  const FOTOS = [["hero", "Capa"], ["equipes", "Equipes"], ["grupos", "Grupos"], ["jogos", "Jogos"], ["matamata", "Mata-mata"], ["stats", "Estatísticas"], ["premiacao", "Premiação"], ["regras", "Regulamento"]];
+  const FOTOS = [["hero", "Capa"], ["equipes", "Equipes"], ["grupos", "Grupos"], ["jogos", "Jogos"], ["matamata", "Mata-mata"], ["stats", "Estatísticas"], ["premiacao", "Premiação"], ["regras", "Regulamento"], ["card", "Card do campeão"]];
   const PREMIOS = `🏆 | Campeão | Troféu virtual e card de campeão com o escudo do clube em destaque no site
 🥈 | Vice-campeão | Medalha virtual e menção no Morpheus News
 ⚽ | Artilheiro | Quem fizer mais gols na competição
@@ -109,7 +109,7 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
         <label>Prêmios (uma linha por prêmio: ícone | título | descrição)<textarea name="premios" rows="6">${esc(cur ? deArr(c.premios, 3) : PREMIOS)}</textarea></label>
         <label>Regulamento (uma linha por regra: título | texto)<textarea name="regras" rows="6">${esc(cur ? deArr(c.regras, 2) : REGRAS)}</textarea></label>
         <details class="adm-det"><summary>Fotos de fundo de cada parte (opcional)</summary>
-          <div class="adm-help">Nome do arquivo dentro de <code>assets/bg/</code> (1920 × 900 px, JPG, até 250 KB). Vazio = visual padrão.</div>
+          <div class="adm-help">Nome do arquivo dentro de <code>assets/bg/</code> (1920 × 900 px, JPG, até 250 KB). Vazio = visual padrão. <b>Card do campeão</b>: imagem vertical de 1080 × 1350 px (4:5), PNG ou JPG, até 400 KB; aparece no lugar do card de exemplo na Premiação.</div>
           <div class="cmpa-fotos">${FOTOS.map(([k, l]) => `<label>${l}<input name="foto_${k}" value="${esc((c.fotos || {})[k] || "")}" placeholder="camp-${k}.jpg"></label>`).join("")}</div>
         </details>
         <label class="adm-check"><input type="checkbox" name="publico"${c.publico ? " checked" : ""}> Mostrar este campeonato no site</label>

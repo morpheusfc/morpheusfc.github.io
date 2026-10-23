@@ -295,23 +295,23 @@ async function carregaCampeonato() {
     if (g === undefined) return "";
     if (g === null) return `<div class="cp-winner vazio"><em>Ganhador</em><span>A definir</span></div>`;
     const feito = encerrado || g.fim;
-    const rot = g.lista.length > 1 ? (feito ? "Empate" : "Empate na liderança") : (feito ? "Ganhador" : "Líder atual");
+    const rot = feito ? (g.lista.length > 1 ? "Empate" : "Ganhador") : "";
     const item = x => g.tipo === "t"
       ? `<span class="cp-wl">${escudo(x, "sm")}<span><b>${esc(x.nome)}</b></span></span>`
       : `<span class="cp-wl">${escudo(byId[x.time], "sm")}<span><b>${esc(x.psn)}</b><small>${esc(byId[x.time].nome)}</small></span></span>`;
-    return `<div class="cp-winner${feito ? " done" : ""}"><em>${rot}</em>${g.lista.map(item).join("")}${g.nota ? `<i>${esc(g.nota)}</i>` : ""}</div>`;
+    return `<div class="cp-winner${feito ? " done" : ""}">${rot ? `<em>${rot}</em>` : ""}${g.lista.map(item).join("")}${g.nota ? `<i>${esc(g.nota)}</i>` : ""}</div>`;
   };
   const exemplo = campeao || C.times[0];
   const premiacao = `
   <section class="cp-sec alt" id="premiacao">${bg("premiacao")}<div class="wrap">${secLista("Premiação", "Glória eterna no site")}
     <p class="sec-sub">O campeão ganha o troféu virtual e um card exclusivo, que fica guardado no Hall da Fama do Morpheus FC.</p>
     <div class="cp-prize-grid">
-      <div class="cp-champcard">
+      ${C.fotos && C.fotos.card ? `<div class="cp-cardimg"><img src="${esc(media("bg", C.fotos.card))}" alt="Card do campeão"></div>` : `<div class="cp-champcard">
         <div class="cp-cc-top"><span>${esc(C.nome)} · ${esc(C.edicao)}</span><b>Campeão</b></div>
         ${TROFEU}${escudo(exemplo, "xl")}<h3>${campeao ? esc(campeao.nome) : "O seu clube aqui"}</h3>
-        <p>${campeao ? "Campeão invicto da edição" : "Exemplo do card que o campeão recebe"}</p>
+        <p>${campeao ? "Campeão da edição" : "Exemplo do card que o campeão recebe"}</p>
         <div class="cp-cc-stats"><div><b>${regT(exemplo).v}</b><span>vitórias</span></div><div><b>${regT(exemplo).gp}</b><span>gols</span></div><div><b>1º</b><span>lugar</span></div></div>
-      </div>
+      </div>`}
       <div class="cp-prizes">${C.premios.map(([i, t, d]) => `<div class="cp-prize"><span>${i}</span><div><b>${esc(t)}</b><small>${esc(d)}</small>${ganhadorHtml(t)}</div></div>`).join("")}</div>
     </div>
   </div></section>`;
