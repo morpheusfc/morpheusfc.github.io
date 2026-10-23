@@ -1,0 +1,26 @@
+/* ===== Painel: aba Campeonato ===== */
+.cmpa-sec{margin-top:18px}
+.cmpa-sec h3{margin-bottom:12px}
+.cmpa-fotos{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:10px}
+.adm-det{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--surface-2)}
+.adm-det summary{cursor:pointer;font-weight:600;font-size:14px}
+.adm-check{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text)}
+.adm-check input{width:18px;height:18px;accent-color:var(--gold)}
+.cmpa-add{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:14px}
+.cmpa-teams .adm-row select{padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);color:var(--text);font:inherit;font-size:13px}
+.cmpa-fase{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-size:18px;margin:20px 0 8px}
+.cmpa-jogo{display:grid;grid-template-columns:1fr auto auto auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.cmpa-quem{display:grid;grid-template-columns:1fr auto 1fr;gap:4px 10px;align-items:center;min-width:0}
+.cmpa-quem small{grid-column:1/-1;color:var(--muted);font-size:12px}
+.cmpa-quem b{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cmpa-quem b:last-of-type{text-align:right}
+.cmpa-quem span,.cmpa-placar span{color:var(--muted)}
+.cmpa-placar{display:flex;align-items:center;gap:6px}
+.cmpa-placar input{width:54px;text-align:center}
+.cmpa-jogo>input[type=datetime-local]{width:190px}
+.cmpa-stats{grid-column:1/-1;display:grid;gap:8px}
+.cmpa-stats textarea{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
+@media(max-width:860px){
+  .cmpa-add{grid-template-columns:1fr 1fr}.cmpa-add button{grid-column:1/-1}
+  .cmpa-jogo{grid-template-columns:1fr 1fr}.cmpa-quem{grid-column:1/-1}.cmpa-jogo>input[type=datetime-local]{width:100%}
+}

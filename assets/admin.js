@@ -77,6 +77,14 @@
     };
   }
 
+  /* ---------- campeonato (assets/admin-campeonato.js) ---------- */
+  let campTela;
+  const campView = () => {
+    if (!window.admCampeonato) { q("#view").innerHTML = `<div class="empty-state">Não foi possível carregar a aba do campeonato. Recarregue a página.</div>`; return; }
+    campTela = campTela || window.admCampeonato({ sb, q, qa, esc, say, errText });
+    return campTela();
+  };
+
   /* ---------- estrutura do painel ---------- */
   let tab = "news";
   function shell(userEmail){
@@ -87,6 +95,7 @@
           <button class="fbtn" data-tab="videos">Vídeos</button>
           <button class="fbtn" data-tab="friendlies">Amistosos <span class="adm-count" id="newCount" hidden></span></button>
           <button class="fbtn" data-tab="recruit">Recrutamento <span class="adm-count" id="recCount" hidden></span></button>
+          <button class="fbtn" data-tab="campeonato">Campeonato</button>
         </div>
         <div class="adm-user"><span>${esc(userEmail || "")}</span><button class="fbtn" id="logout">Sair</button></div>
       </div>
@@ -94,7 +103,7 @@
     qa("[data-tab]").forEach(b => b.onclick = () => { tab = b.dataset.tab; shell(userEmail); });
     qa("[data-tab]").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
     q("#logout").onclick = () => sb.auth.signOut();
-    ({ news: newsView, videos: videosView, friendlies: friendliesView, recruit: recruitView }[tab] || newsView)();
+    ({ news: newsView, videos: videosView, friendlies: friendliesView, recruit: recruitView, campeonato: campView }[tab] || newsView)();
     refreshNewCount();
   }
 
