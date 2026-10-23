@@ -1,5 +1,5 @@
-/* Partidas do Morpheus FC, vindas do ProClubsHead (clube 37568). O Pro Clubs Tracker, fonte anterior, está fora do ar e fica como reserva.
-   Jogos do tracker têm data e horário exatos (dd/mm/aaaa hh:mm); os do ProClubsHead trazem só "há X horas", então o horário é aproximado.
+/* Partidas do Morpheus FC, vindas do Pro Clubs Tracker (clube 37568), com data, horário, ID e defesas exatos. Em 22/10/2026, com o tracker fora do ar, algumas vieram do ProClubsHead; a partida ØDD Boys (21/10) ainda é de lá: horário aproximado e sem defesas.
+   Formato: mk(id, data, adversário, gols, gols sofridos, estatísticas do time, jogadores nossos, jogadores do adversário).
    Linha de jogador: [PSN, pos, nota, gols, assist., chutes, passes, desarmes, melhor_em_campo(1/0)]
    pos: F=atacante, M=meio-campo, D=defensor, G=goleiro.
    Estatísticas do time, nesta ordem, [nosso, adversário]:
@@ -10,51 +10,50 @@ const row = a => ({n:a[0],pos:a[1],r:a[2],g:a[3],a:a[4],s:a[5],p:a[6],t:a[7],mot
 const mk = (id,date,opp,gf,ga,st,us,them) => ({id,date,opp,g:[gf,ga],r:gf>ga?"V":gf<ga?"D":"E",st,us:us.map(row),them:them.map(row)});
 
 const matches = [
-  /* 8 partidas do ProClubsHead (22/10): horários aproximados, sem defesas e sem ID do jogo. Os jogos "por desconexão" têm placar decidido pela EA e quase nenhuma estatística. */
-  mk("ph-rio-de-bosta","2026-10-22T23:58","Rio de Bosta",5,1,
-    [[5,1],[9,5],[56,20],[60,54],[80,77],[3,1],[7,0],[35,0],null,[0,0],[7.3,8.1]],
+  mk("510183","2026-10-22T23:59","Rio de Bosta",5,1,
+    [[5,1],[9,5],[56,20],[60,54],[80,77],[3,1],[7,0],[35,0],[0,0],[0,0],[7.3,8.1]],
     [["dtb_mvp","M",9.5,3,1,4,8,1,1],["King_Arthur_atbs","F",9.2,2,1,4,15,1],["ViboxBeats","M",7.6,0,0,0,18,2],["Habutrers","F",7.1,0,1,1,19,3],["alice_farias09","M",3,0,0,0,0,0]],
     [["lelekogamer04","F",8.6,1,0,4,31,0],["gustalmeidax","M",7.5,0,1,1,23,0]]),
-  mk("ph-1n1m1go5","2026-10-22T23:38","1N1M1GO5",6,3,
-    [[6,3],[11,7],[55,29],[108,67],[73,71],[3,2],[12,7],[38,32],null,[0,0],[7.9,7.4]],
-    [["Beica97","F",9.9,2,2,5,13,2,1],["King_Arthur_atbs","M",9.2,1,0,1,18,3],["ViboxBeats","M",8.2,0,0,0,16,2],["Habutrers","F",7.9,2,0,3,11,2],["pipovini","D",7.9,1,0,1,9,0],["dtb_mvp","M",7.3,0,1,0,12,1],["LEOzin117","D",7.3,0,0,0,8,1],["alice_farias09","M",6.9,0,0,1,17,1],["TheGuest__027","D",6.8,0,0,0,4,0]],
-    [["VazaNub","M",8.2,1,1,3,22,2],["Fernando_limaa03","M",8,0,0,2,13,2],["Luiz_henrique071","F",7.5,1,1,2,7,0],["Vinicin_tHz","M",7.5,0,0,0,14,2],["zDraculaXD","F",6,0,0,0,11,1]]),
+  mk("110380","2026-10-22T23:31","1N1M1GO5",6,3,
+    [[6,3],[11,7],[55,29],[108,67],[73,71],[3,2],[12,7],[38,32],[0,0],[0,0],[7.9,7.4]],
+    [["Beica97","F",9.9,2,2,5,13,2,1],["King_Arthur_atbs","M",9.2,1,0,1,18,3],["ViboxBeats","M",8.2,0,0,0,16,2],["Habutrers","F",7.9,2,0,3,11,2],["pipovini","D",7.9,1,0,1,9,0],["LEOzin117","D",7.3,0,0,0,8,1],["dtb_mvp","M",7.3,0,1,0,12,1],["alice_farias09","M",6.9,0,0,1,17,1],["TheGuest__027","D",6.8,0,0,0,4,0]],
+    [["VazaNub","M",8.2,1,1,3,22,2],["Fernando_limaa03","M",8,0,0,2,13,2],["Vinicin_tHz","M",7.5,0,0,0,14,2],["Luiz_henrique071","F",7.5,1,1,2,7,0],["zDraculaXD","F",6,0,0,0,11,1]]),
   /* resultado por desconexão */
-  mk("ph-feira-city","2026-10-22T23:18","FEIRA CITY",3,0,
-    [[3,0],[8,1],[38,0],[64,4],[76,100],[2,0],[5,0],[33,0],null,[0,0],[7.1,6.3]],
+  mk("670266","2026-10-22T23:11","FEIRA CITY",3,0,
+    [[3,0],[8,1],[38,0],[64,4],[76,100],[2,0],[5,0],[33,0],[0,0],[0,0],[7.1,6.3]],
     [["Habutrers","F",10,2,1,2,9,2,1],["Beica97","F",8.2,1,1,3,3,0],["LEOzin117","D",8,0,0,0,6,1],["King_Arthur_atbs","M",7.5,0,0,1,13,0],["pipovini","D",7.3,0,0,0,7,1],["dtb_mvp","M",7.2,0,0,0,12,0],["smokefxz","M",7.1,0,0,1,7,1],["TheGuest__027","D",6.5,0,0,0,4,0],["alice_farias09","M",6,0,0,1,3,0],["ViboxBeats","M",3,0,0,0,0,0]],
-    [["BRINKS_1910","M",6.7,0,0,0,0,0],["Pedroadd123","M",6.6,0,0,0,0,0],["chrisztyan","M",6.5,0,0,0,0,0],["BISPPOx","F",6,0,0,0,0,0],["Ghost_Haki7","F",6,0,0,0,0,0],["ExistedDragon37","F",5.8,0,0,1,4,0]]),
+    [["BRINKS_1910","M",6.7,0,0,0,0,0],["Pedroadd123","M",6.6,0,0,0,0,0],["chrisztyan","M",6.5,0,0,0,0,0],["Ghost_Haki7","F",6,0,0,0,0,0],["BISPPOx","F",6,0,0,0,0,0],["ExistedDragon37","F",5.8,0,0,1,4,0]]),
   /* resultado por desconexão */
-  mk("ph-pal-molengo","2026-10-22T23:00","PAL MOLENGO",0,3,
-    [[0,3],[0,1],[0,0],[0,11],[0,85],[0,0],[1,1],[100,33],null,[0,0],[4.3,6.3]],
-    [["LEOzin117","D",6.2,0,0,0,0,1],["smokefxz","M",6,0,0,0,0,0],["TheGuest__027","D",6,0,0,0,0,0],["Beica97","G",3,0,0,0,0,0],["Habutrers","G",3,0,0,0,0,0],["King_Arthur_atbs","M",3,0,0,0,0,0],["pipovini","G",3,0,0,0,0,0]],
+  mk("560340","2026-10-22T22:55","PAL MOLENGO",0,3,
+    [[0,3],[0,1],[0,0],[0,11],[0,85],[0,0],[1,1],[100,33],[0,0],[0,0],[4.3,6.3]],
+    [["LEOzin117","D",6.2,0,0,0,0,1],["TheGuest__027","D",6,0,0,0,0,0],["smokefxz","M",6,0,0,0,0,0],["Beica97","G",3,0,0,0,0,0],["Habutrers","G",3,0,0,0,0,0],["King_Arthur_atbs","M",3,0,0,0,0,0],["pipovini","G",3,0,0,0,0,0]],
     [["ReiSolitary","M",6.6,0,0,0,3,1,1],["Abskani","M",6.3,0,0,0,3,0],["Derich_kris","F",6.3,0,0,0,4,0],["VidaLoka-BRA","M",6.1,0,0,1,1,0]]),
-  mk("ph-mo-paz-slk","2026-10-22T22:40","Mo Paz Slk FC",3,4,
-    [[3,4],[4,9],[75,33],[144,50],[87,69],[3,2],[7,8],[32,32],null,[1,0],[7.6,8]],
-    [["REIS2703","M",9.5,0,0,0,0,0],["Beica97","F",8.7,2,0,2,13,0,1],["King_Arthur_atbs","M",8,0,1,1,24,2],["smokefxz","M",8,1,0,1,25,0],["LEOzin117","D",7.5,0,0,0,12,3],["Habutrers","F",7.4,0,1,0,14,0],["pipovini","D",7.3,0,0,0,17,2],["alice_farias09","M",6.8,0,1,0,18,0],["TheGuest__027","D",6.8,0,0,0,10,0],["dtb_mvp","M",6,0,0,0,11,0]],
-    [["cabecloid11","F",8.2,0,2,3,15,2],["Flashe0123","F",8.2,1,0,3,11,2],["Ghuard1","M",7.8,1,0,2,14,2],["yanquer_","F",7.6,1,0,1,10,2]]),
+  mk("540375","2026-10-22T22:44","Mo Paz Slk FC",3,4,
+    [[3,4],[4,9],[75,33],[144,50],[87,69],[3,2],[7,8],[32,32],[0,0],[1,0],[7.6,8]],
+    [["REIS2703","M",9.5,0,0,0,0,0],["Beica97","F",8.7,2,0,2,13,0,1],["King_Arthur_atbs","M",8,0,1,1,24,2],["smokefxz","M",8,1,0,1,25,0],["LEOzin117","D",7.5,0,0,0,12,3],["Habutrers","F",7.4,0,1,0,14,0],["pipovini","D",7.3,0,0,0,17,2],["TheGuest__027","D",6.8,0,0,0,10,0],["alice_farias09","M",6.8,0,1,0,18,0],["dtb_mvp","M",6,0,0,0,11,0]],
+    [["Flashe0123","F",8.2,1,0,3,11,2],["cabecloid11","F",8.2,0,2,3,15,2],["Ghuard1","M",7.8,1,0,2,14,2],["yanquer_","F",7.6,1,0,1,10,2]]),
   /* resultado por desconexão */
-  mk("ph-d1snara","2026-10-22T22:18","D1snara FC",3,0,
-    [[3,0],[0,0],[0,0],[2,1],[67,100],[0,0],[0,0],[0,0],null,[0,0],[6,6.2]],
-    [["LEOzin117","D",6.5,0,0,0,1,0,1],["Habutrers","F",6.1,0,0,0,1,0],["Beica97","F",6,0,0,0,0,0],["dtb_mvp","M",6,0,0,0,0,0],["King_Arthur_atbs","M",6,0,0,0,0,0],["pipovini","D",6,0,0,0,0,0],["REIS2703","M",6,0,0,0,0,0],["smokefxz","M",6,0,0,0,0,0],["alice_farias09","M",5.5,0,0,0,0,0]],
+  mk("390307","2026-10-22T22:22","D1snara FC",3,0,
+    [[3,0],[0,0],[0,0],[2,1],[67,100],[0,0],[0,0],[0,0],[0,0],[0,0],[6,6.2]],
+    [["LEOzin117","D",6.5,0,0,0,1,0,1],["Habutrers","F",6.1,0,0,0,1,0],["Beica97","F",6,0,0,0,0,0],["King_Arthur_atbs","M",6,0,0,0,0,0],["dtb_mvp","M",6,0,0,0,0,0],["smokefxz","M",6,0,0,0,0,0],["REIS2703","M",6,0,0,0,0,0],["pipovini","D",6,0,0,0,0,0],["alice_farias09","M",5.5,0,0,0,0,0]],
     [["KeKelPatrick","M",6.4,0,0,0,0,0],["junin_Alves91","F",6,0,0,0,1,0]]),
-  mk("ph-adrena","2026-10-22T21:58","Adrena FC",1,4,
-    [[1,4],[3,10],[33,40],[70,114],[80,87],[1,4],[3,8],[12,44],null,[0,0],[6.9,8.6]],
+  mk("570222","2026-10-22T22:09","Adrena FC",1,4,
+    [[1,4],[3,10],[33,40],[70,114],[80,87],[1,4],[3,8],[12,44],[0,0],[0,0],[6.9,8.6]],
     [["King_Arthur_atbs","M",7.6,0,1,0,4,1],["alice_farias09","M",7.3,1,0,1,2,0],["REIS2703","M",7.1,0,0,0,16,1],["LEOzin117","M",6.9,0,0,0,21,0],["Beica97","F",6.2,0,0,2,14,0],["Habutrers","F",6.2,0,0,0,13,1]],
     [["SteinDC","M",10,1,2,6,26,3,1],["Dritzzenn","F",9,2,0,2,12,1],["caikx11","M",8.7,0,1,0,23,2],["LeoMunksgaard","M",8.2,0,0,0,19,1],["LecosilvaBR","M",8,1,0,1,11,0],["SauloBlackIce","F",7.5,0,1,1,23,1]]),
-  mk("ph-dvorcaro","2026-10-22T21:15","DVorcaro FC",1,2,
-    [[1,2],[9,6],[11,33],[64,67],[90,77],[0,2],[5,2],[38,11],null,[1,0],[6.5,8]],
+  mk("340404","2026-10-22T21:44","DVorcaro FC",1,2,
+    [[1,2],[9,6],[11,33],[64,67],[90,77],[0,2],[5,2],[38,11],[0,0],[1,0],[6.5,8]],
     [["REIS2703","M",8.3,0,0,0,18,2,1],["Habutrers","F",7.8,1,0,3,26,2],["LEOzin117","F",6.7,0,0,6,20,1],["alice_farias09","M",3,0,0,0,0,0]],
-    [["cJoohnn","M",8.1,0,0,1,22,1],["cimentudo13","M",8,1,1,3,28,0],["vitor_wv","F",8,1,1,2,17,1]]),
-  /* As 3 partidas abaixo vieram do ProClubsHead (o tracker estava fora do ar): horários aproximados, sem defesas e sem ID do jogo. */
-  mk("ph-chorumadores","2026-10-21T23:34","CHORUMADORES",4,2,
-    [[4,2],[7,4],[57,50],[77,91],[77,73],[3,2],[8,4],[33,20],null,[0,0],[8.1,6.9]],
+    [["cJoohnn","M",8.1,0,0,1,22,1],["vitor_wv","F",8,1,1,2,17,1],["cimentudo13","M",8,1,1,3,28,0]]),
+  mk("540246","2026-10-21T23:28","CHORUMADORES",4,2,
+    [[4,2],[7,4],[57,50],[77,91],[77,73],[3,2],[8,4],[33,20],[0,0],[0,0],[8.1,6.9]],
     [["Habutrers","F",9.5,2,1,2,20,2,1],["Beica97","F",9,2,1,4,9,0],["ViboxBeats","M",8.6,0,0,0,16,2],["Maneel444","D",7.4,0,0,0,12,1],["LEOzin117","D",7.3,0,0,1,6,3],["alice_farias09","M",7,0,1,0,14,0]],
     [["mulirufbpa","M",8,1,0,1,17,2],["luucazz2_","F",7.5,1,1,1,9,0],["Chess_19033","D",7.2,0,0,0,11,0],["leugher","M",6.9,0,0,0,14,1],["Becoluki","M",6.6,0,1,1,16,0],["IamRafaelFoppa","D",6.3,0,0,1,12,0],["Paullo","F",6.1,0,0,0,12,1]]),
-  mk("ph-igrejinha-30","2026-10-21T23:11","Igrejinha FCE",3,0,
-    [[3,0],[9,7],[33,0],[123,40],[84,89],[2,0],[9,0],[47,0],null,[0,0],[8.3,6.6]],
-    [["LEOzin117","D",9.4,0,0,0,20,4,1],["ViboxBeats","M",9.4,0,1,0,21,3],["alice_farias09","M",8.3,1,0,2,33,0],["Beica97","F",8,1,1,3,15,0],["Habutrers","F",7.8,1,0,3,19,2],["Maneel444","D",7.1,0,0,1,15,0]],
+  mk("650262","2026-10-21T23:09","Igrejinha FCE",3,0,
+    [[3,0],[9,7],[33,0],[123,40],[84,89],[2,0],[9,0],[47,0],[0,0],[0,0],[8.3,6.6]],
+    [["ViboxBeats","M",9.4,0,1,0,21,3],["LEOzin117","D",9.4,0,0,0,20,4,1],["alice_farias09","M",8.3,1,0,2,33,0],["Beica97","F",8,1,1,3,15,0],["Habutrers","F",7.8,1,0,3,19,2],["Maneel444","D",7.1,0,0,1,15,0]],
     [["Luaan_Gameplay","F",6.7,0,0,4,24,0],["thiagueiraa","M",6.4,0,0,3,16,0]]),
+  /* ØDD Boys (21/10): vem do ProClubsHead, com horário aproximado e sem defesas (já saiu da lista do tracker). */
   mk("ph-odd-boys","2026-10-21T22:49","ØDD Boys",1,2,
     [[1,2],[4,7],[25,29],[114,82],[83,78],[0,2],[6,2],[33,13],null,[0,0],[7.1,7.2]],
     [["ViboxBeats","M",7.9,0,0,0,20,1,1],["alice_farias09","M",7.4,0,0,1,27,0],["Maneel444","D",7.3,0,0,0,17,0],["Beica97","F",7.1,1,0,2,8,1],["Habutrers","F",6.8,0,0,0,27,4],["LEOzin117","M",6.3,0,0,1,15,0]],

@@ -1,4 +1,4 @@
-/* Fonte dos dados: ProClubsHead (clube 37568, FC 27, gen5). O Pro Clubs Tracker está fora do ar e ficou comentado mais abaixo (config); se ele voltar, é só trocar. Última atualização: 23/10/2026. */
+/* Fonte dos dados: Pro Clubs Tracker (clube 37568, FC 27). Reserva: ProClubsHead, comentado mais abaixo (config). Última atualização: 23/10/2026. */
 const club = {w:86,d:19,l:76,gf:432,ga:387,games:181,sr:1719};
 /* psn: ID do jogador no PlayStation. Vazio = ainda não informado. p vazio = sem posição (nunca jogou).
    img: nome do arquivo da foto dentro de assets/players/ (ex.: img:"habutre.jpg"). Sem img = silhueta padrão. Ideal: retrato vertical, ~400x480.
@@ -32,7 +32,7 @@ const players = [
   /*{n:"z. zAlemao16",p:"CB",o:83,j:3,g:0,a:1,m:0,psn:"z Alemao 16",aka:[]},*/
   /*{n:"Habib",p:"CB",o:75,j:2,g:0,a:0,m:0,psn:"I Didico I",aka:[]},*/
   {n:"lebers",p:"CM",o:72,j:2,g:0,a:0,m:0,psn:"calebe_075",aka:[]},
-  {n:"smokefxz",p:"ST",o:78,j:4,g:1,a:0,m:0,psn:"smokefxz",aka:[]},
+  {n:"Zack",p:"ST",o:78,j:4,g:1,a:0,m:0,psn:"smokefxz",aka:["smokefxz"]},
   {n:"U. Tamano Cross",p:"CM",o:77,j:5,g:0,a:0,m:1,psn:"BugioBaiano",aka:[]},
   {n:"Top Road",p:"CM",o:83,j:4,g:0,a:1,m:0,psn:"ArcoffH",aka:[]},
   /*{n:"RyanFelix055",p:"",o:0,j:0,g:0,a:0,m:0,psn:"RyanFelix055",aka:[]},*/
@@ -42,9 +42,9 @@ const players = [
 ];
 
 /* Configuração do clube. discord: cole aqui o convite (ex.: "https://discord.gg/xxxx"). Vazio = botões de Discord ficam escondidos. */
-/* Fonte dos dados. Ativa: ProClubsHead. Se o Pro Clubs Tracker voltar a funcionar, comente a linha ativa e descomente a do tracker. */
-const config = { discord: "", fonte: "https://proclubshead.com/27/club/gen5/37568/" };
-/* const config = { discord: "", fonte: "https://proclubstracker.com/club/37568?platform=common-gen5&div=5" };   <- Pro Clubs Tracker (fora do ar) */
+/* Fonte dos dados. Ativa: Pro Clubs Tracker (o mais completo: ID e hora exata do jogo, defesas). Se ele cair de novo, comente a linha ativa e descomente a do ProClubsHead (reserva). */
+const config = { discord: "", fonte: "https://proclubstracker.com/club/37568?platform=common-gen5&div=5" };
+/* const config = { discord: "", fonte: "https://proclubshead.com/27/club/gen5/37568/" };   <- ProClubsHead (reserva) */
 
 /* Fotos de fundo opcionais (arquivos dentro de assets/bg/). Vazio = só as cenas desenhadas em código.
    Chaves: hero, jogos, elenco, cta, partidas, videos, amistosos, recrutamento. Ex.: config.photos.hero = "torcida.jpg" */
