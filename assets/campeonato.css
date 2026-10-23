@@ -190,3 +190,16 @@
   .cp-hero-grid{grid-template-columns:minmax(0,1fr)}
 }
 html,body{overflow-x:clip}
+
+/* jogos: o nome do clube nunca passa por cima do placar */
+.cp-vs>.cp-team{max-width:100%}
+.cp-score em{font-style:normal}
+@media(max-width:560px){
+  .cp-vs{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;row-gap:8px;column-gap:12px}
+  .cp-vs>.cp-team{grid-column:1;justify-self:start}
+  .cp-vs>.cp-team.away{grid-row:2;flex-direction:row;justify-self:start}
+  .cp-vs>.cp-score{grid-column:2;grid-row:1/3;display:grid;grid-template-rows:1fr 1fr;align-items:center;justify-items:end;min-width:30px;line-height:1}
+  .cp-score em+i{display:none}
+  .cp-score em{min-height:30px;display:grid;align-items:center}
+  .cp-team b{font-size:14px}
+}

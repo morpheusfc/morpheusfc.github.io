@@ -239,7 +239,7 @@ async function carregaCampeonato() {
 
   const jogoRow = j => { const c = slot(j.casa, j.fase), f = slot(j.fora, j.fase), p = jogou(j);
     return `<div class="cp-match ${p ? "done" : ""}"><div class="cp-when"><b>${quando(j.data)}</b><span>${j.grupo ? `Grupo ${j.grupo} · ${j.rodada}ª rodada` : FASES[j.fase]}</span></div>
-      <div class="cp-vs">${lado(c, "home")}<span class="cp-score">${p ? `${j.gc}<i>x</i>${j.gf}` : "<i>vs</i>"}</span>${lado(f, "away")}</div></div>`; };
+      <div class="cp-vs">${lado(c, "home")}<span class="cp-score">${p ? `<em>${j.gc}</em><i>x</i><em>${j.gf}</em>` : "<i>vs</i>"}</span>${lado(f, "away")}</div></div>`; };
   /* abre na fase em andamento: a primeira que ainda tem jogo por disputar (ou a final) */
   const faseAtual = ["grupos", ...fases].find(f => C.jogos.some(j => j.fase === f && !jogou(j))) || "final";
   const jogosHtml = `
