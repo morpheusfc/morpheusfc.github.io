@@ -1,0 +1,35 @@
+/* ===== Comparar jogadores ===== */
+.cmp-pick{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:end;margin-bottom:26px}
+.cmp-pick label{display:grid;gap:6px;font-size:13px;color:var(--muted)}
+.cmp-pick select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit;font-size:15px}
+.cmp-pick select:focus{outline:2px solid var(--gold);outline-offset:1px}
+.cmp-pick .fbtn{height:46px;width:46px;padding:0;font-size:20px;display:grid;place-items:center}
+.cmp-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:start;margin-bottom:22px}
+.cmp-side{display:grid;gap:10px}
+.cmp-side .card{margin:0}
+.cmp-vs{display:grid;justify-items:center;gap:2px;align-self:center;padding-top:30px}
+.cmp-vs span{font-family:var(--font-display);font-size:44px;font-weight:800;letter-spacing:.08em;color:var(--gold);line-height:1}
+.cmp-vs b{font-family:var(--font-display);font-size:34px;font-weight:800;line-height:1}
+.cmp-vs b i{font-style:normal;color:var(--muted);margin:0 8px;font-size:.7em}
+.cmp-vs small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.cmp-forma{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.cmp-forma span{font-size:12px;color:var(--muted);margin-right:4px}
+.cmp-forma i{font-style:normal;font-family:var(--font-display);font-weight:700;font-size:15px;padding:2px 9px;border-radius:99px;border:1px solid var(--line)}
+.cmp-forma i.alta{color:var(--win);border-color:rgba(61,220,151,.5)}
+.cmp-forma i.media{color:var(--gold);border-color:rgba(233,185,73,.45)}
+.cmp-forma i.baixa{color:var(--loss);border-color:rgba(255,93,108,.5)}
+.cmp-table{padding:10px 22px 16px}
+.cmp-win{text-align:center;font-family:var(--font-display);font-size:22px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);padding:8px 0 12px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.cmp-table .sbar{grid-template-columns:70px 1fr 70px;padding:10px 0;border-top:1px solid rgba(42,42,53,.55)}
+.cmp-table .sbar:first-of-type{border-top:0}
+.cmp-table .sbar>b{font-size:24px}
+@media(max-width:760px){
+  .cmp-pick{grid-template-columns:1fr 1fr}.cmp-pick .fbtn{display:none}
+  .cmp-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .cmp-vs{grid-column:1/-1;grid-row:1;padding:0}
+  .cmp-side .card{padding:14px}
+  .cmp-side .card h3{font-size:22px;margin-top:14px}
+  .cmp-side .mini{gap:2px}.cmp-side .mini b{font-size:17px}.cmp-side .mini span{font-size:9.5px}
+  .cmp-side .ovr{font-size:44px}.cmp-side .photo{width:64px;height:78px}.cmp-side .psn{font-size:11.5px}
+  .cmp-table{padding:8px 14px 12px}.cmp-table .sbar{grid-template-columns:54px 1fr 54px}
+}

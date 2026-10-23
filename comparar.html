@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparar jogadores | Morpheus FC</title>
+<meta name="description" content="Compare dois jogadores do Morpheus FC lado a lado: jogos, gols, assistências, MVP e médias.">
+<link rel="icon" href="assets/escudo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=20261023b">
+<link rel="stylesheet" href="assets/comparar.css?v=20261023b">
+</head>
+<body data-page="comparar">
+<nav id="nav"></nav>
+
+<header class="page-head"><div class="wrap">
+  <div class="eyebrow">O time</div>
+  <h1>Comparar jogadores</h1>
+  <p>Escolha dois jogadores e veja quem leva a melhor em cada número.</p>
+</div></header>
+
+<main class="page-body"><div class="wrap">
+  <div class="cmp-pick">
+    <label>Jogador 1<select id="cmpA"></select></label>
+    <button class="fbtn" id="cmpSwap" type="button" title="Trocar de lado" aria-label="Trocar os jogadores de lado">⇄</button>
+    <label>Jogador 2<select id="cmpB"></select></label>
+  </div>
+  <div id="cmp"></div>
+  <p class="note">Gols, assistências e MVP são os totais do clube. A nota média e a forma vêm das partidas guardadas no site.</p>
+</div></main>
+
+<footer id="footer"></footer>
+<script src="assets/data.js?v=20261023b"></script>
+<script src="assets/matches.js?v=20261023b"></script>
+<script src="assets/app.js?v=20261023b"></script>
+<script src="assets/comparar.js?v=20261023b"></script>
+</body>
+</html>
