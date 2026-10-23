@@ -7,35 +7,50 @@
      jogos  : fase = "grupos" | "quartas" | "semis" | "final". casa/fora = id do time, ou vaga ("1A" = 1º do grupo A, "V1" = vencedor do jogo 1 da fase anterior).
               gc / gf = gols de casa / de fora (null = ainda não jogou). */
 const campeonato = (() => {
-  const estado = new URLSearchParams(location.search).get("estado") === "inscricoes" ? "inscricoes" : "andamento";   /* só na prévia: ?estado=inscricoes */
-  const base = new Date(); base.setHours(20, 0, 0, 0); base.setDate(base.getDate() + (estado === "inscricoes" ? 10 : -4));
+  const qp = new URLSearchParams(location.search), pedido = qp.get("estado");   /* só na prévia: ?demo=1&estado=inscricoes|andamento|encerrado&n=8|16 */
+  const estado = pedido === "inscricoes" || pedido === "encerrado" ? pedido : "andamento";
+  const N = qp.get("n") === "8" ? 8 : 16, G = N / 4;   /* G grupos de 4 */
+  const base = new Date(); base.setHours(20, 0, 0, 0); base.setDate(base.getDate() + (estado === "inscricoes" ? 10 : estado === "encerrado" ? -34 : -4));
   const nomes = ["Falcões FC","Dragões do Norte","Real Várzea","Lobos da Vila","Tubarões United","Fênix SC","Titãs FC","Atlético Tropeiro",
                  "Cobras de Aço","Gigantes da Serra","Pantera Negra FC","Furacão Azul","Guerreiros FC","Leões do Sul","Corsários FC","Viking Pro"];
+  const nomes8 = ["Morpheus FC","CHORUMADORES","1N1M1GO5","Mo Paz Slk FC","Adrena FC","DVorcaro FC","Igrejinha FCE","Rio de Bosta"];
   const plat = ["PlayStation","Xbox","PC"];
-  const todosTimes = nomes.map((nome, i) => ({ id: i + 1, nome, plataforma: plat[i % 3], clubId: String(100100 + i * 37), grupo: "ABCD"[Math.floor(i / 4)] }));
+  const todosTimes = (N === 8 ? nomes8 : nomes).map((nome, i) => ({ id: i + 1, nome, plataforma: plat[i % 3], clubId: String(100100 + i * 37), grupo: "ABCD"[Math.floor(i / 4)] }));
   const rnd = s => { const x = Math.sin(s * 9301.7) * 10000; return x - Math.floor(x); };
   const dia = (o, h) => { const d = new Date(base); d.setDate(d.getDate() + o); d.setHours(h, 0, 0, 0); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}T${String(h).padStart(2, "0")}:00`; };
   const jogos = []; let id = 1;
   const rodadas = [[[0, 1], [2, 3]], [[0, 2], [1, 3]], [[0, 3], [1, 2]]];
-  rodadas.forEach((par, r) => "ABCD".split("").forEach((g, gi) => par.forEach(([a, b], k) => {
+  rodadas.forEach((par, r) => "ABCD".slice(0, G).split("").forEach((g, gi) => par.forEach(([a, b], k) => {
     const t = todosTimes.filter(x => x.grupo === g);
-    const jogado = estado === "andamento" && r < 2;
+    const jogado = estado === "encerrado" || (estado === "andamento" && r < 2);
     jogos.push({ id: id++, fase: "grupos", grupo: g, rodada: r + 1, data: dia(r * 2 + (gi > 1 ? 1 : 0), 20 + k), casa: t[a].id, fora: t[b].id,
       gc: jogado ? Math.floor(rnd(id) * 5) : null, gf: jogado ? Math.floor(rnd(id + 50) * 4) : null });
   })));
-  const mata = [["quartas", ["1A", "2B"], dia(7, 20)], ["quartas", ["1C", "2D"], dia(7, 21)], ["quartas", ["1B", "2A"], dia(8, 20)], ["quartas", ["1D", "2C"], dia(8, 21)],
-                ["semis", ["V1", "V2"], dia(14, 20)], ["semis", ["V3", "V4"], dia(14, 21)], ["final", ["V1", "V2"], dia(21, 20)]];
-  mata.forEach(([fase, [c, f], data]) => jogos.push({ id: id++, fase, data, casa: c, fora: f, gc: null, gf: null }));
-  const times = estado === "inscricoes" ? todosTimes.slice(0, 12).map(t => ({ ...t, grupo: null })) : todosTimes;
+  const mata = N === 8
+    ? [["semis", ["1A", "2B"], dia(7, 20)], ["semis", ["1B", "2A"], dia(7, 21)], ["final", ["V1", "V2"], dia(14, 20)]]
+    : [["quartas", ["1A", "2B"], dia(7, 20)], ["quartas", ["1C", "2D"], dia(7, 21)], ["quartas", ["1B", "2A"], dia(8, 20)], ["quartas", ["1D", "2C"], dia(8, 21)],
+       ["semis", ["V1", "V2"], dia(14, 20)], ["semis", ["V3", "V4"], dia(14, 21)], ["final", ["V1", "V2"], dia(21, 20)]];
+  /* no mata-mata não há empate: no estado "encerrado" todos os jogos têm vencedor */
+  const placar = k => { const a = 1 + Math.floor(rnd(k * 7) * 3), b = Math.floor(rnd(k * 13) * 3); return a === b ? [a + 1, b] : rnd(k) > .5 ? [a, b] : [b, a]; };
+  mata.forEach(([fase, [c, f], data]) => { const [gc, gf] = estado === "encerrado" ? placar(id) : [null, null]; jogos.push({ id: id++, fase, data, casa: c, fora: f, gc, gf }); });
+  const times = estado === "inscricoes" ? todosTimes.slice(0, Math.round(N * .75)).map(t => ({ ...t, grupo: null })) : todosTimes;
   const jogadores = [];
-  if (estado === "andamento") times.forEach((t, i) => ["a", "b"].forEach((s, k) => jogadores.push({
+  if (estado !== "inscricoes") times.forEach((t, i) => ["a", "b"].forEach((s, k) => jogadores.push({
     psn: ["Craque", "Maestro", "Matador", "Muralha", "Driblador", "Foguete", "Tanque", "Mago"][(i + k * 3) % 8] + String(10 + i * 3 + k), time: t.id,
     j: 2, g: Math.floor(rnd(i * 7 + k) * 5), a: Math.floor(rnd(i * 5 + k + 90) * 4), m: Math.floor(rnd(i * 3 + k + 40) * 2) })));
-  if (estado === "andamento") times.forEach((t, i) => jogadores.push({ psn: ["Paredao", "Gato", "Muralha", "Luvas", "Trave", "Pegador"][i % 6] + String(1 + i), time: t.id, pos: "G", j: 2, g: 0, a: 0, m: 0, def: 4 + Math.floor(rnd(i * 11 + 5) * 12), gs: Math.floor(rnd(i * 13 + 8) * 6) }));
+  if (estado !== "inscricoes") times.forEach((t, i) => jogadores.push({ psn: ["Paredao", "Gato", "Muralha", "Luvas", "Trave", "Pegador"][i % 6] + String(1 + i), time: t.id, pos: "G", j: 2, g: 0, a: 0, m: 0, def: 4 + Math.floor(rnd(i * 11 + 5) * 12), gs: Math.floor(rnd(i * 13 + 8) * 6) }));
+  /* estatísticas de exemplo sem empates no topo (para os prêmios mostrarem um nome só) */
+  const rank = (campo, topo, off) => jogadores.filter(p => p.pos !== "G").sort((a, b) => rnd(a.time * 7 + a.psn.length + off) - rnd(b.time * 7 + b.psn.length + off) || a.psn.localeCompare(b.psn))
+    .forEach((p, r) => { p[campo] = Math.max(0, topo - r); });
+  if (estado !== "inscricoes") {
+    rank("g", estado === "encerrado" ? 12 : 5, 1); rank("a", estado === "encerrado" ? 9 : 4, 2); rank("m", estado === "encerrado" ? 5 : 2, 3);
+    jogadores.filter(p => p.pos === "G").forEach((p, i) => { p.def = 18 + (i * 7) % 11 + (estado === "encerrado" ? 20 : 0); p.gs = 2 + (i * 5) % 6; });
+    if (estado === "encerrado") jogadores.forEach(p => { p.j = 4 + Math.floor(rnd(p.psn.length + p.time) * 3); });
+  }
   return {
     demo: true,
-    nome: "Copa Morpheus", edicao: "1ª Edição", slogan: "16 clubes. Um troféu. Só um campeão.",
-    status: estado, numTimes: 16, porGrupo: 4, classificam: 2,
+    nome: "Copa Morpheus", edicao: "1ª Edição", slogan: `${N} clubes. Um troféu. Só um campeão.`,
+    status: estado, numTimes: N, porGrupo: 4, classificam: 2,
     inicio: dia(0, 20),
     plataformas: "PlayStation, Xbox e PC",
     /* Fotos de fundo de cada parte (arquivos dentro de assets/bg/). Vazio = só o visual padrão. Tamanho ideal: 1920 x 900 px, JPG, até 250 KB. */
@@ -99,7 +114,7 @@ async function carregaCampeonato() {
       <div class="cp-hero-art"><svg class="cp-trophy" viewBox="0 0 120 140" aria-hidden="true"><defs><linearGradient id="cpg0" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbe7a6"/><stop offset=".5" stop-color="#e9b949"/><stop offset="1" stop-color="#a97a16"/></linearGradient></defs><path d="M30 14h60v34c0 22-13 38-30 42-17-4-30-20-30-42z" fill="url(#cpg0)"/><path d="M30 22H12c0 22 8 36 24 40M90 22h18c0 22-8 36-24 40" fill="none" stroke="url(#cpg0)" stroke-width="7" stroke-linecap="round"/><rect x="54" y="88" width="12" height="24" fill="url(#cpg0)"/><path d="M34 112h52l8 20H26z" fill="url(#cpg0)"/></svg></div></div></div></header>`;
     return;
   }
-  C.fotos = Object.assign({}, typeof campeonatoFotos !== "undefined" ? campeonatoFotos : {}, C.fotos || {});
+  C.fotos = Object.assign({}, typeof campeonatoFotos !== "undefined" ? campeonatoFotos : {}, Object.fromEntries(Object.entries(C.fotos || {}).filter(([, v]) => v)));
   const byId = Object.fromEntries(C.times.map(t => [t.id, t]));
   /* Resultados do arquivo campeonato-dados.js (preenchido quando se pede "atualizar campeonato"): só completam o que o painel ainda não tem. */
   const norm = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
@@ -195,7 +210,7 @@ async function carregaCampeonato() {
         <p class="cp-slogan">${esc(C.slogan)}</p>
         <div class="cp-count" id="cpCount" aria-live="off"></div>
       </div>
-      <div class="cp-hero-art">${campeao ? `<div class="cp-champ-mini">${TROFEU}<span>Campeão</span>${escudo(campeao, "lg")}<b>${esc(campeao.nome)}</b></div>` : (C.fotos && C.fotos.hero ? "" : TROFEU)}</div>
+      <div class="cp-hero-art">${campeao && !(C.fotos && C.fotos.hero) ? `<div class="cp-champ-mini">${TROFEU}<span>Campeão</span>${escudo(campeao, "lg")}<b>${esc(campeao.nome)}</b></div>` : (C.fotos && C.fotos.hero ? "" : TROFEU)}</div>
     </div>
     <div class="cp-numbers">
       <div><b>${C.numTimes}</b><span>clubes</span></div>
@@ -293,7 +308,7 @@ async function carregaCampeonato() {
     const item = x => g.tipo === "t"
       ? `<span class="cp-wl">${escudo(x, "sm")}<span><b>${esc(x.nome)}</b></span></span>`
       : `<span class="cp-wl">${escudo(byId[x.time], "sm")}<span><b>${esc(x.psn)}</b><small>${esc(byId[x.time].nome)}</small></span></span>`;
-    return `<div class="cp-winner${feito ? " done" : ""}">${rot ? `<em>${rot}</em>` : ""}${g.lista.map(item).join("")}${g.nota ? `<i>${esc(g.nota)}</i>` : ""}</div>`;
+    return `<div class="cp-winner${feito ? " done" : ""}">${rot ? `<em>${rot}</em>` : ""}${g.lista.slice(0, 3).map(item).join("")}${g.lista.length > 3 ? `<small class="cp-more">e mais ${g.lista.length - 3} empatados</small>` : ""}${g.nota ? `<i>${esc(g.nota)}</i>` : ""}</div>`;
   };
   const exemplo = campeao || C.times[0];
   const premiacao = `
@@ -327,7 +342,7 @@ async function carregaCampeonato() {
   const tick = () => {
     if (isNaN(alvo)) { cont.hidden = true; return false; }
     const ms = alvo - Date.now();
-    if (ms <= 0) { cont.innerHTML = `<div class="cp-live">${campeao ? "Campeonato encerrado" : "A bola já está rolando"}</div>`; return false; }
+    if (ms <= 0) { cont.innerHTML = campeao ? `<div class="cp-champ-line">${escudo(campeao, "sm")}<span>Campeão</span><b>${esc(campeao.nome)}</b></div>` : `<div class="cp-live">A bola já está rolando</div>`; return false; }
     const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60, s = Math.floor(ms / 1e3) % 60;
     cont.innerHTML = [[d, "dias"], [h, "horas"], [m, "min"], [s, "seg"]].map(([v, l]) => `<div><b>${pad(v)}</b><span>${l}</span></div>`).join("");
     return true;
