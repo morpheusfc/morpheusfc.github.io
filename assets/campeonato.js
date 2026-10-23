@@ -110,8 +110,7 @@ async function carregaCampeonato() {
   if (!C) {
     const fotoEmBreve = typeof campeonatoFotos !== "undefined" && campeonatoFotos.hero ? `<div class="cp-bg cp-bg-hero" style="background-image:url('${media("bg", campeonatoFotos.hero)}')" aria-hidden="true"></div>` : "";
     root.innerHTML = `<header class="cp-hero">${fotoEmBreve}<div class="wrap"><div class="cp-hero-grid"><div><span class="cp-badge open"><i></i>Em breve</span>
-      <div class="eyebrow">Morpheus FC</div><h1>Campeonato</h1><p class="cp-slogan">Estamos preparando o primeiro campeonato do Morpheus. Em breve, as inscrições e a tabela aparecem aqui.</p></div>
-      <div class="cp-hero-art"><svg class="cp-trophy" viewBox="0 0 120 140" aria-hidden="true"><defs><linearGradient id="cpg0" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbe7a6"/><stop offset=".5" stop-color="#e9b949"/><stop offset="1" stop-color="#a97a16"/></linearGradient></defs><path d="M30 14h60v34c0 22-13 38-30 42-17-4-30-20-30-42z" fill="url(#cpg0)"/><path d="M30 22H12c0 22 8 36 24 40M90 22h18c0 22-8 36-24 40" fill="none" stroke="url(#cpg0)" stroke-width="7" stroke-linecap="round"/><rect x="54" y="88" width="12" height="24" fill="url(#cpg0)"/><path d="M34 112h52l8 20H26z" fill="url(#cpg0)"/></svg></div></div></div></header>`;
+      <div class="eyebrow">Morpheus FC</div><h1>Campeonato</h1><p class="cp-slogan">Em breve, as inscrições e a tabela do próximo campeonato aparecem aqui.</p></div></div></div></header>`;
     return;
   }
   C.fotos = Object.assign({}, typeof campeonatoFotos !== "undefined" ? campeonatoFotos : {}, Object.fromEntries(Object.entries(C.fotos || {}).filter(([, v]) => v)));
