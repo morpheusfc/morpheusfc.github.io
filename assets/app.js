@@ -3,14 +3,15 @@ const $ = s => document.querySelector(s);
 const page = document.body.dataset.page;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 /* Formatação do texto das matérias (escapa o HTML primeiro, depois aplica a marcação):
-   **negrito**  *itálico*  ++sublinhado++  {ouro|texto} {verde|texto} {vermelho|texto} {violeta|texto}  [texto](https://link) */
+   **negrito**  *itálico*  ++sublinhado++  {ouro|texto} {verde|texto} {vermelho|texto} {violeta|texto}  [texto](https://link)  quebra de linha: \n dentro do texto */
 const fmt = s => esc(s)
   .replace(/\{(ouro|verde|vermelho|violeta)\|([^{}]+?)\}/g, '<span class="c-$1">$2</span>')
   .replace(/\*\*\*(.+?)\*\*\*/g, "<strong><em>$1</em></strong>")
   .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
   .replace(/(^|[^*])\*([^*\s](?:[^*]*[^*\s])?)\*(?!\*)/g, "$1<em>$2</em>")
   .replace(/\+\+(.+?)\+\+/g, "<u>$1</u>")
-  .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+  .replace(/\n/g, "<br>");
 /* Foto ou vídeo: nome de arquivo (pasta assets/<tipo>/) ou endereço completo (nuvem). */
 /* ASSET_V: mude o numero quando trocar uma imagem/video mantendo o mesmo nome de arquivo (forca o navegador a baixar de novo) */
 const ASSET_V = "12";

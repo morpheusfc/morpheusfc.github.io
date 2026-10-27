@@ -11,7 +11,7 @@
       const img = chunk.match(/^!\[(.*?)\]\((.+?)\)$/s);
       if (img) return {img: img[2], caption: img[1]};
       if (chunk.startsWith("## ")) return {h: chunk.slice(3).trim()};
-      return chunk.replace(/\n/g, " ");
+      return chunk.replace(/[ \t]*\r?\n[ \t]*/g, "\n");   /* quebra de linha dentro do parágrafo vira <br> (feito pelo fmt) */
     });
   };
 

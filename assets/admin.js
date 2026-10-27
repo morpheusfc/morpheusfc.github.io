@@ -214,7 +214,7 @@
         const im = c.match(/^!\[(.*?)\]\((.+?)\)$/s);
         if (im) return `<figure><img src="${esc(mu("news", im[2]))}" alt="" onload="this.parentNode.classList.toggle('tall',this.naturalHeight>this.naturalWidth)">${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`;
         if (c.startsWith("## ")) return `<h3>${esc(c.slice(3))}</h3>`;
-        return `<p>${fmt(c.replace(/\n/g, " "))}</p>`;
+        return `<p>${fmt(c.replace(/[ \t]*\r?\n[ \t]*/g, "\n"))}</p>`;
       }).join("");
       q("#prev").innerHTML = html || `<p class="adm-help">Nada para mostrar ainda.</p>`;
     };

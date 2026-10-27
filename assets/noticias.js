@@ -18,7 +18,7 @@ const noticias = [
       {h:"A virada que começou no vestiário"},
       "Depois de duas derrotas apertadas, o time resolveu que o amistoso era amigável, mas não tanto. No terceiro jogo,  **Beiça** e **Leo** marcam, levando o time ao triunfo. No quarto, foi a vez do **Habutre**: hat-trick. Para fechar a conta, o Beiça ainda marcou mais um.",
       {h:"Os números da noite"},
-      "**Beiça:** 7 gols. **Habutre:** 3 gols e 4 assistências. **Leo:** 3 gols e 2 assistências. **Saul:** 4 assistências, uma por jogo, um relógio suíço de passe. Com isso, o trio de ataque respondeu por todos os 13 gols do Morpheus.",
+      "**Beiça:** 7 gols.\n**Habutre:** 3 gols e 4 assistências.\n**Leo:** 3 gols e 2 assistências.\n**Saul:** 4 assistências, uma por jogo, um relógio suíço de passe.\n\nCom isso, o trio de ataque respondeu por todos os 13 gols do Morpheus.",
       "O **JoaoPlay610** também teve a sua noite. Escalado no gol em três jogos, fez 15 defesas.",
       "Na bola parada de números, o Morpheus teve 388 passes certos contra 342 do adversário, e 33 finalizações contra 35. Equilíbrio tão grande que nem a bola sabia para qual lado torcer.",
       {h:"Do outro lado"},
