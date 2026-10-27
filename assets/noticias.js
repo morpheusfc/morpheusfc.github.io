@@ -8,6 +8,26 @@
    Fotos ficam na pasta assets/news/. */
 const noticias = [
   {
+    id:"amistoso-barba-ovo", cover:"amistoso01.jpg", kicker:"Amistoso", title:"Abertura da temporada de amistosos: Morpheus e BARBA OVO FC fazem quatro jogos!",
+    date:"2026-10-27", author:"Redação Morpheus",
+    summary:"Primeiros amistosos da temporada teve quatro partidas contra o BARBA OVO FC, duas vitórias. O M-News explica por que ninguém saiu perdendo.",
+    body:[
+      "Segunda-feira, 26 de outubro de 2026. Se o objetivo era abrir a temporada de amistosos com o pé direito (e o esquerdo, e um pouco de cada), missão cumprida. O Morpheus FC enfrentou o **BARBA OVO FC** em quatro partidas seguidas.",
+      {h:"O placar, na ordem em que aconteceu"},
+      "**1º jogo:** Morpheus 2 x 3 BARBA OVO. **2º jogo:** Morpheus 3 x 4 BARBA OVO. **3º jogo:** Morpheus 4 x 2 BARBA OVO. **4º jogo:** Morpheus 4 x 2 BARBA OVO. Saldo da noite: duas derrotas, duas vitórias, 13 gols marcados e 11 sofridos. Ou seja, o Morpheus perdeu os dois primeiros por um gol e venceu os dois últimos por dois. Os especialistas do News (a redação inteira, de novo) chamam isso de aquecimento com carga progressiva.",
+      {h:"A virada que começou no vestiário"},
+      "Depois de duas derrotas apertadas, o time resolveu que o amistoso era amigável, mas não tanto. No terceiro jogo,  **Beiça** e **Leo** marcam, levando o time ao triunfo. No quarto, foi a vez do **Habutre**: hat-trick. Para fechar a conta, o Beiça ainda marcou mais um.",
+      {h:"Os números da noite"},
+      "**Beiça:** 7 gols. **Habutre:** 3 gols e 4 assistências. **Leo:** 3 gols e 2 assistências. **Saul:** 4 assistências, uma por jogo, um relógio suíço de passe. Com isso, o trio de ataque respondeu por todos os 13 gols do Morpheus.",
+      "O **JoaoPlay610** também teve a sua noite. Escalado no gol em três jogos, fez 15 defesas.",
+      "Na bola parada de números, o Morpheus teve 388 passes certos contra 342 do adversário, e 33 finalizações contra 35. Equilíbrio tão grande que nem a bola sabia para qual lado torcer.",
+      {h:"Do outro lado"},
+      "O BARBA OVO FC fez jus à fama de adversário respeitável. **Danxx6197** e **SAYMON-THE** apareceram bem, o **x-baladegoma89br** foi o melhor da casa no primeiro jogo, e o time inteiro encarou quatro partidas sem pedir intervalo. Para amistosos de abertura, não tem o que reclamar.",
+      {h:"E agora?"},
+      "Temporada de amistosos aberta, o Morpheus já tem um adversário amigo para reencontrar quando der e uma lição aprendida: começar perdendo não é problema, desde que o ataque esteja com a noite de gala. O M-News segue no acompanhamento e promete atualizar a tabela assim que o próximo convite chegar. Até lá, bola pra frente. E controle carregado.",
+    ]
+  },
+  {
     id:"volta-a-rotina", kicker:"Bastidores", title:"Fim do recesso: Morpheus volta à rotina e garante que ninguém esqueceu como se joga",
     date:"2026-10-19", author:"Redação Morpheus",
     summary:"Depois de um fim de semana sem jogos e sem treino, o clube retorna hoje à rotina. O News fez o balanço do descanso: zero jogos, zero gols sofridos e muito controle na gaveta.",
