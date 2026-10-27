@@ -33,3 +33,5 @@
   .cmp-side .ovr{font-size:44px}.cmp-side .photo{width:64px;height:78px}.cmp-side .psn{font-size:11.5px}
   .cmp-table{padding:8px 14px 12px}.cmp-table .sbar{grid-template-columns:54px 1fr 54px}
 }
+.page-body .note a{color:var(--gold);font-weight:600}
+.page-body .note a:hover{text-decoration:underline}
