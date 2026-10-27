@@ -23,7 +23,7 @@ const curPsn = n => (typeof config !== "undefined" && config.apelidos && config.
 const matchName = (p, q) => [p.n, p.psn, ...(p.aka || [])].some(s => String(s || "").toLowerCase().includes(q));
 
 /* ---------- Nav e rodapé ---------- */
-const PAGES = [["index.html","inicio","Início"],["elenco.html","elenco","Elenco"],["partidas.html","partidas","Partidas"],["amistosos.html","amistosos","Amistosos"],["videos.html","videos","Vídeos"],["noticias.html","noticias","News"],["recrutamento.html","recrutamento","Recrutamento"]];
+const PAGES = [["index.html","inicio","Início"],["elenco.html","elenco","Elenco"],["partidas.html","partidas","Partidas"],["amistosos.html","amistosos","Amistosos"],["clubes.html","clubes","Clubes"],["videos.html","videos","Vídeos"],["noticias.html","noticias","News"],["recrutamento.html","recrutamento","Recrutamento"]];
 $("#nav").innerHTML = `
   <div class="wrap">
     <a href="index.html" class="brand"><img src="assets/escudo.jpg" alt="Escudo do Morpheus FC">Morpheus FC</a>
