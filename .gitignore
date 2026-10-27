@@ -1,6 +1,7 @@
 ﻿# Arquivos que NÃO sobem para o GitHub
 _backup/
 supabase-*.sql
+supabase-*.ts
 .claude/
 desktop.ini
 Thumbs.db
