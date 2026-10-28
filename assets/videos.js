@@ -15,6 +15,9 @@
      {id:"golaco-beica", title:"Golaço do Beica97", type:"lance", date:"2026-10-13", src:"youtube:dQw4w9WgXcQ", desc:"Final de 5 a 1", match:"100102"}
 */
 const videos = [
+  {id:"gols-perdidos", title:"Gols perdidos!!", type:"lance", date:"2026-10-28",
+   src:"file:gols-perdidos.mp4", thumb:"gols-perdidos-capa.jpg",
+   desc:"Inacreditável Futebol Clube!!!", match:""},
   {id:"defesas-do-goleiro", title:"Paredão: as defesas do goleiro em câmera lenta", type:"lance", date:"2026-10-20",
    src:"file:defesas-do-goleiro.mp4", thumb:"defesas-do-goleiro-capa.jpg",
    desc:"Cinco defesas do goleiro do Morpheus, cada uma com replay em câmera lenta e zoom, como na TV.", match:""},
