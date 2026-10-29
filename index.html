@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20261029h">
+<link rel="stylesheet" href="assets/style.css?v=20261029j">
 </head>
 <body data-page="inicio">
 <nav id="nav"></nav>
@@ -25,7 +25,7 @@
         <a href="#" class="btn btn-ghost" data-discord>Entrar no Discord</a>
       </div>
     </div>
-    <div class="crest"><img src="assets/escudo.jpg" alt="Escudo do Morpheus FC: capacete espartano dourado"></div>
+    <div class="crest vid"><img src="assets/escudo.jpg" alt="Escudo do Morpheus FC: capacete espartano dourado"><video src="assets/escudo-video.mp4" muted playsinline preload="auto" aria-hidden="true"></video></div>
   </div>
 </header>
 
@@ -71,9 +71,18 @@
 </section>
 
 <footer id="footer"></footer>
-<script src="assets/data.js?v=20261029h"></script>
-<script src="assets/matches.js?v=20261029h"></script>
-<script src="assets/app.js?v=20261029h"></script>
-<script src="assets/scenes.js?v=20261029h"></script>
+<script src="assets/data.js?v=20261029j"></script>
+<script src="assets/matches.js?v=20261029j"></script>
+<script src="assets/app.js?v=20261029j"></script>
+<script src="assets/scenes.js?v=20261029j"></script>
+<script>
+(function(){var c=document.querySelector(".crest"),v=c&&c.querySelector("video");if(!v)return;
+function fim(){c.classList.remove("vid")}
+if(window.matchMedia("(prefers-reduced-motion:reduce)").matches){fim();return}
+v.addEventListener("timeupdate",function(){if(v.duration&&v.currentTime>=v.duration-1.6)fim()});
+v.addEventListener("ended",fim);v.addEventListener("error",fim);
+var p=v.play();if(p&&p.catch)p.catch(fim);
+})();
+</script>
 </body>
 </html>
