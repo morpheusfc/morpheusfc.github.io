@@ -53,7 +53,9 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .hero p.lead{font-size:18px;color:#cfccd8;max-width:46ch;margin-bottom:30px}
 .cta{display:flex;flex-wrap:wrap;gap:12px}
 .crest{position:relative;justify-self:center;width:min(440px,100%)}
-.crest img{width:100%;display:block;-webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);filter:drop-shadow(0 0 60px rgba(233,185,73,.25))}
+.crest img,.crest video{width:100%;display:block;-webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);filter:drop-shadow(0 0 60px rgba(233,185,73,.25))}
+.crest .crest-fim{position:absolute;inset:0;height:100%;opacity:0;transform:scale(.955);transition:opacity 1.6s ease-in-out,transform 1.6s ease-in-out}
+.crest.fim .crest-fim{opacity:1;transform:none}
 
 /* STATS */
 .stats{padding:0;margin-top:-28px;position:relative;z-index:2}
@@ -127,7 +129,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   .stat:last-child{grid-column:1/-1;border-bottom:0}
   section{padding:60px 0}
 }
-@media (prefers-reduced-motion:reduce){.crest img{animation:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.crest img,.crest video{animation:none}html{scroll-behavior:auto}}
 
 /* ===== Fase 2: páginas internas ===== */
 .links a.active{color:var(--gold)}
