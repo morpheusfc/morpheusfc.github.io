@@ -1,20 +1,20 @@
-/* Fonte dos dados: Pro Clubs Tracker (clube 37568, FC 27). Reserva: ProClubsHead, comentado mais abaixo (config). Última atualização: 28/10/2026. */
-const club = {w:102,d:23,l:86,gf:511,ga:452,games:211,sr:1843};
+/* Fonte dos dados: Pro Clubs Tracker (clube 37568, FC 27). Reserva: ProClubsHead, comentado mais abaixo (config). Última atualização: 30/10/2026. */
+const club = {w:104,d:26,l:88,gf:526,ga:468,games:218,sr:1827};
 /* psn: ID do jogador no PlayStation. Vazio = ainda não informado. p vazio = sem posição (nunca jogou).
    img: nome do arquivo da foto dentro de assets/players/ (ex.: img:"habutre.jpg"). Sem img = silhueta padrão. Ideal: retrato vertical, ~400x480.
    aka: nomes ANTIGOS do jogador (ex.: aka:["Kakashi"]). Quando alguém troca de nome no jogo, o nome novo vira o "n" e o antigo vai para cá:
         assim a atualização com o tracker junta tudo no mesmo card (foto, PSN, histórico) e a busca do Elenco acha pelos dois nomes. */
 /* Jogadores entre comentários (linhas começando com barra e asterisco) saíram do time ou não jogam há dias: ficam fora do site. Para voltar, tire o comentário da linha. A atualização com o tracker não os traz de volta. */
 const players = [
-  {n:"Leo",p:"ST",o:82,j:177,g:40,a:29,m:5,psn:"LEOzin117",img:"leo.jpeg",aka:[]},
-  {n:"Habutre",p:"ST",o:85,j:171,g:114,a:76,m:18,psn:"Habutrers",img:"Habutre.jpeg",aka:[]},
-  {n:"Beiça",p:"ST",o:85,j:167,g:171,a:74,m:23,psn:"Beica97",img:"will.jpg",aka:["Bll4ck"]},
-  {n:"Vibox Beats",p:"CM",o:81,j:130,g:8,a:14,m:21,psn:"ViboxBeats",img:"vibox.jpeg",aka:[]},
+  {n:"Leo",p:"ST",o:88,j:184,g:44,a:30,m:5,psn:"LEOzin117",img:"leo.jpeg",aka:[]},
+  {n:"Habutre",p:"ST",o:86,j:178,g:119,a:78,m:19,psn:"Habutrers",img:"Habutre.jpeg",aka:[]},
+  {n:"Beiça",p:"ST",o:85,j:174,g:176,a:77,m:23,psn:"Beica97",img:"will.jpg",aka:["Bll4ck"]},
+  {n:"Vibox Beats",p:"CM",o:85,j:131,g:8,a:14,m:21,psn:"ViboxBeats",img:"vibox.jpeg",aka:[]},
   {n:"dtb",p:"ST",o:82,j:76,g:42,a:23,m:6,psn:"dtb_mvp",aka:[]},
-  {n:"TIAO",p:"CB",o:79,j:77,g:5,a:7,m:2,psn:"Trclokko_01",aka:[]},
+  {n:"TIAO",p:"CB",o:78,j:81,g:5,a:8,m:2,psn:"Trclokko_01",aka:[]},
   {n:"LZ",p:"CB",o:85,j:68,g:4,a:2,m:6,psn:"LuizzCrazy",img:"luiz.jpeg",aka:[]},
-  {n:"Saul",p:"CM",o:82,j:92,g:28,a:63,m:2,psn:"alice_farias09",img:"saul.jpeg",aka:[]},
-  {n:"Pastor",p:"CB",o:86,j:88,g:5,a:12,m:7,psn:"Maneel444",img:"pastor.jpeg",aka:[]},
+  {n:"Saul",p:"CM",o:82,j:99,g:29,a:66,m:2,psn:"alice_farias09",img:"saul.jpeg",aka:[]},
+  {n:"Pastor",p:"CB",o:81,j:90,g:5,a:12,m:7,psn:"Maneel444",img:"pastor.jpeg",aka:[]},
   /*{n:"Kakashi",p:"ST",o:74,j:48,g:10,a:27,m:4,psn:"",aka:[]},*/
   {n:"G. Arrascaeta",p:"CB",o:83,j:44,g:15,a:33,m:7,psn:"King_Arthur_atbs",aka:[]},
   /*{n:"Pedrim",p:"ST",o:82,j:14,g:11,a:9,m:3,psn:"Pedrim_el_mago"},*/
@@ -37,6 +37,7 @@ const players = [
   {n:"Top Road",p:"CM",o:82,j:8,g:1,a:3,m:0,psn:"ArcoffH",aka:[]},
   {n:"Bruxa",p:"ST",o:82,j:5,g:2,a:1,m:0,psn:"KALLEN_COUTINHO",aka:[]},
   {n:"Rukawa",p:"CM",o:78,j:2,g:0,a:0,m:0,psn:"oiRukawa",aka:[]},
+  {n:"Landão",p:"CB",o:77,j:5,g:0,a:0,m:1,psn:"Landao_da_massa",aka:[]},
   /*{n:"RyanFelix055",p:"",o:0,j:0,g:0,a:0,m:0,psn:"RyanFelix055",aka:[]},*/
   /*{n:"ERL7ON",p:"",o:0,j:0,g:0,a:0,m:0,psn:"ERL7ON",aka:[]},*/
   /*{n:"TeTex-_-",p:"",o:0,j:0,g:0,a:0,m:0,psn:"TeTex-_-",aka:[]},*/
