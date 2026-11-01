@@ -80,4 +80,4 @@ config.apelidos = {};
 
 /* Capas locais por matéria: use quando uma matéria do painel estiver sem capa. Formato: "id-da-materia": "arquivo.jpg" (arquivo em assets/news/).
    Se a matéria já tiver capa no painel, a do painel é a que vale. O id aparece no link da matéria (noticias.html#/id). */
-config.capas = { "goleada-5x1": "beica-goleada.jpg", "abduzido-o-caso-luiz-93cm": "abduzido-luiz.jpg" };
+config.capas = { "goleada-5x1": "beica-goleada.jpg", "abduzido-o-caso-luiz-93cm": "abduzido-luiz.jpg", "feriadao-de-folga-onde-estao-nossos-craques-yrpe": "feriadao-craques.jpg" };
