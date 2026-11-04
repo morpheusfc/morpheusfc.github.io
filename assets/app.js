@@ -138,9 +138,39 @@ function leaders(el){
     return `<div class="row"><div><div class="lab">${l}</div><div class="who">${esc(t.n)}</div></div><div class="num">${t[k]}</div></div>`;
   }).join("");
 }
+/* Estatísticas extras (assets/estatisticas.js): clicar no card abre um painel logo abaixo. */
+const hasStats = p => p.j>0 && p.psn && typeof estat !== "undefined" && !!estat[p.psn];
+const pctCls = v => v>=60 ? "ok" : v>=35 ? "mid" : "low";
+function statsPanel(p){
+  const e = estat[p.psn], j = p.j;
+  const tent = (n,pc) => pc ? Math.round(n*100/pc) : 0;
+  const f = n => (Math.round(n*100)/100).toFixed(2).replace(".",",");
+  const cell = (v,l,sub,cls) => `<div><b class="${cls||""}">${v}</b><span>${l}</span>${sub?`<small>${sub}</small>`:""}</div>`;
+  const ts = e.ts, max = Math.max(1,...ts);
+  const bars = ts.map((v,i) => `<i class="${i===ts.length-1?"now":""}" style="height:${v?Math.max(14,Math.round(v*100/max)):4}%" title="${v} gol${v===1?"":"s"}"></i>`).join("");
+  const sg = (p.p==="CB"||p.p==="GK") ? e.cs : "–";
+  return `<div class="pstats">
+    ${j<10?`<p class="few">Poucos jogos: as porcentagens ainda variam muito.</p>`:""}
+    <div class="g3">${cell(e.wr+"%","Vitórias","em "+j+" jogos",pctCls(e.wr))}${cell(e.pp+"%","Passes certos",e.pm+" de ~"+tent(e.pm,e.pp),pctCls(e.pp))}${cell(e.sp+"%","Gols/chute",p.g+" de ~"+tent(p.g,e.sp),pctCls(e.sp))}</div>
+    <div class="g3">${cell(f(p.g/j),"Gols/jogo")}${cell(f(p.a/j),"Assist./jogo")}${cell(f((p.g+p.a)/j),"G+A/jogo")}</div>
+    <div class="hist"><div class="hh"><span>Gols nas últimas 10 temporadas</span><b>${ts[ts.length-1]}</b></div><div class="bars">${bars}</div></div>
+    <div class="g3">${cell(e.tk,"Desarmes")}${cell(e.tp+"%","Desarmes certos","~"+tent(e.tk,e.tp),pctCls(e.tp))}${cell(sg,"Sem sofrer gol")}</div>
+  </div>`;
+}
+document.addEventListener("click", e => togglePlayerStats(e.target.closest(".card.has-stats")));
+document.addEventListener("keydown", e => { if (e.key==="Enter" || e.key===" ") { const c = e.target.closest && e.target.closest(".card.has-stats"); if (c && e.target===c) { e.preventDefault(); togglePlayerStats(c); } } });
+function togglePlayerStats(card){
+  if (!card) return;
+  const open = card.getAttribute("aria-expanded")==="true", old = card.querySelector(".pstats");
+  if (open) { old && old.remove(); card.setAttribute("aria-expanded","false"); card.classList.remove("open"); return; }
+  const p = players.find(x => x.psn===card.dataset.psn);
+  if (!p) return;
+  card.insertAdjacentHTML("beforeend", statsPanel(p));
+  card.setAttribute("aria-expanded","true"); card.classList.add("open");
+}
 function playerCard(p){
   return `
-  <article class="card${p.j?"":" inactive"}">
+  <article class="card${p.j?"":" inactive"}${hasStats(p)?" has-stats":""}"${hasStats(p)?` data-psn="${esc(p.psn)}" tabindex="0" role="button" aria-expanded="false" aria-label="Ver estatísticas de ${esc(p.n)}"`:""}>
     <div class="top">
       <div class="lft"><div class="ovr">${p.o||"–"}<small>OVR</small></div>${p.p?`<span class="pos">${p.p}</span>`:""}</div>
       <div class="photo${p.img?"":" blank"}">${p.img
