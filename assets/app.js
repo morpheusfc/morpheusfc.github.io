@@ -146,15 +146,12 @@ function statsPanel(p){
   const tent = (n,pc) => pc ? Math.round(n*100/pc) : 0;
   const f = n => (Math.round(n*100)/100).toFixed(2).replace(".",",");
   const cell = (v,l,sub,cls) => `<div><b class="${cls||""}">${v}</b><span>${l}</span>${sub?`<small>${sub}</small>`:""}</div>`;
-  const ts = e.ts, max = Math.max(1,...ts);
-  const bars = ts.map((v,i) => `<i class="${i===ts.length-1?"now":""}" style="height:${v?Math.max(14,Math.round(v*100/max)):4}%" title="${v} gol${v===1?"":"s"}"></i>`).join("");
-  const sg = (p.p==="CB"||p.p==="GK") ? e.cs : "–";
+  const def = p.p==="CB" || p.p==="GK";
   return `<div class="pstats">
     ${j<10?`<p class="few">Poucos jogos: as porcentagens ainda variam muito.</p>`:""}
     <div class="g3">${cell(e.wr+"%","Vitórias","em "+j+" jogos",pctCls(e.wr))}${cell(e.pp+"%","Passes certos",e.pm+" de ~"+tent(e.pm,e.pp),pctCls(e.pp))}${cell(e.sp+"%","Gols/chute",p.g+" de ~"+tent(p.g,e.sp),pctCls(e.sp))}</div>
     <div class="g3">${cell(f(p.g/j),"Gols/jogo")}${cell(f(p.a/j),"Assist./jogo")}${cell(f((p.g+p.a)/j),"G+A/jogo")}</div>
-    <div class="hist"><div class="hh"><span>Gols nas últimas 10 temporadas</span><b>${ts[ts.length-1]}</b></div><div class="bars">${bars}</div></div>
-    <div class="g3">${cell(e.tk,"Desarmes")}${cell(e.tp+"%","Desarmes certos","~"+tent(e.tk,e.tp),pctCls(e.tp))}${cell(sg,"Sem sofrer gol")}</div>
+    <div class="${def?"g3":"g2"}">${cell(e.tk,"Desarmes")}${cell(e.tp+"%","Desarmes certos","~"+tent(e.tk,e.tp),pctCls(e.tp))}${def?cell(e.cs,"Sem sofrer gol"):""}</div>
   </div>`;
 }
 document.addEventListener("click", e => togglePlayerStats(e.target.closest(".card.has-stats")));
