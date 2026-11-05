@@ -9,7 +9,7 @@
   window.parseBody = function(text){
     return String(text || "").split(/\n\s*\n/).map(s => s.trim()).filter(Boolean).map(chunk => {
       const img = chunk.match(/^!\[(.*?)\]\((.+?)\)$/s);
-      if (img) return {img: img[2], caption: img[1]};
+      if (img) return /\.(mp4|webm|mov)(\?.*)?$/i.test(img[2]) ? {video: img[2], caption: img[1]} : {img: img[2], caption: img[1]};
       if (chunk.startsWith("## ")) return {h: chunk.slice(3).trim()};
       return chunk.replace(/[ \t]*\r?\n[ \t]*/g, "\n");   /* quebra de linha dentro do parágrafo vira <br> (feito pelo fmt) */
     });

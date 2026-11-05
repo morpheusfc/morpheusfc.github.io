@@ -472,3 +472,4 @@ nav .btn-sm{white-space:nowrap}
 .pstats .g2 b.ok{color:#43d17c}.pstats .g2 b.mid{color:var(--gold)}.pstats .g2 b.low{color:#f0913b}
 .pstats .g2 span{display:block;font-size:10.5px;color:var(--muted);letter-spacing:.03em;line-height:1.2}
 .pstats .g2 small{display:block;font-size:10px;color:var(--muted);opacity:.8;margin-top:2px}
+.art-body figure video{width:100%;display:block;border:1px solid var(--line);background:#000;max-height:80vh}

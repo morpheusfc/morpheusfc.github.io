@@ -31,7 +31,7 @@
   /* Arquivo local (assets/news, assets/videos) ou endereço da nuvem */
   const mu = (kind, f) => /^https?:\/\//.test(f) ? f : `assets/${kind}/${f}`;
   /* Blocos do jornal -> texto do painel (e o inverso está em cms.js: parseBody) */
-  const blocksToText = body => (body || []).map(b => typeof b === "string" ? b : b.h ? "## " + b.h : `![${b.caption || ""}](${b.img})`).join("\n\n");
+  const blocksToText = body => (body || []).map(b => typeof b === "string" ? b : b.h ? "## " + b.h : `![${b.caption || ""}](${b.video || b.img})`).join("\n\n");
   /* Aviso para trazer ao painel o que hoje só está nos arquivos do site, para poder editar e excluir */
   const importBanner = (what, n) => n ? `<div class="panel adm-import"><div><b>${n} ${what} do site ainda não pode${n > 1 ? "m" : ""} ser editad${what === "matérias" ? "a" : "o"}${n > 1 ? "s" : ""} aqui.</b>
       <small>Elas estão nos arquivos do site. Importe para o painel e passe a editar, trocar fotos e excluir por aqui.</small></div>
@@ -155,8 +155,10 @@
               <button type="button" class="fbtn" data-fmt="link" title="Link">Link</button>
               <button type="button" class="fbtn" id="btnH">Subtítulo</button>
               <button type="button" class="fbtn" id="btnImg">Inserir foto</button>
+              <button type="button" class="fbtn" id="btnVid">Inserir vídeo</button>
               <button type="button" class="fbtn" id="btnPrev" aria-pressed="false">Pré-visualizar</button>
               <input type="file" id="imgFile" accept="image/*" hidden>
+              <input type="file" id="newsVidFile" accept="video/mp4,video/webm,video/quicktime" hidden>
             </div>
             <textarea name="body" id="body" rows="14" placeholder="Escreva aqui. Deixe uma linha em branco entre os parágrafos.">${esc(r.body)}</textarea>
           </label>
@@ -165,7 +167,7 @@
             <b>Como formatar:</b> selecione o trecho e clique nos botões, ou digite a marcação:
             <code>**negrito**</code> <code>*itálico*</code> <code>++sublinhado++</code>
             <code>{ouro|texto}</code> (cores: ouro, verde, vermelho, violeta) <code>[texto](https://link)</code>.<br>
-            Linha em branco separa parágrafos. Uma linha começando com <code>## </code> vira subtítulo. Fotos entram pelo botão "Inserir foto".
+            Linha em branco separa parágrafos. Uma linha começando com <code>## </code> vira subtítulo. Fotos e vídeos entram pelos botões "Inserir foto" e "Inserir vídeo" (vídeo até 50 MB; prefira MP4 comprimido).
           </div>
           <div class="adm-actions">
             <button class="btn btn-gold" type="submit">${editRow ? "Salvar alterações" : "Publicar"}</button>
@@ -212,6 +214,7 @@
     const renderPrev = () => {
       const html = q("#body").value.split(/\n\s*\n/).map(c => c.trim()).filter(Boolean).map(c => {
         const im = c.match(/^!\[(.*?)\]\((.+?)\)$/s);
+        if (im && /\.(mp4|webm|mov)(\?.*)?$/i.test(im[2])) return `<figure class="vid"><video src="${esc(mu("news", im[2]))}" controls playsinline preload="metadata"></video>${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`;
         if (im) return `<figure><img src="${esc(mu("news", im[2]))}" alt="" onload="this.parentNode.classList.toggle('tall',this.naturalHeight>this.naturalWidth)">${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`;
         if (c.startsWith("## ")) return `<h3>${esc(c.slice(3))}</h3>`;
         return `<p>${fmt(c.replace(/[ \t]*\r?\n[ \t]*/g, "\n"))}</p>`;
@@ -233,6 +236,18 @@
         const cap = prompt("Legenda da foto (pode deixar em branco):", "") || "";
         insertAtCursor(q("#body"), `\n\n![${cap.replace(/[\[\]]/g, "")}](${url})\n\n`);
         say("Foto inserida no texto.");
+      } catch (err) { say(errText(err), false); }
+      e.target.value = "";
+    };
+    q("#btnVid").onclick = () => q("#newsVidFile").click();
+    q("#newsVidFile").onchange = async e => {
+      const f = e.target.files[0]; if (!f) return;
+      say("Enviando vídeo… pode levar um tempo.");
+      try {
+        const url = await upload(f, "news", MAX_VID);
+        const cap = prompt("Legenda do vídeo (pode deixar em branco):", "") || "";
+        insertAtCursor(q("#body"), `\n\n![${cap.replace(/[\[\]]/g, "")}](${url})\n\n`);
+        say("Vídeo inserido no texto.");
       } catch (err) { say(errText(err), false); }
       e.target.value = "";
     };
