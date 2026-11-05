@@ -214,7 +214,7 @@
     const renderPrev = () => {
       const html = q("#body").value.split(/\n\s*\n/).map(c => c.trim()).filter(Boolean).map(c => {
         const im = c.match(/^!\[(.*?)\]\((.+?)\)$/s);
-        if (im && /\.(mp4|webm|mov)(\?.*)?$/i.test(im[2])) return `<figure class="vid"><video src="${esc(mu("news", im[2]))}" controls playsinline preload="metadata"></video>${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`;
+        if (im && /\.(mp4|webm|mov)(\?.*)?$/i.test(im[2])) return `<figure class="vid"><video src="${esc(mu("news", im[2]))}" controls autoplay muted loop playsinline preload="auto"></video>${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`;
         if (im) return `<figure><img src="${esc(mu("news", im[2]))}" alt="" onload="this.parentNode.classList.toggle('tall',this.naturalHeight>this.naturalWidth)">${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`;
         if (c.startsWith("## ")) return `<h3>${esc(c.slice(3))}</h3>`;
         return `<p>${fmt(c.replace(/[ \t]*\r?\n[ \t]*/g, "\n"))}</p>`;

@@ -375,7 +375,7 @@ if (page === "noticias") ready.then(() => {
   };
   const blocks = a => a.body.map(b => typeof b === "string" ? `<p>${fmt(b)}</p>`
     : b.h ? `<h3>${esc(b.h)}</h3>`
-    : b.video ? `<figure class="vid"><video src="${esc(media("news", b.video))}" controls playsinline preload="metadata"></video>${b.caption?`<figcaption>${esc(b.caption)}</figcaption>`:""}</figure>`
+    : b.video ? `<figure class="vid"><video src="${esc(media("news", b.video))}" controls autoplay muted loop playsinline preload="auto"></video>${b.caption?`<figcaption>${esc(b.caption)}</figcaption>`:""}</figure>`
     : `<figure><img src="${esc(media("news", b.img))}" alt="${esc(b.caption||"")}" loading="lazy" onload="this.parentNode.classList.toggle('tall',this.naturalHeight>this.naturalWidth)">${b.caption?`<figcaption>${esc(b.caption)}</figcaption>`:""}</figure>`).join("");
   const article = a => masthead() + `
     <article class="art">
@@ -384,7 +384,7 @@ if (page === "noticias") ready.then(() => {
       <h1>${esc(a.title)}</h1>
       <p class="deck">${esc(a.summary)}</p>
       <div class="by">Por ${esc(a.author)} · ${longDate(a.date)}</div>
-      ${a.cover ? `<figure class="hero-fig"><img src="${esc(media("news", a.cover))}" alt=""></figure>` : ""}
+      ${a.cover && !a.body.some(b => b.video) ? `<figure class="hero-fig"><img src="${esc(media("news", a.cover))}" alt=""></figure>` : ""}
       <div class="art-body">${blocks(a)}</div>
     </article>`;
   const route = () => {
