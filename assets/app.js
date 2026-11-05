@@ -14,7 +14,7 @@ const fmt = s => esc(s)
   .replace(/\n/g, "<br>");
 /* Foto ou vídeo: nome de arquivo (pasta assets/<tipo>/) ou endereço completo (nuvem). */
 /* ASSET_V: mude o numero quando trocar uma imagem/video mantendo o mesmo nome de arquivo (forca o navegador a baixar de novo) */
-const ASSET_V = "12";
+const ASSET_V = "13";
 const media = (kind, f) => /^https?:\/\//.test(f) ? f : `assets/${kind}/${f}?v=${ASSET_V}`;
 const ready = window.CMS_READY || Promise.resolve();
 /* PSN antiga -> PSN atual (config.apelidos em data.js): mostra o nome atual também nas partidas já guardadas. */
@@ -171,7 +171,7 @@ function playerCard(p){
     <div class="top">
       <div class="lft"><div class="ovr">${p.o||"–"}<small>OVR</small></div>${p.p?`<span class="pos">${p.p}</span>`:""}</div>
       <div class="photo${p.img?"":" blank"}">${p.img
-        ? `<img src="assets/players/${esc(p.img)}" alt="Foto de ${esc(p.n)}" loading="lazy">`
+        ? `<img src="assets/players/${esc(p.img)}?v=${ASSET_V}" alt="Foto de ${esc(p.n)}" loading="lazy">`
         : `<svg viewBox="0 0 64 72" aria-hidden="true"><circle cx="32" cy="26" r="13" fill="currentColor"/><path d="M6 72c0-17 12-28 26-28s26 11 26 28z" fill="currentColor"/></svg>`}</div>
     </div>
     <h3>${esc(p.n)}</h3>

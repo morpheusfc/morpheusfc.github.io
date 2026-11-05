@@ -10,36 +10,36 @@ const players = [
   {n:"Habutre",p:"ST",o:86,j:195,g:129,a:85,m:21,psn:"Habutrers",img:"Habutre.jpeg",aka:[]},
   {n:"Beiça",p:"ST",o:85,j:194,g:192,a:82,m:26,psn:"Beica97",img:"will.jpg",aka:["Bll4ck"]},
   {n:"Vibox Beats",p:"CM",o:82,j:138,g:8,a:14,m:21,psn:"ViboxBeats",img:"vibox.jpeg",aka:[]},
-  {n:"dtb",p:"ST",o:82,j:76,g:42,a:23,m:6,psn:"dtb_mvp",aka:[]},
-  {n:"TIAO",p:"CB",o:79,j:89,g:5,a:8,m:3,psn:"Trclokko_01",aka:[]},
+  {n:"dtb",p:"ST",o:82,j:76,g:42,a:23,m:6,psn:"dtb_mvp",img:"dtb_mvp.jpg",aka:[]},
+  {n:"TIAO",p:"CB",o:79,j:89,g:5,a:8,m:3,psn:"Trclokko_01",img:"trclokko_01.jpg",aka:[]},
   {n:"LZ",p:"CB",o:85,j:68,g:4,a:2,m:6,psn:"LuizzCrazy",img:"luiz.jpeg",aka:[]},
   {n:"Saul",p:"CM",o:83,j:118,g:33,a:75,m:2,psn:"alice_farias09",img:"saul.jpeg",aka:[]},
   {n:"Pastor",p:"CB",o:87,j:102,g:5,a:12,m:7,psn:"Maneel444",img:"pastor.jpeg",aka:[]},
-  {n:"Kakashi",p:"CM",o:84,j:50,g:10,a:28,m:5,psn:"italo121rds",aka:[]},
-  {n:"G. Arrascaeta",p:"CB",o:83,j:44,g:15,a:33,m:7,psn:"King_Arthur_atbs",aka:[]},
-  /*{n:"Pedrim",p:"ST",o:82,j:14,g:11,a:9,m:3,psn:"Pedrim_el_mago"},*/
+  /*{n:"Kakashi",p:"CM",o:84,j:50,g:10,a:28,m:5,psn:"italo121rds",aka:[]},*/
+  {n:"G. Arrascaeta",p:"CB",o:83,j:44,g:15,a:33,m:7,psn:"King_Arthur_atbs",img:"Arthur.jpg",aka:[]},
+  {n:"Pedrim",p:"ST",o:82,j:14,g:11,a:9,m:3,psn:"Pedrim_el_mago",img:"Pedrim_el_mago.jpg",aka:[]},
   /*{n:"Floren",p:"CM",o:78,j:10,g:0,a:0,m:0,psn:"",aka:[]},*/
   /*{n:"E. Caveira",p:"ST",o:80,j:9,g:1,a:3,m:0,psn:"Folcs_prime",aka:[]},*/
-  {n:"B. Reis",p:"CM",o:79,j:34,g:1,a:9,m:7,psn:"REIS2703",aka:[]},
+  {n:"B. Reis",p:"CM",o:79,j:34,g:1,a:9,m:7,psn:"REIS2703",img:"REIS2703.jpg",aka:[]},
   /*{n:"C. Liduenha",p:"ST",o:82,j:8,g:4,a:3,m:1,psn:"",aka:[]},*/
   {n:"S. Kennedy sfd",p:"GK",o:81,j:48,g:4,a:12,m:3,psn:"JoaoPlay610",img:"joao_gk.jpeg",aka:[]},
   /*{n:"Z. Love",p:"ST",o:83,j:7,g:5,a:1,m:1,psn:"ph_g97",aka:[]},*/
   /*{n:"Ryan",p:"CB",o:84,j:7,g:2,a:0,m:0,psn:"ryanhenrybr2002",aka:[]},*/
-  {n:"Messi",p:"CB",o:83,j:11,g:1,a:0,m:2,psn:"pipovini",aka:[]},
-  {n:"F. Kadabra",p:"CM",o:76,j:7,g:1,a:1,m:1,psn:"FabioKadabra",aka:[]},
+  {n:"Messi",p:"CB",o:83,j:11,g:1,a:0,m:2,psn:"pipovini",img:"pipovini.jpg",aka:[]},
+  /*{n:"F. Kadabra",p:"CM",o:76,j:7,g:1,a:1,m:1,psn:"FabioKadabra",aka:[]},*/
   {n:"N. Martins",p:"CB",o:84,j:12,g:0,a:0,m:1,psn:"Chima_Sem_Erva",img:"chima.jpeg",aka:[]},
   /*{n:"V. Conceição",p:"CB",o:80,j:4,g:1,a:0,m:0,psn:"easpbra1736",aka:[]},*/
   /*{n:"z. zAlemao16",p:"CB",o:83,j:3,g:0,a:1,m:0,psn:"z Alemao 16",aka:[]},*/
   /*{n:"Habib",p:"CB",o:75,j:2,g:0,a:0,m:0,psn:"I Didico I",aka:[]},*/
-  {n:"lebers",p:"CM",o:72,j:2,g:0,a:0,m:0,psn:"calebe_075",aka:[]},
-  {n:"Zack",p:"ST",o:78,j:4,g:1,a:0,m:0,psn:"smokefxz",aka:["smokefxz"]},
-  {n:"U. Tamano Cross",p:"CM",o:75,j:17,g:0,a:0,m:3,psn:"BugioBaiano",aka:[]},
-  {n:"Top Road",p:"CM",o:84,j:13,g:2,a:7,m:0,psn:"ArcoffH",aka:[]},
-  {n:"Bruxa",p:"ST",o:82,j:5,g:2,a:1,m:0,psn:"KALLEN_COUTINHO",aka:[]},
-  {n:"Rukawa",p:"CM",o:78,j:2,g:0,a:0,m:0,psn:"oiRukawa",aka:[]},
-  {n:"Landão",p:"CB",o:81,j:10,g:0,a:0,m:1,psn:"Landao_da_massa",aka:[]},
-  {n:"J H O W",p:"CB",o:80,j:5,g:1,a:0,m:0,psn:"X_Jhoow",aka:[]},
-  {n:"t. Jefrey",p:"CM",o:78,j:3,g:0,a:1,m:0,psn:"Farelooso",aka:[]},
+  /*{n:"lebers",p:"CM",o:72,j:2,g:0,a:0,m:0,psn:"calebe_075",aka:[]},*/
+  {n:"Zack",p:"ST",o:78,j:4,g:1,a:0,m:0,psn:"smokefxz",img:"smokefxz.jpg",aka:["smokefxz"]},
+  /*{n:"U. Tamano Cross",p:"CM",o:75,j:17,g:0,a:0,m:3,psn:"BugioBaiano",aka:[]},*/
+  {n:"Top Road",p:"CM",o:84,j:13,g:2,a:7,m:0,psn:"ArcoffH",img:"ArcoffH.jpg",aka:[]},
+  /*{n:"Bruxa",p:"ST",o:82,j:5,g:2,a:1,m:0,psn:"KALLEN_COUTINHO",aka:[]},*/
+  /*{n:"Rukawa",p:"CM",o:78,j:2,g:0,a:0,m:0,psn:"oiRukawa",aka:[]},*/
+  {n:"Landão",p:"CB",o:81,j:10,g:0,a:0,m:1,psn:"Landao_da_massa",img:"Landao.jpg",aka:[]},
+  /*{n:"J H O W",p:"CB",o:80,j:5,g:1,a:0,m:0,psn:"X_Jhoow",aka:[]},*/
+  /*{n:"t. Jefrey",p:"CM",o:78,j:3,g:0,a:1,m:0,psn:"Farelooso",aka:[]},*/
   /*{n:"RyanFelix055",p:"",o:0,j:0,g:0,a:0,m:0,psn:"RyanFelix055",aka:[]},*/
   /*{n:"ERL7ON",p:"",o:0,j:0,g:0,a:0,m:0,psn:"ERL7ON",aka:[]},*/
   /*{n:"TeTex-_-",p:"",o:0,j:0,g:0,a:0,m:0,psn:"TeTex-_-",aka:[]},*/
