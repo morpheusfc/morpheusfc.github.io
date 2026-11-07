@@ -113,11 +113,11 @@
     view.innerHTML = `<div class="empty-state">Carregando…</div>`;
     const { data: rows, error } = await sb.from("news").select("*").order("date", { ascending: false }).order("created_at", { ascending: false });
     if (error) { view.innerHTML = `<div class="empty-state">Erro ao carregar: ${esc(errText(error))}</div>`; return; }
-    const r = editRow || { id: "", kicker: "Resultado", title: "", summary: "", author: "Redação Morpheus", date: today(), cover: "", body: "" };
+    const r = editRow || { id: "", kicker: "Resultado", title: "", summary: "", author: "Redação Morpheus", date: today(), cover: "", body: "", rascunho: false };
     const kickers = ["Resultado", "Rodada", "Análise", "Clube", "Bastidores", "Entrevista"];
     const pending = (typeof noticias !== "undefined" ? noticias : []).filter(a => !rows.some(x => x.id === a.id));
     /* Mesma ordem da capa do site: data mais recente primeiro; no mesmo dia, a publicada/destacada por último */
-    const ranked = [...rows, ...pending].sort((a, b) => b.date.localeCompare(a.date));
+    const ranked = [...rows, ...pending].filter(x => !x.rascunho).sort((a, b) => b.date.localeCompare(a.date));
     const rankOf = id => ranked.findIndex(x => x.id === id);
     /* número da matéria: 1 = a mais antiga por data (empate: pelo nome). Não muda ao editar ou destacar. Só existe no painel, para facilitar a referência */
     const byAge = [...rows].sort((a, b) => String(a.date).localeCompare(String(b.date)) || String(a.id).localeCompare(String(b.id)));
@@ -169,8 +169,9 @@
             <code>{ouro|texto}</code> (cores: ouro, verde, vermelho, violeta) <code>[texto](https://link)</code>.<br>
             Linha em branco separa parágrafos. Uma linha começando com <code>## </code> vira subtítulo. Fotos e vídeos entram pelos botões "Inserir foto" e "Inserir vídeo" (vídeo até 50 MB; prefira MP4 comprimido).
           </div>
+          <label class="adm-check"><input type="checkbox" name="rascunho"${r.rascunho ? " checked" : ""}> <b>Rascunho</b>: salvar sem publicar (só vai ao ar quando eu liberar)</label>
           <div class="adm-actions">
-            <button class="btn btn-gold" type="submit">${editRow ? "Salvar alterações" : "Publicar"}</button>
+            <button class="btn btn-gold" type="submit">${editRow ? "Salvar alterações" : "Salvar / Publicar"}</button>
             ${editRow ? `<button class="btn btn-ghost" type="button" id="cancel">Cancelar edição</button>` : ""}
           </div>
           <div id="msg" hidden></div>
@@ -179,8 +180,8 @@
           <h3>Matérias publicadas pelo painel</h3>
           ${rows.length ? `<div class="adm-help" style="margin-bottom:6px">A manchete da capa é a matéria de data mais recente. Entre matérias do mesmo dia, use <b>Destacar</b> para subir uma delas.</div>` : ""}
           ${rows.length ? rows.map(n => `<div class="adm-row${rankOf(n.id) === 0 ? " is-top" : ""}">
-              <div>${badge(n.id)}<span class="adm-badge vid-num" title="Número da matéria (só aparece aqui no painel): ordem por data">#${newsNum(n)}</span> <b>${esc(n.title)}</b><small>${esc(n.kicker)} · ${esc(n.date)}</small></div>
-              <div class="adm-btns"><a class="fbtn" href="noticias.html#/${encodeURIComponent(n.id)}" target="_blank" rel="noopener">Ver</a>
+              <div>${n.rascunho ? `<span class="adm-badge" style="background:#7a5c00;color:#fff">RASCUNHO (fora do site)</span>` : badge(n.id)}<span class="adm-badge vid-num" title="Número da matéria (só aparece aqui no painel): ordem por data">#${newsNum(n)}</span> <b>${esc(n.title)}</b><small>${esc(n.kicker)} · ${esc(n.date)}</small></div>
+              <div class="adm-btns">${n.rascunho ? `<button class="fbtn" data-go="${esc(n.id)}" title="Coloca a matéria no ar agora">Publicar</button>` : `<a class="fbtn" href="noticias.html#/${encodeURIComponent(n.id)}" target="_blank" rel="noopener">Ver</a>`}
                 ${rankOf(n.id) === 0 ? "" : `<button class="fbtn" data-top="${esc(n.id)}" title="Coloca no topo entre as matérias da mesma data">Destacar</button>`}<button class="fbtn" data-edit="${esc(n.id)}">Editar</button><button class="fbtn danger" data-del="${esc(n.id)}">Excluir</button></div>
             </div>`).join("") : `<p class="sec-sub" style="margin:0">Nenhuma matéria publicada pelo painel ainda.</p>`}
         </div>
@@ -256,24 +257,34 @@
       const f = new FormData(form), btn = form.querySelector("[type=submit]");
       const row = { id: editRow ? editRow.id : slug(f.get("title")), kicker: f.get("kicker").trim(), title: f.get("title").trim(),
         summary: f.get("summary").trim(), author: (f.get("author") || "Redação Morpheus").trim(), date: f.get("date"), cover: f.get("cover") || "", body: f.get("body") };
+      /* só envia o campo se for rascunho, ou se a coluna já existe: assim nada quebra antes de rodar o supabase-rascunho.sql */
+      if (f.get("rascunho")) row.rascunho = true; else if (editRow && "rascunho" in editRow) row.rascunho = false;
       btn.disabled = true;
       const { error } = await sb.from("news").upsert(row);
       btn.disabled = false;
       if (error) return say(errText(error), false);
       await dropFiles(toDelete);
       newsView();
-      setTimeout(() => say(editRow ? "Matéria atualizada." : "Matéria publicada. Já está no site."), 50);
+      setTimeout(() => say(row.rascunho ? "Rascunho salvo. Não aparece no site até você publicar." : editRow ? "Matéria atualizada." : "Matéria publicada. Já está no site."), 50);
     };
     const impN = q("#importBtn");
     if (impN) impN.onclick = async () => {
       impN.disabled = true; impN.textContent = "Importando…";
       const list = pending.map(a => ({ id: a.id, kicker: a.kicker || "Clube", title: a.title, summary: a.summary || "", author: a.author || "Redação Morpheus",
-        date: a.date, cover: a.cover || "", body: blocksToText(a.body) }));
+        date: a.date, cover: a.cover || "", body: blocksToText(a.body), ...(a.rascunho ? { rascunho: true } : {}) }));
       const { error } = await sb.from("news").upsert(list);
       if (error) { impN.disabled = false; impN.textContent = "Importar para o painel"; return say(errText(error), false); }
       newsView();
     };
     if (editRow) q("#cancel").onclick = () => newsView();
+    qa("[data-go]").forEach(b => b.onclick = async () => {
+      const n = rows.find(x => x.id === b.dataset.go);
+      if (!confirm(`Publicar "${n.title}" agora? Ela passa a aparecer no site.`)) return;
+      const { error } = await sb.from("news").upsert({ ...n, rascunho: false, created_at: new Date().toISOString() });
+      if (error) return say(errText(error), false);
+      newsView();
+      setTimeout(() => say("Matéria no ar."), 50);
+    });
     qa("[data-top]").forEach(b => b.onclick = async () => {
       const row = rows.find(x => x.id === b.dataset.top);
       const { error } = await sb.from("news").upsert({ ...row, created_at: new Date().toISOString() });

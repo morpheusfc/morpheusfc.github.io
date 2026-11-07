@@ -8,6 +8,21 @@
    Fotos ficam na pasta assets/news/. */
 const noticias = [
   {
+    id:"magrao-contratado", rascunho:true, cover:"magrao-contratado.jpg", kicker:"Contratação", title:"Bem-vindo, Magrão! Morpheus anuncia o meio-campista MagraoJojelito84",
+    date:"2026-11-07", author:"Redação Morpheus",
+    summary:"Reforço de peso para o meio-campo: já são 3 jogos, 2 vitórias, 1 gol, 1 assistência e nota média 7,6.",
+    body:[
+      {video:"magrao-contratado.mp4", caption:"Magrão (MagraoJojelito84) chega para reforçar o Morpheus"},
+      "O Morpheus FC tem um novo camisa no elenco: **Magrão**, PSN **MagraoJojelito84**, meio-campista de 83 de overall, é o mais novo reforço do clube. A contratação foi confirmada pela diretoria e já rendeu frutos dentro de campo.",
+      {h:"Estreia de gala"},
+      "Magrão entrou em campo na noite de 06/11 e, em três jogos, fez **2 vitórias e 1 derrota**, com **1 gol, 1 assistência, 5 desarmes** e **nota média 7,6**, a segunda melhor da noite entre quem jogou todas as partidas.",
+      "Na estreia, contra o ClimaPro Gaming, ele já deu assistência e levou nota 7,7 na vitória por 2 a 1. Depois fez o gol da vitória sobre o INSD FC (2 a 1), na melhor nota da noite dele: **8,0**, com 3 desarmes. Mesmo na goleada sofrida diante do Jackz Fc (0 a 5), manteve a regularidade, com nota 7,1.",
+      {h:"O que esperar"},
+      "Marcação, passe e presença na área quando o jogo pede: o perfil de Magrão é o de um meio-campista de equilíbrio, que ajuda a defender e chega para decidir. Ainda é uma amostra pequena, mas o início não poderia ter sido melhor.",
+      "Seja bem-vindo, Magrão. **A Nação Morpheus já te abraçou!**",
+    ]
+  },
+  {
     id:"amistoso-barba-ovo", cover:"amistoso01.jpg", kicker:"Amistoso", title:"Abertura da temporada de amistosos: Morpheus e BARBA OVO FC fazem quatro jogos!",
     date:"2026-10-27", author:"Redação Morpheus",
     summary:"Primeiros amistosos da temporada teve quatro partidas contra o BARBA OVO FC, duas vitórias. O M-News explica por que ninguém saiu perdendo.",

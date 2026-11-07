@@ -3,6 +3,10 @@
 (function(){
   const cfg = window.SUPABASE || {};
   const on = !!(cfg.url && cfg.key);
+  /* Matérias em rascunho (rascunho:true) ficam fora do site até serem liberadas. Para ver antes: noticias.html?previa=1 */
+  const previa = /[?&]previa\b/.test(location.search);
+  if (typeof noticias !== "undefined" && !previa) for (let i = noticias.length - 1; i >= 0; i--) if (noticias[i].rascunho) noticias.splice(i, 1);
+
 
   /* Texto do painel -> blocos do Morpheus News.
      Parágrafos separados por linha em branco; "## Título" é subtítulo; "![legenda](url)" é foto. */
@@ -37,7 +41,7 @@
     if (typeof noticias !== "undefined") {
       try {
         const rows = await get("news", "date.desc,created_at.desc");
-        merge(noticias, rows.map(r => ({id:r.id, kicker:r.kicker, title:r.title, summary:r.summary, author:r.author, date:r.date, cover:r.cover || ((typeof config !== "undefined" && config.capas && config.capas[r.id]) || ""), body:window.parseBody(r.body)})));
+        merge(noticias, rows.filter(r => previa || !r.rascunho).map(r => ({id:r.id, kicker:r.kicker, title:r.title, summary:r.summary, author:r.author, date:r.date, cover:r.cover || ((typeof config !== "undefined" && config.capas && config.capas[r.id]) || ""), body:window.parseBody(r.body)})));
       } catch (e) { console.warn("Notícias da nuvem indisponíveis:", e.message); }
     }
     if (typeof videos !== "undefined") {
