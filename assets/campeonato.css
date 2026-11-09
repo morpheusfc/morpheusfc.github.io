@@ -173,13 +173,13 @@
 .cp-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .cp-tchip{display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 6px;border-radius:99px;border:1px solid var(--line);background:var(--surface-2);font-size:13.5px;font-weight:600}
 /* capa: o troféu da foto fica à direita, e o título ganha espaço à esquerda */
-.cp-bg.cp-bg-hero{filter:blur(1.6px);left:36%;-webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 80%,transparent),linear-gradient(90deg,transparent,#000 30%);mask-image:linear-gradient(180deg,transparent,#000 14%,#000 80%,transparent),linear-gradient(90deg,transparent,#000 30%);-webkit-mask-composite:source-in;mask-composite:intersect;opacity:.85}
+.cp-bg.cp-bg-hero{left:36%;-webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 80%,transparent),linear-gradient(90deg,transparent,#000 30%);mask-image:linear-gradient(180deg,transparent,#000 14%,#000 80%,transparent),linear-gradient(90deg,transparent,#000 30%);-webkit-mask-composite:source-in;mask-composite:intersect;opacity:.85}
 .cp-hero-art:empty{display:none}
 @media(max-width:880px){.cp-bg.cp-bg-hero{left:0;opacity:.45}}
 .cp-winner .cp-more{font-size:12px;color:var(--muted)}
-.cp-champ-line{display:inline-flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px 26px 14px 18px;border-radius:14px;border:1px solid var(--gold);border-left:5px solid var(--gold);background:linear-gradient(90deg,rgba(233,185,73,.30),rgba(8,8,10,.75));box-shadow:0 0 34px rgba(233,185,73,.28)}
-.cp-champ-line span{font-family:var(--font-display);letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-size:14px}
-.cp-champ-line b{font-family:var(--font-display);font-size:clamp(34px,5.4vw,52px);line-height:1;text-transform:uppercase;letter-spacing:.03em;background:linear-gradient(180deg,#fff6d2,#f3c85a 55%,#c8921f);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 10px rgba(0,0,0,.6))}
+.cp-champ-line{display:inline-flex;align-items:center;gap:12px;padding:10px 18px 10px 12px;border-radius:14px;border:1px solid var(--gold);background:linear-gradient(90deg,rgba(233,185,73,.22),rgba(8,8,10,.7))}
+.cp-champ-line span{font-family:var(--font-display);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-size:14px}
+.cp-champ-line b{font-family:var(--font-display);font-size:28px;text-transform:uppercase;letter-spacing:.03em}
 
 /* celular: colunas "1fr" crescem com o conteúdo (tabelas largas) e esticam a página; minmax(0,1fr) trava na largura da tela */
 .cp-group,.cp-lists>.panel,.cp-clubstats>.panel,.cp-prize,.cp-prizes>*,.cp-matches,.cp-vs>*,.cp-rank .who{min-width:0}
