@@ -10,4 +10,4 @@ const campeonatoDados = [
 ];
 
 /* Fotos de fundo padrão do campeonato (arquivos em assets/bg/). Valem para qualquer campeonato; o que você preencher no painel (aba Campeonato > Fotos de fundo) tem prioridade. */
-const campeonatoFotos = { hero: "camp-hero.jpg", grupos: "camp-grupos.jpg" };
+const campeonatoFotos = { hero: "camp-hero.jpg", grupos: "camp-grupos.jpg", matamata: "camp-matamata.jpg" };
