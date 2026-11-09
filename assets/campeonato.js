@@ -341,7 +341,7 @@ async function carregaCampeonato() {
   const tick = () => {
     if (isNaN(alvo)) { cont.hidden = true; return false; }
     const ms = alvo - Date.now();
-    if (ms <= 0) { cont.innerHTML = campeao ? `<div class="cp-champ-line">${escudo(campeao, "sm")}<span>Campeão</span><b>${esc(campeao.nome)}</b></div>` : `<div class="cp-live">A bola já está rolando</div>`; return false; }
+    if (ms <= 0) { cont.innerHTML = campeao ? `<div class="cp-champ-line"><span>Campeão</span><b>${esc(campeao.nome)}</b></div>` : `<div class="cp-live">A bola já está rolando</div>`; return false; }
     const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60, s = Math.floor(ms / 1e3) % 60;
     cont.innerHTML = [[d, "dias"], [h, "horas"], [m, "min"], [s, "seg"]].map(([v, l]) => `<div><b>${pad(v)}</b><span>${l}</span></div>`).join("");
     return true;
