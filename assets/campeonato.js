@@ -260,7 +260,7 @@ async function carregaCampeonato() {
 
   const top = (key, label) => C.jogadores.filter(p => p[key] > 0).sort((a, b) => b[key] - a[key] || a.psn.localeCompare(b.psn)).slice(0, 8);
   const lista = (key, unidade) => { const l = top(key), max = l[0] ? l[0][key] : 1;
-    return l.length ? l.map((p, i) => `<div class="cp-rank"><span class="pos">${i + 1}</span>${escudo(byId[p.time], "sm")}<div class="who"><b>${esc(p.psn)}</b><small>${esc(byId[p.time].nome)}</small></div><div class="bar"><i style="width:${p[key] / max * 100}%"></i></div><strong>${p[key]}<small>${unidade}</small></strong></div>`).join("") : `<p class="sec-sub">Ainda sem dados.</p>`; };
+    return l.length ? l.map((p, i) => `<div class="cp-rank"><span class="pos">${i + 1}</span>${escudo(byId[p.time], "sm")}<div class="who"><b>${esc(p.psn)}</b><small>${esc(byId[p.time].nome)}</small></div><div class="bar"><i style="width:${p[key] / max * 100}%"></i></div><strong>${p[key]}<small>${p[key] === 1 ? unidade.replace(/vezes$/, "vez").replace(/gols$/, "gol") : unidade}</small></strong></div>`).join("") : `<p class="sec-sub">Ainda sem dados.</p>`; };
   /* Melhor goleiro: IEG = defesas ÷ (defesas + gols sofridos) × 100 */
   const iegDe = p => p.def + p.gs ? p.def / (p.def + p.gs) * 100 : null;
   const listaIEG = () => { const l = C.jogadores.filter(p => p.pos === "G" && iegDe(p) !== null).sort((a, b) => iegDe(b) - iegDe(a) || b.def - a.def).slice(0, 8);
