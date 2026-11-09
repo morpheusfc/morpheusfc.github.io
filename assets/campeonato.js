@@ -49,7 +49,7 @@ const campeonato = (() => {
   }
   return {
     demo: true,
-    nome: "Copa Morpheus", edicao: "1ª Edição", slogan: `${N} clubes. Um troféu. Só um campeão.`,
+    nome: "Copa Nossa Jogatina", edicao: "1ª Edição", slogan: `${N} clubes. Um troféu. Só um campeão.`,
     status: estado, numTimes: N, porGrupo: 4, classificam: 2,
     inicio: dia(0, 20),
     plataformas: "PlayStation, Xbox e PC",
