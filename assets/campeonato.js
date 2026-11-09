@@ -254,7 +254,7 @@ async function carregaCampeonato() {
   const bracket = `
   <section class="cp-sec alt" id="matamata">${bg("matamata")}<div class="wrap">${secLista("Mata-mata", "O caminho até o troféu")}
     <div class="cp-bracket cols${fases.length}">${fases.map(bracketCol).join("")}
-      <div class="cp-col cp-final-trophy">${TROFEU}<b>${campeao ? esc(campeao.nome) : "Campeão"}</b><span>${campeao ? "Campeão da " + esc(C.nome) : "A definir"}</span></div>
+      <div class="cp-col cp-final-trophy"><b>${campeao ? esc(campeao.nome) : "Campeão"}</b><span>${campeao ? "Campeão da " + esc(C.nome) : "A definir"}</span></div>
     </div>
   </div></section>`;
 
