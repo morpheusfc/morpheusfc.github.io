@@ -1,20 +1,20 @@
-/* Fonte dos dados: Pro Clubs Tracker (clube 37568, FC 27). Reserva: ProClubsHead, comentado mais abaixo (config). Última atualização: 06/11/2026. */
-const club = {w:117,d:30,l:102,gf:588,ga:538,games:249,sr:1677};
+/* Fonte dos dados: Pro Clubs Tracker (clube 37568, FC 27). Reserva: ProClubsHead, comentado mais abaixo (config). Última atualização: 10/11/2026. */
+const club = {w:119,d:30,l:103,gf:593,ga:542,games:252,sr:1687};
 /* psn: ID do jogador no PlayStation. Vazio = ainda não informado. p vazio = sem posição (nunca jogou).
    img: nome do arquivo da foto dentro de assets/players/ (ex.: img:"habutre.jpg"). Sem img = silhueta padrão. Ideal: retrato vertical, ~400x480.
    aka: nomes ANTIGOS do jogador (ex.: aka:["Kakashi"]). Quando alguém troca de nome no jogo, o nome novo vira o "n" e o antigo vai para cá:
         assim a atualização com o tracker junta tudo no mesmo card (foto, PSN, histórico) e a busca do Elenco acha pelos dois nomes. */
 /* Jogadores entre comentários (linhas começando com barra e asterisco) saíram do time ou não jogam há dias: ficam fora do site. Para voltar, tire o comentário da linha. A atualização com o tracker não os traz de volta. */
 const players = [
-  {n:"Leo",p:"ST",o:80,j:215,g:48,a:32,m:5,psn:"LEOzin117",img:"leo.jpeg",aka:[]},
-  {n:"Habutre",p:"ST",o:85,j:204,g:133,a:87,m:22,psn:"Habutrers",img:"Habutre.jpeg",aka:[]},
-  {n:"Beiça",p:"ST",o:84,j:203,g:194,a:87,m:26,psn:"Beica97",img:"will.jpg",aka:["Bll4ck"]},
-  {n:"Vibox Beats",p:"CM",o:85,j:141,g:8,a:14,m:22,psn:"ViboxBeats",img:"vibox.jpeg",aka:[]},
+  {n:"Leo",p:"ST",o:81,j:218,g:48,a:32,m:5,psn:"LEOzin117",img:"leo.jpeg",aka:[]},
+  {n:"Habutre",p:"ST",o:85,j:207,g:135,a:88,m:23,psn:"Habutrers",img:"Habutre.jpeg",aka:[]},
+  {n:"Beiça",p:"ST",o:84,j:206,g:194,a:90,m:26,psn:"Beica97",img:"will.jpg",aka:["Bll4ck"]},
+  {n:"Vibox Beats",p:"CM",o:85,j:144,g:8,a:14,m:23,psn:"ViboxBeats",img:"vibox.jpeg",aka:[]},
   {n:"dtb",p:"ST",o:82,j:76,g:42,a:23,m:6,psn:"dtb_mvp",img:"dtb_mvp.jpg",aka:[]},
   {n:"TIAO",p:"CB",o:79,j:90,g:5,a:8,m:3,psn:"Trclokko_01",img:"trclokko_01.jpg",aka:[]},
   {n:"LZ",p:"CB",o:85,j:68,g:4,a:2,m:6,psn:"LuizzCrazy",img:"luiz.jpeg",aka:[]},
-  {n:"Saul",p:"CM",o:83,j:126,g:36,a:78,m:2,psn:"alice_farias09",img:"saul.jpeg",aka:[]},
-  {n:"Pastor",p:"CB",o:86,j:108,g:5,a:14,m:7,psn:"Maneel444",img:"pastor.jpeg",aka:[]},
+  {n:"Saul",p:"CM",o:84,j:129,g:39,a:78,m:2,psn:"alice_farias09",img:"saul.jpeg",aka:[]},
+  {n:"Pastor",p:"CB",o:87,j:111,g:5,a:14,m:7,psn:"Maneel444",img:"pastor.jpeg",aka:[]},
   /*{n:"Kakashi",p:"CM",o:84,j:50,g:10,a:28,m:5,psn:"italo121rds",aka:[]},*/
   {n:"G. Arrascaeta",p:"CB",o:83,j:44,g:15,a:33,m:7,psn:"King_Arthur_atbs",img:"Arthur.jpg",aka:[]},
   {n:"Pedrim",p:"ST",o:82,j:14,g:11,a:9,m:3,psn:"Pedrim_el_mago",img:"Pedrim_el_mago.jpg",aka:[]},
