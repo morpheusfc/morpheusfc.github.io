@@ -8,6 +8,22 @@
    Fotos ficam na pasta assets/news/. */
 const noticias = [
   {
+    id:"pastor-zaga-blindada", rascunho:true, cover:"pastor-blindado.jpg", kicker:"Destaque", title:"Pastor, o muro do Morpheus: a zaga está blindada",
+    date:"2026-11-11", author:"Redação Morpheus",
+    summary:"Zagueiro de 87 de overall e 1,96 m, Pastor desarma, passa, assiste e ainda aparece na área para marcar. Atacante nenhum quer encarar.",
+    body:[
+      {video:"pastor-blindado.mp4", caption:"Pastor, a muralha do Morpheus"},
+      "Tem zagueiro que defende. E tem **Pastor**. Camisa de 87 de overall e **1,96 m de altura**, o defensor do Morpheus (PSN Maneel444) virou, partida após partida, o rosto da zaga que nenhum atacante adversário quer encontrar pela frente.",
+      {h:"Números de quem manda na área"},
+      "Em **112 jogos** com a camisa do clube, Pastor soma **nota média 7,3**, **139 desarmes**, **84% de passes certos** (1.391 passes) e **10 jogos sem sofrer gol como zagueiro**. Foi eleito **melhor em campo 8 vezes**, um número raro para quem joga lá atrás.",
+      "E tem mais: ele não só protege a área, como **decide**. São **5 gols e 14 assistências** na carreira. Só em outubro, Pastor balançou a rede contra o Malas e Aulas FC, o PALCO FC e o Wynd FC.",
+      {h:"Nas noites mais difíceis, ele aparece"},
+      "Na noite de ontem, contra o real la bestia, o Morpheus perdeu por 0 a 3, mas Pastor foi o melhor do time: **nota 8,3, 3 desarmes e o título de melhor em campo**. Na vitória por 5 a 0 sobre o SO DOENTE, ele fez duas assistências e nota 8,1. Na de 2 a 1 sobre o DePenys PraFora, nota 7,8.",
+      {h:"Zaga blindada"},
+      "Marcação forte, saída de bola limpa e presença no ataque quando o time precisa: Pastor reúne tudo que se espera de um líder de defesa. Com ele em campo, a certeza é uma só: **a zaga do Morpheus está blindada**, e quem insistir em passar por aqui vai ter que pedir licença.",
+    ]
+  },
+  {
     id:"magrao-contratado", rascunho:true, cover:"magrao-contratado.jpg", kicker:"Contratação", title:"Bem-vindo, Magrão! Morpheus anuncia o meio-campista MagraoJojelito84",
     date:"2026-11-07", author:"Redação Morpheus",
     summary:"Reforço de peso para o meio-campo: já são 3 jogos, 2 vitórias, 1 gol, 1 assistência e nota média 7,6.",
