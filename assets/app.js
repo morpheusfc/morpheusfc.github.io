@@ -14,7 +14,7 @@ const fmt = s => esc(s)
   .replace(/\n/g, "<br>");
 /* Foto ou vídeo: nome de arquivo (pasta assets/<tipo>/) ou endereço completo (nuvem). */
 /* ASSET_V: mude o numero quando trocar uma imagem/video mantendo o mesmo nome de arquivo (forca o navegador a baixar de novo) */
-const ASSET_V = "13";
+const ASSET_V = "14";
 const media = (kind, f) => /^https?:\/\//.test(f) ? f : `assets/${kind}/${f}?v=${ASSET_V}`;
 const ready = window.CMS_READY || Promise.resolve();
 /* PSN antiga -> PSN atual (config.apelidos em data.js): mostra o nome atual também nas partidas já guardadas. */
