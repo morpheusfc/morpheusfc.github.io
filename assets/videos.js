@@ -15,6 +15,9 @@
      {id:"golaco-beica", title:"Golaço do Beica97", type:"lance", date:"2026-10-13", src:"youtube:dQw4w9WgXcQ", desc:"Final de 5 a 1", match:"100102"}
 */
 const videos = [
+  {id:"gol-da-noite", title:"Gol da noite: golaço de Beiça!", type:"lance", date:"2026-11-11",
+   src:"file:gol-da-noite.mp4", thumb:"gol-da-noite-capa.jpg",
+   desc:"O melhor lance da rodada, na goleada por 5 a 1 sobre o RESENHA SCP.", match:"610073"},
   {id:"gols-perdidos", title:"Gols perdidos!!", type:"lance", date:"2026-10-28",
    src:"file:gols-perdidos.mp4", thumb:"gols-perdidos-capa.jpg",
    desc:"Inacreditável Futebol Clube!!!", match:""},
