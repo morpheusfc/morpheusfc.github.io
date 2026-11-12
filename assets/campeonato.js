@@ -7,27 +7,29 @@
      jogos  : fase = "grupos" | "quartas" | "semis" | "final". casa/fora = id do time, ou vaga ("1A" = 1º do grupo A, "V1" = vencedor do jogo 1 da fase anterior).
               gc / gf = gols de casa / de fora (null = ainda não jogou). */
 const campeonato = (() => {
-  const qp = new URLSearchParams(location.search), pedido = qp.get("estado");   /* só na prévia: ?demo=1&estado=inscricoes|andamento|encerrado&n=8|16 */
+  const qp = new URLSearchParams(location.search), pedido = qp.get("estado");   /* só na prévia: ?demo=1&estado=inscricoes|andamento|encerrado&n=8|10|16 */
   const estado = pedido === "inscricoes" || pedido === "encerrado" ? pedido : "andamento";
-  const N = qp.get("n") === "8" ? 8 : 16, G = N / 4;   /* G grupos de 4 */
+  const N = [8, 10].includes(+qp.get("n")) ? +qp.get("n") : 16, G = N <= 10 ? 2 : N / 4, TG = N / G;   /* G grupos de TG times (8 = 2x4, 10 = 2x5, 16 = 4x4) */
   const base = new Date(); base.setHours(20, 0, 0, 0); base.setDate(base.getDate() + (estado === "inscricoes" ? 10 : estado === "encerrado" ? -34 : -4));
   const nomes = ["Falcões FC","Dragões do Norte","Real Várzea","Lobos da Vila","Tubarões United","Fênix SC","Titãs FC","Atlético Tropeiro",
                  "Cobras de Aço","Gigantes da Serra","Pantera Negra FC","Furacão Azul","Guerreiros FC","Leões do Sul","Corsários FC","Viking Pro"];
   const nomes8 = ["Morpheus FC","CHORUMADORES","1N1M1GO5","Mo Paz Slk FC","Adrena FC","DVorcaro FC","Igrejinha FCE","Rio de Bosta"];
   const plat = ["PlayStation","Xbox","PC"];
-  const todosTimes = (N === 8 ? nomes8 : nomes).map((nome, i) => ({ id: i + 1, nome, plataforma: plat[i % 3], clubId: String(100100 + i * 37), grupo: "ABCD"[Math.floor(i / 4)] }));
+  const todosTimes = (N === 8 ? nomes8 : nomes.slice(0, N)).map((nome, i) => ({ id: i + 1, nome, plataforma: plat[i % 3], clubId: String(100100 + i * 37), grupo: "ABCD"[Math.floor(i / TG)] }));
   const rnd = s => { const x = Math.sin(s * 9301.7) * 10000; return x - Math.floor(x); };
   const dia = (o, h) => { const d = new Date(base); d.setDate(d.getDate() + o); d.setHours(h, 0, 0, 0); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}T${String(h).padStart(2, "0")}:00`; };
   const jogos = []; let id = 1;
-  const rodadas = [[[0, 1], [2, 3]], [[0, 2], [1, 3]], [[0, 3], [1, 2]]];
+  /* rodadas de cada grupo: método do círculo (grupo de 5 tem folga em cada rodada) */
+  const circulo = n => { const l = [...Array(n).keys()]; if (n % 2) l.push(null); const m = l.length, out = []; for (let r = 0; r < m - 1; r++) { const par = []; for (let i = 0; i < m / 2; i++) { const a = l[i], b = l[m - 1 - i]; if (a !== null && b !== null) par.push([a, b]); } out.push(par); l.splice(1, 0, l.pop()); } return out; };
+  const rodadas = circulo(TG), extra = (rodadas.length - 3) * 2;   /* dias a mais antes do mata-mata */
   rodadas.forEach((par, r) => "ABCD".slice(0, G).split("").forEach((g, gi) => par.forEach(([a, b], k) => {
     const t = todosTimes.filter(x => x.grupo === g);
-    const jogado = estado === "encerrado" || (estado === "andamento" && r < 2);
+    const jogado = estado === "encerrado" || (estado === "andamento" && r < rodadas.length - 1);
     jogos.push({ id: id++, fase: "grupos", grupo: g, rodada: r + 1, data: dia(r * 2 + (gi > 1 ? 1 : 0), 20 + k), casa: t[a].id, fora: t[b].id,
       gc: jogado ? Math.floor(rnd(id) * 5) : null, gf: jogado ? Math.floor(rnd(id + 50) * 4) : null });
   })));
-  const mata = N === 8
-    ? [["semis", ["1A", "2B"], dia(7, 20)], ["semis", ["1B", "2A"], dia(7, 21)], ["final", ["V1", "V2"], dia(14, 20)]]
+  const mata = N <= 10
+    ? [["semis", ["1A", "2B"], dia(7 + extra, 20)], ["semis", ["1B", "2A"], dia(7 + extra, 21)], ["final", ["V1", "V2"], dia(14 + extra, 20)]]
     : [["quartas", ["1A", "2B"], dia(7, 20)], ["quartas", ["1C", "2D"], dia(7, 21)], ["quartas", ["1B", "2A"], dia(8, 20)], ["quartas", ["1D", "2C"], dia(8, 21)],
        ["semis", ["V1", "V2"], dia(14, 20)], ["semis", ["V3", "V4"], dia(14, 21)], ["final", ["V1", "V2"], dia(21, 20)]];
   /* no mata-mata não há empate: no estado "encerrado" todos os jogos têm vencedor */
@@ -50,7 +52,7 @@ const campeonato = (() => {
   return {
     demo: true,
     nome: "Copa Nossa Jogatina", edicao: "1ª Edição", slogan: `${N} clubes. Um troféu. Só um campeão.`,
-    status: estado, numTimes: N, porGrupo: 4, classificam: 2,
+    status: estado, numTimes: N, porGrupo: TG, classificam: 2,
     inicio: dia(0, 20),
     plataformas: "PlayStation, Xbox e PC",
     /* Fotos de fundo de cada parte (arquivos dentro de assets/bg/). Vazio = só o visual padrão. Tamanho ideal: 1920 x 900 px, JPG, até 250 KB. */
@@ -66,7 +68,7 @@ const campeonato = (() => {
       ["🛡️", "Defesa menos vazada", "Clube que sofrer menos gols"]
     ],
     regras: [
-      ["Formato", "Fase de grupos (todos contra todos dentro do grupo), depois quartas de final, semifinais e final, em jogo único."],
+      ["Formato", "Fase de grupos (todos contra todos dentro do grupo), depois " + (N <= 10 ? "" : "quartas de final, ") + "semifinais e final, em jogo único."],
       ["Os jogos", "Todos os jogos são amistosos entre os clubes, nos horários definidos pela organização."],
       ["Plataformas", "Aberto a todas as plataformas."],
       ["Pontuação", "Vitória vale 3 pontos, empate 1 e derrota 0."],
@@ -90,7 +92,7 @@ async function carregaCampeonato() {
       get(`campeonato_times?select=*&campeonato_id=eq.${c.id}&order=created_at.asc`),
       get(`campeonato_jogos?select=*&campeonato_id=eq.${c.id}&order=ordem.asc`)]);
     const num = {}; ts.forEach((t, i) => { num[t.id] = i + 1; });
-    const g = c.num_times <= 8 ? 2 : 4;
+    const g = c.num_times <= 10 ? 2 : 4;
     return {
       demo: false, nome: c.nome, edicao: c.edicao, slogan: c.slogan, status: c.status, numTimes: c.num_times, porGrupo: c.num_times / g, classificam: 2,
       inicio: c.inicio, plataformas: c.plataformas, fotos: c.fotos || {}, premios: c.premios || [], regras: c.regras || [],

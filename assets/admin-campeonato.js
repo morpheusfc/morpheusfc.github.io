@@ -3,7 +3,7 @@
 window.admCampeonato = function (ctx) {
   const { sb, q, qa, esc, say, errText } = ctx;
   const FASES = { grupos: "Fase de grupos", quartas: "Quartas de final", semis: "Semifinais", final: "Final" };
-  const NUMS = [8, 12, 16, 20, 24];
+  const NUMS = [8, 10, 12, 16, 20, 24];
   const FOTOS = [["hero", "Capa"], ["grupos", "Grupos"], ["jogos", "Jogos"], ["matamata", "Mata-mata"], ["stats", "Estatísticas"], ["premiacao", "Premiação"], ["regras", "Regulamento"], ["card", "Card do campeão"]];
   const PREMIOS = `🏆 | Campeão | Troféu virtual e card de campeão com o escudo do clube em destaque no site
 🥈 | Vice-campeão | Medalha virtual e menção no Morpheus News
@@ -23,7 +23,7 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
   const pad = n => String(n).padStart(2, "0");
   const paraCampo = iso => { if (!iso) return ""; const d = new Date(iso); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`; };
   const doCampo = v => v ? new Date(v).toISOString() : null;
-  const grupos = n => n <= 8 ? 2 : 4;                  /* 8 times = 2 grupos (semifinais); 12 a 24 = 4 grupos (quartas) */
+  const grupos = n => n <= 10 ? 2 : 4;                 /* 8 times = 2 grupos de 4 e 10 times = 2 grupos de 5 (semifinais); 12 a 24 = 4 grupos (quartas) */
   const formato = n => { const g = grupos(n); return `${n} times: ${g} grupos de ${n / g}, ${g * 2} classificados (${g === 2 ? "semifinais" : "quartas de final"})`; };
   const letras = n => "ABCD".slice(0, grupos(n)).split("");
   const linhas = t => String(t || "").split("\n").map(s => s.trim()).filter(Boolean);
