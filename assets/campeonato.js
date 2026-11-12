@@ -273,7 +273,7 @@ async function carregaCampeonato() {
     <div class="cp-clubstats">
       ${ataque ? `<div class="panel"><span>Melhor ataque</span>${lado(ataque.t)}<b>${ataque.gp}<small>gols</small></b></div>` : ""}
       ${defesa ? `<div class="panel"><span>Melhor defesa</span>${lado(defesa.t)}<b>${defesa.gc}<small>sofridos</small></b></div>` : ""}
-      ${todos.length ? `<div class="panel"><span>Mais pontos</span>${lado([...todos].sort((a, b) => b.pts - a.pts || b.sg - a.sg)[0].t)}<b>${[...todos].sort((a, b) => b.pts - a.pts || b.sg - a.sg)[0].pts}<small>pts</small></b></div>` : ""}
+      ${todos.some(r => r.j) ? `<div class="panel"><span>Mais pontos</span>${lado([...todos].sort((a, b) => b.pts - a.pts || b.sg - a.sg)[0].t)}<b>${[...todos].sort((a, b) => b.pts - a.pts || b.sg - a.sg)[0].pts}<small>pts</small></b></div>` : ""}
     </div>
     <div class="cp-lists">
       <div class="panel"><h3>Artilharia</h3>${lista("g", " gols")}</div>
