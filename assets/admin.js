@@ -678,7 +678,6 @@
             ${info("Campeonato", esc(MOD_INS[a.modalidade] || a.modalidade))}
             ${info("Capitão", esc(a.captain) + " · " + esc(a.platform))}
             <div><span>Contato</span><b>${esc(a.contact)}</b> <button class="fbtn" data-copy="${esc(a.contact)}" type="button">Copiar</button></div>
-            ${info("ID do clube", esc(a.club_id))}
             ${info("Recebida", esc(fmtDateTime(a.created_at)))}
           </div>
           ${a.notes ? `<p class="am-notes">“${esc(a.notes)}”</p>` : ""}

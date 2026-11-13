@@ -526,7 +526,7 @@ if (page === "inscricao") {
     const v = Object.fromEntries(new FormData(f));
     if (v.website) { done({ team: "seu time", captain: "", contact: "", modalidade: "" }); return; }   /* campo-armadilha para robôs */
     const p = { team: (v.team || "").trim(), captain: (v.captain || "").trim(), contact: (v.contact || "").trim(), platform: v.platform || "PlayStation",
-      club_id: (v.club_id || "").trim(), modalidade: v.modalidade, notes: (v.notes || "").trim() };
+      modalidade: v.modalidade, notes: (v.notes || "").trim() };
     if (p.team.length < 2) return show("Informe o nome do time.");
     if (p.captain.length < 2) return show("Informe o capitão (PSN ou gamertag).");
     if (p.contact.length < 3) return show("Informe um contato para respondermos (Discord, WhatsApp ou Instagram).");
