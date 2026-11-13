@@ -516,8 +516,8 @@ if (page === "inscricao") {
     $("#formBox").innerHTML = `<div class="panel am-done">
       <div class="am-check" aria-hidden="true">✓</div>
       <h3>Inscrição enviada!</h3>
-      <p class="sec-sub" style="margin:0 0 16px">Recebemos a inscrição do <b>${esc(p.team)}</b>. Vamos falar com o capitão <b>${esc(p.captain)}</b> pelo contato informado.</p>
-      <ul class="am-sum"><li><span>Campeonato</span><b>${esc(MOD[p.modalidade] || "")}</b></li><li><span>Contato</span><b>${esc(p.contact)}</b></li></ul>
+      <p class="sec-sub" style="margin:0 0 16px">Recebemos a inscrição do <b>${esc(p.team)}</b>. Vamos falar com o capitão <b>${esc(p.captain_name)}</b> pelo WhatsApp informado.</p>
+      <ul class="am-sum"><li><span>Campeonato</span><b>${esc(MOD[p.modalidade] || "")}</b></li><li><span>WhatsApp</span><b>${esc(p.contact)}</b></li></ul>
       <button class="btn btn-ghost" type="button" onclick="location.reload()">Inscrever outro time</button></div>`;
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -525,11 +525,12 @@ if (page === "inscricao") {
     e.preventDefault(); msg.hidden = true;
     const v = Object.fromEntries(new FormData(f));
     if (v.website) { done({ team: "seu time", captain: "", contact: "", modalidade: "" }); return; }   /* campo-armadilha para robôs */
-    const p = { team: (v.team || "").trim(), captain: (v.captain || "").trim(), contact: (v.contact || "").trim(), platform: v.platform || "PlayStation",
+    const p = { team: (v.team || "").trim(), captain_name: (v.captain_name || "").trim(), captain: (v.captain || "").trim(), contact: (v.contact || "").trim(), platform: v.platform || "PlayStation",
       modalidade: v.modalidade, notes: (v.notes || "").trim() };
     if (p.team.length < 2) return show("Informe o nome do time.");
+    if (p.captain_name.length < 2) return show("Informe o nome do capitão.");
     if (p.captain.length < 2) return show("Informe o capitão (PSN ou gamertag).");
-    if (p.contact.length < 3) return show("Informe um contato para respondermos (Discord, WhatsApp ou Instagram).");
+    if (p.contact.replace(/\D/g, "").length < 10) return show("Informe um WhatsApp válido, com DDD.");
     if (!MOD[p.modalidade]) return show("Escolha em qual campeonato quer se inscrever.");
     const wait = 60000 - (Date.now() - Number(store.get("in_last") || 0));
     if (wait > 0) return show(`Você acabou de enviar uma inscrição. Aguarde ${Math.ceil(wait / 1000)} segundos para enviar outra.`);

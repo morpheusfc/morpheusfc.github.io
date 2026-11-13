@@ -650,11 +650,12 @@
   const MOD_INS = { copa: "Copa (mata-mata)", brasileirao: "Brasileirão (pontos corridos)", ambos: "Copa e Brasileirão" };
   let insFilter = "";
   const insMsgs = {
-    contact: a => `Olá, capitão ${a.captain}! Aqui é do Morpheus FC. Recebemos a inscrição do ${a.team} na ${a.modalidade === "ambos" ? "Copa e no Brasileirão" : a.modalidade === "copa" ? "Copa" : "Brasileirão"}. Vamos passar os detalhes do campeonato por aqui. Pode confirmar que o time continua com interesse?`,
-    confirm: a => `Olá, capitão ${a.captain}! Aqui é do Morpheus FC. A vaga do ${a.team} está confirmada na ${a.modalidade === "ambos" ? "Copa e no Brasileirão" : a.modalidade === "copa" ? "Copa" : "Brasileirão"}. Em breve enviamos a data de início e os jogos. Boa sorte!`,
-    decline: a => `Olá, capitão ${a.captain}! Aqui é do Morpheus FC. Obrigado pelo interesse do ${a.team}. Desta vez não conseguiremos incluir o time no campeonato, mas avisamos quando abrir uma nova edição.`
+    contact: a => `Olá, ${a.captain_name || a.captain}! Aqui é do Morpheus FC. Recebemos a inscrição do ${a.team} na ${a.modalidade === "ambos" ? "Copa e no Brasileirão" : a.modalidade === "copa" ? "Copa" : "Brasileirão"}. Vamos passar os detalhes do campeonato por aqui. Pode confirmar que o time continua com interesse?`,
+    confirm: a => `Olá, ${a.captain_name || a.captain}! Aqui é do Morpheus FC. A vaga do ${a.team} está confirmada na ${a.modalidade === "ambos" ? "Copa e no Brasileirão" : a.modalidade === "copa" ? "Copa" : "Brasileirão"}. Em breve enviamos a data de início e os jogos. Boa sorte!`,
+    decline: a => `Olá, ${a.captain_name || a.captain}! Aqui é do Morpheus FC. Obrigado pelo interesse do ${a.team}. Desta vez não conseguiremos incluir o time no campeonato, mas avisamos quando abrir uma nova edição.`
   };
 
+  const waNum = c => { const d = String(c || "").replace(/\D/g, ""); return d.length <= 11 ? "55" + d : d; };
   async function inscricoesView(){
     const view = q("#view");
     view.innerHTML = `<div class="empty-state">Carregando…</div>`;
@@ -676,8 +677,8 @@
           <div class="am-top"><div><b class="am-team">${esc(a.team)}</b></div><span class="am-pill ${esc(a.status === "contatado" ? "novo" : a.status)}">${STATUS_INS[a.status] || esc(a.status)}</span></div>
           <div class="am-grid">
             ${info("Campeonato", esc(MOD_INS[a.modalidade] || a.modalidade))}
-            ${info("Capitão", esc(a.captain) + " · " + esc(a.platform))}
-            <div><span>Contato</span><b>${esc(a.contact)}</b> <button class="fbtn" data-copy="${esc(a.contact)}" type="button">Copiar</button></div>
+            ${info("Capitão", (a.captain_name ? esc(a.captain_name) + " · PSN/ID: " : "") + esc(a.captain) + " · " + esc(a.platform))}
+            <div><span>WhatsApp</span><b>${esc(a.contact)}</b> <a class="fbtn" target="_blank" rel="noopener noreferrer" href="https://wa.me/${esc(waNum(a.contact))}">Abrir</a> <button class="fbtn" data-copy="${esc(a.contact)}" type="button">Copiar</button></div>
             ${info("Recebida", esc(fmtDateTime(a.created_at)))}
           </div>
           ${a.notes ? `<p class="am-notes">“${esc(a.notes)}”</p>` : ""}
