@@ -677,7 +677,7 @@
           <div class="am-top"><div><b class="am-team">${esc(a.team)}</b></div><span class="am-pill ${esc(a.status === "contatado" ? "novo" : a.status)}">${STATUS_INS[a.status] || esc(a.status)}</span></div>
           <div class="am-grid">
             ${info("Campeonato", esc(MOD_INS[a.modalidade] || a.modalidade))}
-            ${info("Capitão", (a.captain_name ? esc(a.captain_name) + " · PSN/ID: " : "") + esc(a.captain) + " · " + esc(a.platform))}
+            ${info("Capitão", esc(a.captain_name || a.captain) + (a.captain_name && a.captain ? " · PSN/ID: " + esc(a.captain) : "") + " · " + esc(a.platform))}
             <div><span>WhatsApp</span><b>${esc(a.contact)}</b> <a class="fbtn" target="_blank" rel="noopener noreferrer" href="https://wa.me/${esc(waNum(a.contact))}">Abrir</a> <button class="fbtn" data-copy="${esc(a.contact)}" type="button">Copiar</button></div>
             ${info("Recebida", esc(fmtDateTime(a.created_at)))}
           </div>

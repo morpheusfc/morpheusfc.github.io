@@ -529,7 +529,6 @@ if (page === "inscricao") {
       modalidade: v.modalidade, notes: (v.notes || "").trim() };
     if (p.team.length < 2) return show("Informe o nome do time.");
     if (p.captain_name.length < 2) return show("Informe o nome do capitão.");
-    if (p.captain.length < 2) return show("Informe o capitão (PSN ou gamertag).");
     if (p.contact.replace(/\D/g, "").length < 10) return show("Informe um WhatsApp válido, com DDD.");
     if (!MOD[p.modalidade]) return show("Escolha em qual campeonato quer se inscrever.");
     const wait = 60000 - (Date.now() - Number(store.get("in_last") || 0));
