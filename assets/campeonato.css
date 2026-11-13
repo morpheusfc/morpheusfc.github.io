@@ -202,3 +202,15 @@ html,body{overflow-x:clip}
   .cp-score em{min-height:30px;display:grid;align-items:center}
   .cp-team b{font-size:14px}
 }
+
+/* ===== Pontos corridos: faixas da tabela ===== */
+.cp-liga{max-width:900px}
+.cp-table tr.z-camp td:first-child{box-shadow:inset 4px 0 0 var(--gold);color:var(--gold);font-weight:700}
+.cp-table tr.z-camp td:last-child{color:var(--gold)}
+.cp-table tr.z-top td:first-child{box-shadow:inset 4px 0 0 var(--win);color:var(--win);font-weight:700}
+.cp-table tr.z-bot td:first-child{box-shadow:inset 4px 0 0 var(--loss,#e5534b);color:var(--loss,#e5534b);font-weight:700}
+.cp-legend3{flex-wrap:wrap;gap:8px 22px}
+.cp-legend3 span{display:inline-flex;align-items:center;gap:8px}
+.cp-legend3 i{width:14px;height:14px;background:var(--surface-2);border-left:4px solid var(--win)}
+.cp-legend3 .z-camp i{border-left-color:var(--gold)}
+.cp-legend3 .z-bot i{border-left-color:var(--loss,#e5534b)}

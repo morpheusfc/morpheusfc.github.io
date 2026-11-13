@@ -7,15 +7,16 @@
      jogos  : fase = "grupos" | "quartas" | "semis" | "final". casa/fora = id do time, ou vaga ("1A" = 1º do grupo A, "V1" = vencedor do jogo 1 da fase anterior).
               gc / gf = gols de casa / de fora (null = ainda não jogou). */
 const campeonato = (() => {
-  const qp = new URLSearchParams(location.search), pedido = qp.get("estado");   /* só na prévia: ?demo=1&estado=inscricoes|andamento|encerrado&n=8|10|16 */
+  const qp = new URLSearchParams(location.search), pedido = qp.get("estado");   /* só na prévia: ?demo=1&estado=inscricoes|andamento|encerrado&n=8|10|16 ou ?formato=pontos&n=4..16 */
   const estado = pedido === "inscricoes" || pedido === "encerrado" ? pedido : "andamento";
-  const N = [8, 10].includes(+qp.get("n")) ? +qp.get("n") : 16, G = N <= 10 ? 2 : N / 4, TG = N / G;   /* G grupos de TG times (8 = 2x4, 10 = 2x5, 16 = 4x4) */
-  const base = new Date(); base.setHours(20, 0, 0, 0); base.setDate(base.getDate() + (estado === "inscricoes" ? 10 : estado === "encerrado" ? -34 : -4));
+  const PONTOSD = qp.get("formato") === "pontos";   /* ?formato=pontos: prévia do campeonato de pontos corridos (n = 4 a 16 clubes) */
+  const N = PONTOSD ? Math.min(16, Math.max(4, +qp.get("n") || 10)) : [8, 10].includes(+qp.get("n")) ? +qp.get("n") : 16, G = PONTOSD ? 1 : N <= 10 ? 2 : N / 4, TG = N / G;   /* G grupos de TG times (8 = 2x4, 10 = 2x5, 16 = 4x4; pontos corridos = 1 grupo só) */
+  const base = new Date(); base.setHours(20, 0, 0, 0); base.setDate(base.getDate() + (estado === "inscricoes" ? 10 : estado === "encerrado" ? -34 : PONTOSD ? -8 : -4));
   const nomes = ["Falcões FC","Dragões do Norte","Real Várzea","Lobos da Vila","Tubarões United","Fênix SC","Titãs FC","Atlético Tropeiro",
                  "Cobras de Aço","Gigantes da Serra","Pantera Negra FC","Furacão Azul","Guerreiros FC","Leões do Sul","Corsários FC","Viking Pro"];
   const nomes8 = ["Morpheus FC","CHORUMADORES","1N1M1GO5","Mo Paz Slk FC","Adrena FC","DVorcaro FC","Igrejinha FCE","Rio de Bosta"];
   const plat = ["PlayStation","Xbox","PC"];
-  const todosTimes = (N === 8 ? nomes8 : nomes.slice(0, N)).map((nome, i) => ({ id: i + 1, nome, plataforma: plat[i % 3], clubId: String(100100 + i * 37), grupo: "ABCD"[Math.floor(i / TG)] }));
+  const todosTimes = (!PONTOSD && N === 8 ? nomes8 : nomes.slice(0, N)).map((nome, i) => ({ id: i + 1, nome, plataforma: plat[i % 3], clubId: String(100100 + i * 37), grupo: "ABCD"[Math.floor(i / TG)] }));
   const rnd = s => { const x = Math.sin(s * 9301.7) * 10000; return x - Math.floor(x); };
   const dia = (o, h) => { const d = new Date(base); d.setDate(d.getDate() + o); d.setHours(h, 0, 0, 0); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}T${String(h).padStart(2, "0")}:00`; };
   const jogos = []; let id = 1;
@@ -24,11 +25,11 @@ const campeonato = (() => {
   const rodadas = circulo(TG), extra = (rodadas.length - 3) * 2;   /* dias a mais antes do mata-mata */
   rodadas.forEach((par, r) => "ABCD".slice(0, G).split("").forEach((g, gi) => par.forEach(([a, b], k) => {
     const t = todosTimes.filter(x => x.grupo === g);
-    const jogado = estado === "encerrado" || (estado === "andamento" && r < rodadas.length - 1);
+    const jogado = estado === "encerrado" || (estado === "andamento" && r < (PONTOSD ? Math.ceil(rodadas.length * .45) : rodadas.length - 1));
     jogos.push({ id: id++, fase: "grupos", grupo: g, rodada: r + 1, data: dia(r * 2 + (gi > 1 ? 1 : 0), 20 + k), casa: t[a].id, fora: t[b].id,
       gc: jogado ? Math.floor(rnd(id) * 5) : null, gf: jogado ? Math.floor(rnd(id + 50) * 4) : null });
   })));
-  const mata = N <= 10
+  const mata = PONTOSD ? [] : N <= 10
     ? [["semis", ["1A", "2B"], dia(7 + extra, 20)], ["semis", ["1B", "2A"], dia(7 + extra, 21)], ["final", ["V1", "V2"], dia(14 + extra, 20)]]
     : [["quartas", ["1A", "2B"], dia(7, 20)], ["quartas", ["1C", "2D"], dia(7, 21)], ["quartas", ["1B", "2A"], dia(8, 20)], ["quartas", ["1D", "2C"], dia(8, 21)],
        ["semis", ["V1", "V2"], dia(14, 20)], ["semis", ["V3", "V4"], dia(14, 21)], ["final", ["V1", "V2"], dia(21, 20)]];
@@ -52,7 +53,7 @@ const campeonato = (() => {
   return {
     demo: true,
     nome: "Copa Nossa Jogatina", edicao: "1ª Edição", slogan: `${N} clubes. Um troféu. Só um campeão.`,
-    status: estado, numTimes: N, porGrupo: TG, classificam: 2,
+    status: estado, numTimes: N, porGrupo: TG, classificam: 2, formato: PONTOSD ? "pontos" : "grupos",
     inicio: dia(0, 20),
     plataformas: "PlayStation, Xbox e PC",
     /* Fotos de fundo de cada parte (arquivos dentro de assets/bg/). Vazio = só o visual padrão. Tamanho ideal: 1920 x 900 px, JPG, até 250 KB. */
@@ -68,7 +69,7 @@ const campeonato = (() => {
       ["🛡️", "Defesa menos vazada", "Clube que sofrer menos gols"]
     ],
     regras: [
-      ["Formato", "Fase de grupos (todos contra todos dentro do grupo), depois " + (N <= 10 ? "" : "quartas de final, ") + "semifinais e final, em jogo único."],
+      ["Formato", PONTOSD ? "Pontos corridos em turno único: todos os clubes se enfrentam uma vez e quem somar mais pontos é o campeão." : "Fase de grupos (todos contra todos dentro do grupo), depois " + (N <= 10 ? "" : "quartas de final, ") + "semifinais e final, em jogo único."],
       ["Os jogos", "Todos os jogos são amistosos entre os clubes, nos horários definidos pela organização."],
       ["Plataformas", "Aberto a todas as plataformas."],
       ["Pontuação", "Vitória vale 3 pontos, empate 1 e derrota 0."],
@@ -92,12 +93,12 @@ async function carregaCampeonato() {
       get(`campeonato_times?select=*&campeonato_id=eq.${c.id}&order=created_at.asc`),
       get(`campeonato_jogos?select=*&campeonato_id=eq.${c.id}&order=ordem.asc`)]);
     const num = {}; ts.forEach((t, i) => { num[t.id] = i + 1; });
-    const g = c.num_times <= 10 ? 2 : 4;
+    const pts = c.formato === "pontos", g = pts ? 1 : (c.num_times <= 10 ? 2 : 4);
     return {
-      demo: false, nome: c.nome, edicao: c.edicao, slogan: c.slogan, status: c.status, numTimes: c.num_times, porGrupo: c.num_times / g, classificam: 2,
+      demo: false, formato: pts ? "pontos" : "grupos", nome: c.nome, edicao: c.edicao, slogan: c.slogan, status: c.status, numTimes: c.num_times, porGrupo: c.num_times / g, classificam: 2,
       inicio: c.inicio, plataformas: c.plataformas, fotos: c.fotos || {}, premios: c.premios || [], regras: c.regras || [],
-      times: ts.map(t => ({ id: num[t.id], nome: t.nome, plataforma: t.plataforma, clubId: t.club_id, grupo: t.grupo })),
-      jogos: js.map(j => ({ id: j.id, fase: j.fase, grupo: j.grupo, rodada: j.rodada, data: j.data,
+      times: ts.map(t => ({ id: num[t.id], nome: t.nome, plataforma: t.plataforma, clubId: t.club_id, grupo: pts ? "A" : t.grupo })),
+      jogos: js.map(j => ({ id: j.id, fase: j.fase, grupo: pts ? "A" : j.grupo, rodada: j.rodada, data: j.data,
         casa: j.casa ? num[j.casa] : j.casa_vaga, fora: j.fora ? num[j.fora] : j.fora_vaga, gc: j.gols_casa, gf: j.gols_fora, stats: j.stats })),
       jogadores: null
     };
@@ -116,6 +117,7 @@ async function carregaCampeonato() {
     return;
   }
   C.fotos = Object.assign({}, typeof campeonatoFotos !== "undefined" ? campeonatoFotos : {}, Object.fromEntries(Object.entries(C.fotos || {}).filter(([, v]) => v)));
+  const PONTOS = C.formato === "pontos";   /* pontos corridos: uma tabela só, turno único, sem mata-mata */
   const byId = Object.fromEntries(C.times.map(t => [t.id, t]));
   /* Resultados do arquivo campeonato-dados.js (preenchido quando se pede "atualizar campeonato"): só completam o que o painel ainda não tem. */
   const norm = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
@@ -174,7 +176,9 @@ async function carregaCampeonato() {
 
   /* mata-mata: na ordem das fases, para os vencedores já estarem definidos quando a fase seguinte for resolvida */
   ["quartas", "semis", "final"].forEach(f => mataJogos(f).forEach(j => { const a = slot(j.casa, f), b = slot(j.fora, f); if (a && a.nome && b && b.nome) aplica(j, norm(a.nome), norm(b.nome)); }));
-  const campeao = (() => { const f = mataJogos("final")[0]; return f && jogou(f) && f.gc !== f.gf ? slot(f.gc > f.gf ? f.casa : f.fora, "final") : null; })();
+  const campeao = (() => {
+    if (PONTOS) return C.jogos.length && C.jogos.every(jogou) && tabs.A && tabs.A[0] ? tabs.A[0].t : null;   /* pontos corridos: líder quando todos os jogos acabam */
+    const f = mataJogos("final")[0]; return f && jogou(f) && f.gc !== f.gf ? slot(f.gc > f.gf ? f.casa : f.fora, "final") : null; })();
   /* jogadores do campeonato: soma das estatísticas guardadas em cada jogo (campo stats), por clube */
   if (C.jogadores === null) {
     const acc = new Map();
@@ -185,7 +189,7 @@ async function carregaCampeonato() {
           r.j++; r.g += +p.g || 0; r.a += +p.a || 0; r.m += +p.m || 0; r.def += +p.def || 0; r.gs += +p.gs || 0; if (p.pos === "G") r.pos = "G"; acc.set(k, r); }); }); });
     C.jogadores = [...acc.values()];
   }
-  const fases = { 8: ["quartas", "semis", "final"], 4: ["semis", "final"], 2: ["final"] }[C.classificam * (C.numTimes / C.porGrupo)] || ["quartas", "semis", "final"];
+  const fases = PONTOS ? [] : { 8: ["quartas", "semis", "final"], 4: ["semis", "final"], 2: ["final"] }[C.classificam * (C.numTimes / C.porGrupo)] || ["quartas", "semis", "final"];
   const disputados = C.jogos.filter(jogou), golsTotal = disputados.reduce((s, j) => s + j.gc + j.gf, 0);
 
   const TROFEU = `<svg class="cp-trophy" viewBox="0 0 120 140" role="img" aria-label="Troféu">
@@ -220,11 +224,26 @@ async function carregaCampeonato() {
       <div><b>${disputados.length ? (golsTotal / disputados.length).toFixed(1).replace(".", ",") : "0"}</b><span>gols por jogo</span></div>
     </div>
   </div></header>
-  <div class="cp-subnav"><div class="wrap">${[["grupos", "Grupos"], ["jogos", "Jogos"], ["matamata", "Mata-mata"], ["stats", "Estatísticas"], ["premiacao", "Premiação"], ["regras", "Regulamento"]]
+  <div class="cp-subnav"><div class="wrap">${[["grupos", PONTOS ? "Classificação" : "Grupos"], ["jogos", PONTOS ? "Rodadas" : "Jogos"], ["matamata", "Mata-mata"], ["stats", "Estatísticas"], ["premiacao", "Premiação"], ["regras", "Regulamento"]].filter(([id]) => !(PONTOS && id === "matamata"))
     .map(([id, l]) => `<a href="#${id}">${l}</a>`).join("")}</div></div>`;
 
 
-  const gruposHtml = `
+  /* pontos corridos: faixas da tabela (campeão, zona de destaque e zona de rebaixamento, como no Brasileirão) */
+  const nT = PONTOS && tabs.A ? tabs.A.length : 0, nTop = nT >= 8 ? 4 : nT >= 4 ? 2 : 0, nBot = nT >= 8 ? 2 : nT >= 5 ? 1 : 0;
+  const zona = i => i === 0 ? "z-camp" : i < nTop ? "z-top" : (nBot && i >= nT - nBot) ? "z-bot" : "";
+  const tabelaPontos = `
+    <div class="panel cp-group cp-liga">
+      <div class="cp-scroll"><table class="cp-table"><thead><tr><th>#</th><th>Clube</th><th>J</th><th>V</th><th>E</th><th>D</th><th>GP</th><th>GC</th><th>SG</th><th>Pts</th></tr></thead><tbody>
+      ${(tabs.A || []).map((r, i) => `<tr class="${zona(i)}"><td>${i + 1}</td><td>${lado(r.t)}</td><td>${r.j}</td><td>${r.v}</td><td>${r.e}</td><td>${r.d}</td><td>${r.gp}</td><td>${r.gc}</td><td>${r.sg > 0 ? "+" : ""}${r.sg}</td><td><b>${r.pts}</b></td></tr>`).join("")}
+      </tbody></table></div></div>
+    <div class="cp-legend cp-legend3"><span class="z-camp"><i></i> Campeão (líder)</span>${nTop > 1 ? `<span class="z-top"><i></i> Zona de destaque (2º ao ${nTop}º)</span>` : ""}${nBot ? `<span class="z-bot"><i></i> Zona de rebaixamento (${nBot === 1 ? "último" : "últimos " + nBot})</span>` : ""}</div>`;
+  const gruposHtml = PONTOS ? `
+  <section class="cp-sec alt" id="grupos">${bg("grupos")}<div class="wrap">${secLista("Pontos corridos", "Classificação")}
+    <p class="sec-sub">Turno único: todos os clubes se enfrentam uma vez. Vitória vale 3 pontos, empate 1. Quem somar mais pontos é o campeão.</p>
+    ${grupos.length ? tabelaPontos : `<div class="panel cp-wait"><b>Inscrições abertas</b><span>Quando as ${C.numTimes} vagas forem preenchidas, os jogos serão definidos: todos contra todos, em ${C.numTimes - 1} rodadas.</span>
+      <div class="cp-vagas"><i style="width:${Math.round(C.times.length / C.numTimes * 100)}%"></i></div><span>${C.times.length} de ${C.numTimes} vagas preenchidas</span>
+      ${C.times.length ? `<div class="cp-chips">${C.times.map(t => `<span class="cp-tchip">${escudo(t, "sm")}${esc(t.nome)}</span>`).join("")}</div>` : ""}</div>`}
+  </div></section>` : `
   <section class="cp-sec alt" id="grupos">${bg("grupos")}<div class="wrap">${secLista("Fase de grupos", "Classificação")}
     <p class="sec-sub">Os ${C.classificam} primeiros de cada grupo avançam para o mata-mata.</p>
     ${grupos.length ? "" : `<div class="panel cp-wait"><b>Sorteio em breve</b><span>Quando as ${C.numTimes} vagas forem preenchidas, os clubes serão sorteados em ${C.numTimes / C.porGrupo} grupos de ${C.porGrupo}.</span>
@@ -239,13 +258,14 @@ async function carregaCampeonato() {
   </div></section>`;
 
   const jogoRow = j => { const c = slot(j.casa, j.fase), f = slot(j.fora, j.fase), p = jogou(j);
-    return `<div class="cp-match ${p ? "done" : ""}"><div class="cp-when"><b>${quando(j.data)}</b><span>${j.grupo ? `Grupo ${j.grupo} · ${j.rodada}ª rodada` : FASES[j.fase]}</span></div>
+    return `<div class="cp-match ${p ? "done" : ""}"><div class="cp-when"><b>${quando(j.data)}</b><span>${j.grupo ? (PONTOS ? `${j.rodada}ª rodada` : `Grupo ${j.grupo} · ${j.rodada}ª rodada`) : FASES[j.fase]}</span></div>
       <div class="cp-vs">${lado(c, "home")}<span class="cp-score">${p ? `<em>${j.gc}</em><i>x</i><em>${j.gf}</em>` : "<i>vs</i>"}</span>${lado(f, "away")}</div></div>`; };
   /* abre na fase em andamento: a primeira que ainda tem jogo por disputar (ou a final) */
-  const faseAtual = ["grupos", ...fases].find(f => C.jogos.some(j => j.fase === f && !jogou(j))) || "final";
+  const rodadasLista = PONTOS ? [...new Set(C.jogos.map(j => j.rodada))].sort((a, b) => a - b) : [];
+  const faseAtual = PONTOS ? (rodadasLista.find(r => C.jogos.some(j => j.rodada === r && !jogou(j))) || rodadasLista[rodadasLista.length - 1] || 1) : ["grupos", ...fases].find(f => C.jogos.some(j => j.fase === f && !jogou(j))) || "final";
   const jogosHtml = `
   <section class="cp-sec" id="jogos">${bg("jogos")}<div class="wrap">${secLista("Calendário", "Jogos e resultados")}
-    <div class="toolbar" id="cpFiltro">${[["grupos", "Fase de grupos"], ["quartas", "Quartas"], ["semis", "Semifinais"], ["final", "Final"]].filter(([k]) => k === "grupos" || fases.includes(k))
+    <div class="toolbar" id="cpFiltro">${(PONTOS ? rodadasLista.map(r => [r, r + "ª rodada"]) : [["grupos", "Fase de grupos"], ["quartas", "Quartas"], ["semis", "Semifinais"], ["final", "Final"]].filter(([k]) => k === "grupos" || fases.includes(k)))
       .map(([k, l]) => `<button class="fbtn${k === faseAtual ? " on" : ""}" data-f="${k}">${l}</button>`).join("")}</div>
     <div class="panel cp-matches" id="cpJogos"></div>
   </div></section>`;
@@ -286,7 +306,7 @@ async function carregaCampeonato() {
   /* ---- quem ganhou cada prêmio (enquanto o campeonato não termina, mostra o líder atual) ---- */
   const encerrado = C.status === "encerrado" || !!campeao;
   const finalJ = mataJogos("final")[0];
-  const vice = (() => { if (!campeao || !finalJ) return null; const a = slot(finalJ.casa, "final"), b = slot(finalJ.fora, "final"); return a && b && a.id === campeao.id ? b : a; })();
+  const vice = (() => { if (PONTOS) return campeao && tabs.A[1] ? tabs.A[1].t : null; if (!campeao || !finalJ) return null; const a = slot(finalJ.casa, "final"), b = slot(finalJ.fora, "final"); return a && b && a.id === campeao.id ? b : a; })();
   const lideres = (lista, val) => { if (!lista.length) return []; const m = Math.max(...lista.map(val)); return lista.filter(p => val(p) === m); };
   const maisJog = (key, un) => { const l = lideres(C.jogadores.filter(p => p[key] > 0), p => p[key]); return l.length ? { tipo: "j", lista: l, nota: l[0][key] + un } : null; };
   function ganhadorDe(titulo) {
@@ -331,10 +351,10 @@ async function carregaCampeonato() {
     <div class="cp-rules">${C.regras.map(([t, d]) => `<details><summary>${esc(t)}</summary><p>${esc(d)}</p></details>`).join("")}</div>
   </div></section>`;
 
-  root.innerHTML = hero + gruposHtml + jogosHtml + bracket + stats + premiacao + regras;
+  root.innerHTML = hero + gruposHtml + jogosHtml + (PONTOS ? "" : bracket) + stats + premiacao + regras;
 
   /* filtro de jogos */
-  const desenhaJogos = f => { document.getElementById("cpJogos").innerHTML = C.jogos.filter(j => j.fase === f).sort((a, b) => (a.data || "9").localeCompare(b.data || "9")).map(jogoRow).join(""); };
+  const desenhaJogos = f => { document.getElementById("cpJogos").innerHTML = C.jogos.filter(j => PONTOS ? j.rodada === +f : j.fase === f).sort((a, b) => (a.data || "9").localeCompare(b.data || "9")).map(jogoRow).join(""); };
   desenhaJogos(faseAtual);
   document.querySelectorAll("#cpFiltro .fbtn").forEach(b => b.onclick = () => { document.querySelectorAll("#cpFiltro .fbtn").forEach(x => x.classList.toggle("on", x === b)); desenhaJogos(b.dataset.f); });
 

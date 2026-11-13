@@ -3,7 +3,8 @@
 window.admCampeonato = function (ctx) {
   const { sb, q, qa, esc, say, errText } = ctx;
   const FASES = { grupos: "Fase de grupos", quartas: "Quartas de final", semis: "Semifinais", final: "Final" };
-  const NUMS = [8, 10, 12, 16, 20, 24];
+  const NUMS = [8, 10, 12, 16, 20, 24], NUMS_P = [4, 6, 8, 10, 12, 14, 16, 18, 20];   /* mata-mata (grupos) x pontos corridos */
+  const nums = p => p ? NUMS_P : NUMS;
   const FOTOS = [["hero", "Capa"], ["grupos", "Grupos"], ["jogos", "Jogos"], ["matamata", "Mata-mata"], ["stats", "Estatísticas"], ["premiacao", "Premiação"], ["regras", "Regulamento"], ["card", "Card do campeão"]];
   const PREMIOS = `🏆 | Campeão | Troféu virtual e card de campeão com o escudo do clube em destaque no site
 🥈 | Vice-campeão | Medalha virtual e menção no Morpheus News
@@ -19,13 +20,14 @@ Pontuação | Vitória vale 3 pontos, empate 1 e derrota 0.
 Desempate | Pontos, saldo de gols, gols marcados e número de vitórias.
 Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apresentar o maior Índice de Eficiência do Goleiro (IEG) durante o campeonato. IEG = Defesas ÷ (Defesas + Gols Sofridos) × 100. O índice representa o percentual de defesas em relação ao total de defesas realizadas e gols sofridos.`;
 
+  const REGRAS_P = REGRAS.replace(/^Formato \|.*$/m, "Formato | Pontos corridos em turno único: todos os clubes se enfrentam uma vez e o campeão é o líder da tabela ao final de todas as rodadas.");
   let selId = null, criando = false;
   const pad = n => String(n).padStart(2, "0");
   const paraCampo = iso => { if (!iso) return ""; const d = new Date(iso); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`; };
   const doCampo = v => v ? new Date(v).toISOString() : null;
-  const grupos = n => n <= 10 ? 2 : 4;                 /* 8 times = 2 grupos de 4 e 10 times = 2 grupos de 5 (semifinais); 12 a 24 = 4 grupos (quartas) */
-  const formato = n => { const g = grupos(n); return `${n} times: ${g} grupos de ${n / g}, ${g * 2} classificados (${g === 2 ? "semifinais" : "quartas de final"})`; };
-  const letras = n => "ABCD".slice(0, grupos(n)).split("");
+  const grupos = (n, p) => p ? 1 : n <= 10 ? 2 : 4;   /* pontos corridos = 1 tabela; 8 times = 2 grupos de 4; 10 = 2 de 5 (semifinais); 12 a 24 = 4 grupos (quartas) */
+  const formato = (n, p) => { if (p) return `${n} times: pontos corridos em turno único, ${n - 1} rodadas e ${n * (n - 1) / 2} jogos; quem somar mais pontos é o campeão`; const g = grupos(n); return `${n} times: ${g} grupos de ${n / g}, ${g * 2} classificados (${g === 2 ? "semifinais" : "quartas de final"})`; };
+  const letras = (n, p) => "ABCD".slice(0, grupos(n, p)).split("");
   const linhas = t => String(t || "").split("\n").map(s => s.trim()).filter(Boolean);
   const paraPremios = t => linhas(t).map(l => { const p = l.split("|").map(s => s.trim()); return [p[0] || "", p[1] || "", p.slice(2).join(" | ")]; }).filter(p => p[1]);
   const paraRegras = t => linhas(t).map(l => { const p = l.split("|").map(s => s.trim()); return [p[0] || "", p.slice(1).join(" | ")]; }).filter(p => p[0]);
@@ -61,6 +63,7 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
     if (!camps.length) criando = true;
     if (!criando && (!selId || !camps.find(c => c.id === selId))) selId = camps[0].id;
     const cur = criando ? null : camps.find(c => c.id === selId);
+    const P = !!cur && cur.formato === "pontos";   /* pontos corridos */
     let times = [], jogos = [];
     if (cur) {
       const [t, j] = await Promise.all([
@@ -72,8 +75,8 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
 
     /* classificação dos grupos (para mostrar quem joga no mata-mata) */
     const tabelas = {};
-    if (cur) letras(cur.num_times).forEach(g => {
-      const r = Object.fromEntries(times.filter(t => t.grupo === g).map(t => [t.id, { id: t.id, j: 0, pts: 0, sg: 0, gp: 0, v: 0 }]));
+    if (cur) letras(cur.num_times, P).forEach(g => {
+      const r = Object.fromEntries(times.filter(t => P || t.grupo === g).map(t => [t.id, { id: t.id, j: 0, pts: 0, sg: 0, gp: 0, v: 0 }]));
       const gj = jogos.filter(x => x.fase === "grupos" && x.grupo === g);
       gj.filter(x => x.gols_casa !== null && x.gols_fora !== null && r[x.casa] && r[x.fora]).forEach(x => {
         const a = r[x.casa], b = r[x.fora];
@@ -95,16 +98,20 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
     }
 
     const chips = camps.map(c => `<button class="fbtn${!criando && c.id === selId ? " on" : ""}" data-c="${esc(c.id)}">${esc(c.nome)}${c.edicao ? " · " + esc(c.edicao) : ""}${c.publico ? "" : " (oculto)"}</button>`).join("");
-    const c = cur || { nome: "Copa Morpheus", edicao: "1ª Edição", slogan: "16 clubes. Um troféu. Só um campeão.", status: "inscricoes", num_times: 16, inicio: null, plataformas: "PlayStation, Xbox e PC", publico: false, fotos: {}, premios: null, regras: null };
+    const c = cur || { nome: "Copa Morpheus", edicao: "1ª Edição", slogan: "16 clubes. Um troféu. Só um campeão.", status: "inscricoes", num_times: 16, formato: "grupos", inicio: null, plataformas: "PlayStation, Xbox e PC", publico: false, fotos: {}, premios: null, regras: null };
+    const cPts = c.formato === "pontos";
+    const optsNum = (p, sel) => nums(p).map(n => `<option value="${n}"${n === sel ? " selected" : ""}>${n} times</option>`).join("");
     const form = `
       <form class="panel" id="cform"><h3>${cur ? "Dados do campeonato" : "Novo campeonato"}</h3>
         <div class="row2"><label>Nome<input name="nome" required maxlength="60" value="${esc(c.nome)}"></label><label>Edição<input name="edicao" maxlength="40" value="${esc(c.edicao)}"></label></div>
         <label>Frase de chamada<input name="slogan" maxlength="120" value="${esc(c.slogan)}"></label>
+        <label>Estilo do campeonato<select name="formato"${cur && jogos.length ? " disabled" : ""}><option value="grupos"${cPts ? "" : " selected"}>Mata-mata (fase de grupos + mata-mata)</option><option value="pontos"${cPts ? " selected" : ""}>Pontos corridos (turno único, estilo Brasileirão)</option></select></label>
+        ${cur && jogos.length ? `<div class="adm-help">O estilo não pode ser trocado depois que os jogos foram gerados. Para mudar, apague os jogos antes.</div>` : ""}
         <div class="row2">
-          <label>Quantidade de times<select name="num_times">${NUMS.map(n => `<option value="${n}"${n === c.num_times ? " selected" : ""}>${n} times</option>`).join("")}</select></label>
+          <label>Quantidade de times<select name="num_times">${optsNum(cPts, c.num_times)}</select></label>
           <label>Situação<select name="status">${[["inscricoes", "Inscrições abertas"], ["andamento", "Em andamento"], ["encerrado", "Encerrado"]].map(([k, l]) => `<option value="${k}"${k === c.status ? " selected" : ""}>${l}</option>`).join("")}</select></label>
         </div>
-        <div class="adm-help" id="fmt">${esc(formato(c.num_times))}</div>
+        <div class="adm-help" id="fmt">${esc(formato(c.num_times, c.formato === "pontos"))}</div>
         <div class="row2"><label>Início (contagem regressiva)<input type="datetime-local" name="inicio" value="${esc(paraCampo(c.inicio))}"></label><label>Plataformas<input name="plataformas" maxlength="80" value="${esc(c.plataformas)}"></label></div>
         <label>Prêmios (uma linha por prêmio: ícone | título | descrição)<textarea name="premios" rows="6">${esc(cur ? deArr(c.premios, 3) : PREMIOS)}</textarea></label>
         <label>Regulamento (uma linha por regra: título | texto)<textarea name="regras" rows="6">${esc(cur ? deArr(c.regras, 2) : REGRAS)}</textarea></label>
@@ -120,8 +127,8 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
     let corpo = "";
     if (cur) {
       const vagas = cur.num_times - times.length;
-      const gs = letras(cur.num_times);
-      const temGrupos = times.some(t => t.grupo);
+      const gs = letras(cur.num_times, P);
+      const temGrupos = P ? times.length >= 2 : times.some(t => t.grupo);
       const jg = jogos.filter(x => x.fase === "grupos"), jm = jogos.filter(x => x.fase !== "grupos");
       const ordTimes = times.slice().sort((a, b) => (a.grupo || "Z").localeCompare(b.grupo || "Z") || a.nome.localeCompare(b.nome));
       corpo += `
@@ -133,23 +140,23 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
           <button class="btn btn-gold btn-sm" type="submit">Inscrever</button></form>` : `<p class="adm-help" style="color:var(--win)">Todas as ${cur.num_times} vagas foram preenchidas.</p>`}
         ${times.length ? `<div class="cmpa-teams">${ordTimes.map(t => `<div class="adm-row" data-t="${esc(t.id)}">
           <div><b>${esc(t.nome)}</b><small>ID ${esc(t.club_id || "—")} · ${esc(t.plataforma)}</small></div>
-          <div class="adm-btns"><select data-grp aria-label="Grupo">${["", ...gs].map(g => `<option value="${g}"${(t.grupo || "") === g ? " selected" : ""}>${g ? "Grupo " + g : "Sem grupo"}</option>`).join("")}</select>
+          <div class="adm-btns">${P ? "" : `<select data-grp aria-label="Grupo">${["", ...gs].map(g => `<option value="${g}"${(t.grupo || "") === g ? " selected" : ""}>${g ? "Grupo " + g : "Sem grupo"}</option>`).join("")}</select>`}
             <button class="fbtn danger" data-tdel>Excluir</button></div></div>`).join("")}</div>` : `<p class="sec-sub" style="margin:10px 0 0">Nenhum time inscrito ainda.</p>`}
-        <div class="adm-actions" style="margin-top:14px"><button class="btn btn-gold btn-sm" id="sorteio" type="button"${times.length < 2 ? " disabled" : ""}>🎲 Sortear grupos</button>
-          <span class="adm-help">${esc(formato(cur.num_times))}. O sorteio distribui os times igualmente; você ainda pode mudar o grupo de cada um.</span></div>
+        <div class="adm-actions" style="margin-top:14px">${P ? "" : `<button class="btn btn-gold btn-sm" id="sorteio" type="button"${times.length < 2 ? " disabled" : ""}>🎲 Sortear grupos</button>`}
+          <span class="adm-help">${esc(formato(cur.num_times, P))}.${P ? " Não há sorteio nem grupos: todos os times entram na mesma tabela." : " O sorteio distribui os times igualmente; você ainda pode mudar o grupo de cada um."}</span></div>
       </div>
 
       <div class="panel cmpa-sec"><h3>Jogos</h3>
         <div class="adm-actions">
-          ${jg.length ? "" : `<button class="btn btn-gold btn-sm" id="gerarG" type="button"${temGrupos ? "" : " disabled"}>Gerar jogos da fase de grupos</button>`}
-          ${jm.length || !jg.length ? "" : `<button class="btn btn-gold btn-sm" id="gerarM" type="button">Gerar mata-mata</button>`}
+          ${jg.length ? "" : `<button class="btn btn-gold btn-sm" id="gerarG" type="button"${temGrupos ? "" : " disabled"}>${P ? "Gerar jogos (todos contra todos, turno único)" : "Gerar jogos da fase de grupos"}</button>`}
+          ${P || jm.length || !jg.length ? "" : `<button class="btn btn-gold btn-sm" id="gerarM" type="button">Gerar mata-mata</button>`}
           ${jogos.length ? `<button class="fbtn danger" id="apagarJ" type="button">Apagar todos os jogos</button>` : ""}
         </div>
-        ${temGrupos || jogos.length ? "" : `<p class="adm-help" style="margin-top:10px">Inscreva os times e sorteie os grupos para gerar os jogos.</p>`}
+        ${temGrupos || jogos.length ? "" : `<p class="adm-help" style="margin-top:10px">${P ? "Inscreva os times para gerar os jogos." : "Inscreva os times e sorteie os grupos para gerar os jogos."}</p>`}
         ${["grupos", "quartas", "semis", "final"].map(f => { const l = jogos.filter(x => x.fase === f); if (!l.length) return "";
-          return `<h4 class="cmpa-fase">${FASES[f]}</h4>${l.map(x => `
+          return `<h4 class="cmpa-fase">${P && f === "grupos" ? "Rodadas" : FASES[f]}</h4>${l.map(x => `
           <div class="cmpa-jogo" data-j="${esc(x.id)}">
-            <div class="cmpa-quem"><small>${x.fase === "grupos" ? `Grupo ${esc(x.grupo)} · ${x.rodada}ª rodada` : esc(FASES[x.fase])}</small>
+            <div class="cmpa-quem"><small>${x.fase === "grupos" ? (P ? `${x.rodada}ª rodada` : `Grupo ${esc(x.grupo)} · ${x.rodada}ª rodada`) : esc(FASES[x.fase])}</small>
               <b>${esc(ladoNome(x, "casa"))}</b><span>x</span><b>${esc(ladoNome(x, "fora"))}</b></div>
             <div class="cmpa-placar"><input type="number" min="0" max="99" data-gc value="${x.gols_casa ?? ""}" aria-label="Gols da casa"><span>x</span><input type="number" min="0" max="99" data-gf value="${x.gols_fora ?? ""}" aria-label="Gols do visitante"></div>
             <input type="datetime-local" data-dt value="${esc(paraCampo(x.data))}" aria-label="Data e horário">
@@ -167,8 +174,17 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
     qa("[data-c]").forEach(b => b.onclick = () => { selId = b.dataset.c; criando = false; tela(); });
     q("#cnew").onclick = () => { criando = true; tela(); };
     const cancel = q("#ccancel"); if (cancel) cancel.onclick = () => { criando = false; tela(); };
-    const sel = q('#cform [name="num_times"]');
-    sel.onchange = () => { q("#fmt").textContent = formato(+sel.value); };
+    const sel = q('#cform [name="num_times"]'), selF = q('#cform [name="formato"]');
+    const ehPts = () => selF.value === "pontos";
+    sel.onchange = () => { q("#fmt").textContent = formato(+sel.value, ehPts()); };
+    selF.onchange = () => {
+      /* troca as opções de quantidade de times e (num campeonato novo) o regulamento padrão do estilo escolhido */
+      const antes = +sel.value, p = ehPts();
+      sel.innerHTML = optsNum(p, nums(p).includes(antes) ? antes : (p ? 10 : 16));
+      q("#fmt").textContent = formato(+sel.value, p);
+      const rg = q('#cform [name="regras"]');
+      if (!cur && [REGRAS, REGRAS_P].includes(rg.value.trim())) rg.value = p ? REGRAS_P : REGRAS;
+    };
 
     q("#cform").onsubmit = async e => {
       e.preventDefault();
@@ -177,9 +193,12 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
       const row = { nome: f.get("nome").trim(), edicao: f.get("edicao").trim(), slogan: f.get("slogan").trim(), num_times: +f.get("num_times"), status: f.get("status"),
         inicio: doCampo(f.get("inicio")), plataformas: f.get("plataformas").trim() || "PlayStation, Xbox e PC", premios: paraPremios(f.get("premios")), regras: paraRegras(f.get("regras")),
         fotos, publico: f.get("publico") === "on" };
+      /* o campo "formato" só é enviado quando é pontos corridos, ou quando a coluna já existe: assim nada quebra antes de rodar o supabase-campeonato-pontos.sql */
+      const estilo = f.get("formato") || (cur && cur.formato) || "grupos";
+      if (estilo === "pontos" || (cur && "formato" in cur)) row.formato = estilo;
       if (cur && row.num_times < times.length) return say(`Já há ${times.length} times inscritos; a quantidade não pode ser menor.`, false);
       const r = cur ? await sb.from("campeonatos").update(row).eq("id", cur.id) : await sb.from("campeonatos").insert(row).select();
-      if (r.error) return say(errText(r.error), false);
+      if (r.error) return say(/formato|num_times|check/i.test(errText(r.error)) ? "O banco ainda não aceita esse estilo/quantidade de times. Rode o arquivo supabase-campeonato-pontos.sql no Supabase (SQL Editor) e tente de novo. (" + errText(r.error) + ")" : errText(r.error), false);
       if (!cur && r.data && r.data[0]) { selId = r.data[0].id; criando = false; }
       tela();
     };
@@ -196,7 +215,7 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
     if (tform) tform.onsubmit = async e => {
       e.preventDefault();
       const f = new FormData(e.target);
-      const { error: er } = await sb.from("campeonato_times").insert({ campeonato_id: cur.id, nome: f.get("nome").trim(), club_id: (f.get("club_id") || "").trim(), plataforma: f.get("plataforma") });
+      const { error: er } = await sb.from("campeonato_times").insert({ campeonato_id: cur.id, nome: f.get("nome").trim(), club_id: (f.get("club_id") || "").trim(), plataforma: f.get("plataforma"), ...(P ? { grupo: "A" } : {}) });
       if (er) return say(/duplicate|unique/i.test(errText(er)) ? "Já existe um time com esse nome." : errText(er), false);
       tela();
     };
@@ -213,10 +232,11 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
       if (er) return say(errText(er), false);
       tela();
     });
-    q("#sorteio").onclick = async () => {
+    const btnSorteio = q("#sorteio");
+    if (btnSorteio) btnSorteio.onclick = async () => {
       if (jogos.some(x => x.fase === "grupos") && !confirm("Já existem jogos da fase de grupos. Sortear de novo troca os grupos e você terá que gerar os jogos outra vez. Continuar?")) return;
       if (times.length !== cur.num_times && !confirm(`Há ${times.length} de ${cur.num_times} times inscritos. Sortear assim mesmo?`)) return;
-      const gs = letras(cur.num_times), ordem = embaralha(times);
+      const gs = letras(cur.num_times, P), ordem = embaralha(times);
       const rs = await Promise.all(ordem.map((t, i) => sb.from("campeonato_times").update({ grupo: gs[i % gs.length] }).eq("id", t.id)));
       const er = rs.find(r => r.error); if (er) return say(errText(er.error), false);
       if (jogos.some(x => x.fase === "grupos")) await sb.from("campeonato_jogos").delete().eq("campeonato_id", cur.id);
@@ -225,9 +245,10 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
     const gG = q("#gerarG");
     if (gG) gG.onclick = async () => {
       const rows = []; let ordem = 0;
-      letras(cur.num_times).forEach(g => todosContraTodos(times.filter(t => t.grupo === g)).forEach(([a, b, r]) =>
+      letras(cur.num_times, P).forEach(g => todosContraTodos(times.filter(t => P || t.grupo === g)).forEach(([a, b, r]) =>
         rows.push({ campeonato_id: cur.id, fase: "grupos", grupo: g, rodada: r, ordem: ordem++, casa: a.id, fora: b.id })));
-      if (!rows.length) return say("Sorteie os grupos antes: cada grupo precisa de pelo menos 2 times.", false);
+      if (!rows.length) return say(P ? "Inscreva pelo menos 2 times para gerar os jogos." : "Sorteie os grupos antes: cada grupo precisa de pelo menos 2 times.", false);
+      if (P && times.length < cur.num_times && !confirm(`Há ${times.length} de ${cur.num_times} times inscritos. Gerar os jogos assim mesmo? (Se entrar mais um time depois, será preciso apagar e gerar de novo.)`)) return;
       rows.sort((x, y) => x.rodada - y.rodada || x.grupo.localeCompare(y.grupo)).forEach((r, i) => { r.ordem = i; });
       const { error: er } = await sb.from("campeonato_jogos").insert(rows);
       if (er) return say(errText(er), false);
@@ -235,7 +256,7 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
     };
     const gM = q("#gerarM");
     if (gM) gM.onclick = async () => {
-      const rows = chaveamento(grupos(cur.num_times)).map(([fase, [a, b]], i) => ({ campeonato_id: cur.id, fase, ordem: 1000 + i, casa_vaga: a, fora_vaga: b }));
+      const rows = chaveamento(grupos(cur.num_times, P)).map(([fase, [a, b]], i) => ({ campeonato_id: cur.id, fase, ordem: 1000 + i, casa_vaga: a, fora_vaga: b }));
       const { error: er } = await sb.from("campeonato_jogos").insert(rows);
       if (er) return say(errText(er), false);
       tela();
