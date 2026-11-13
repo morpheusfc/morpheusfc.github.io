@@ -481,3 +481,14 @@ nav .btn-sm{white-space:nowrap}
 .cp-menu a{display:block;padding:10px 12px;border-radius:8px;font-size:14px;color:var(--text,#fff);white-space:normal}
 .cp-menu a:hover,.cp-menu a.on{background:rgba(255,255,255,.07);color:var(--gold)}
 .cp-menu small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+
+/* Sugestão de clube (ID do tracker) no formulário de inscrição */
+.club-sug{margin:-6px 0 14px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.03);padding:6px}
+.club-sug .cs-title{font-size:12px;color:var(--muted);padding:6px 8px 4px}
+.club-sug button.cs-item{display:flex;justify-content:space-between;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:0;color:inherit;font:inherit;font-size:14px;padding:9px 8px;border-radius:8px;cursor:pointer}
+.club-sug button.cs-item:hover,.club-sug button.cs-item:focus-visible{background:rgba(255,255,255,.08);outline:none}
+.club-sug .cs-item small{color:var(--muted);font-size:12px;white-space:nowrap}
+.club-sug .cs-ok{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px;font-size:14px}
+.club-sug .cs-ok b{color:var(--gold)}
+.club-sug .cs-clear{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px}
+.club-sug .cs-msg{font-size:13px;color:var(--muted);padding:8px}

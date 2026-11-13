@@ -521,12 +521,49 @@ if (page === "inscricao") {
       <button class="btn btn-ghost" type="button" onclick="location.reload()">Inscrever outro time</button></div>`;
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+  /* Sugestão de clube: ao digitar o nome do time, busca no tracker (função "clube" do Supabase) e deixa escolher para preencher o ID */
+  (() => {
+    const box = $("#clubSug"), campo = f.team, hid = f.club_id;
+    if (!box || !on) return;
+    const cache = new Map();
+    let timer = null, seq = 0;
+    const limpa = () => { hid.value = ""; };
+    const escolhido = c => {
+      hid.value = c.id;
+      box.hidden = false;
+      box.innerHTML = `<div class="cs-ok"><span>✓ ID do clube: <b>${esc(c.id)}</b> (${esc(c.nome)})</span><button type="button" class="cs-clear">Não é esse</button></div>`;
+      box.querySelector(".cs-clear").onclick = () => { limpa(); box.hidden = true; busca(); };
+    };
+    const lista = (l, nome) => {
+      box.hidden = false;
+      if (!l.length) { box.innerHTML = `<div class="cs-msg">Nenhum clube encontrado com esse nome. Pode enviar assim mesmo.</div>`; return; }
+      box.innerHTML = `<div class="cs-title">É um destes? Toque para preencher o ID do clube</div>` + l.map((c, i) => `<button type="button" class="cs-item" data-i="${i}"><span>${esc(c.nome)}</span><small>ID ${esc(c.id)} · ${c.jogos} jogos</small></button>`).join("");
+      box.querySelectorAll(".cs-item").forEach(b => b.onclick = () => escolhido(l[+b.dataset.i]));
+    };
+    async function busca() {
+      const nome = campo.value.trim();
+      if (nome.length < 3) { box.hidden = true; return; }
+      const k = nome.toLowerCase(), mine = ++seq;
+      try {
+        let l = cache.get(k);
+        if (!l) {
+          const r = await fetch(`${S.url}/functions/v1/clube?` + new URLSearchParams({ acao: "buscar", nome, plataforma: "common-gen5" }), { headers: headers() });
+          if (!r.ok) throw new Error(r.status);
+          l = await r.json(); cache.set(k, l);
+        }
+        if (mine !== seq || hid.value) return;
+        lista(l, nome);
+      } catch (e) { if (mine === seq) box.hidden = true; }   /* sem a função ativa ou sem conexão: o campo some e a inscrição segue normal */
+    }
+    campo.addEventListener("input", () => { limpa(); clearTimeout(timer); timer = setTimeout(busca, 450); });
+  })();
+
   f.addEventListener("submit", async e => {
     e.preventDefault(); msg.hidden = true;
     const v = Object.fromEntries(new FormData(f));
     if (v.website) { done({ team: "seu time", captain: "", contact: "", modalidade: "" }); return; }   /* campo-armadilha para robôs */
     const p = { team: (v.team || "").trim(), captain_name: (v.captain_name || "").trim(), captain: (v.captain || "").trim(), contact: (v.contact || "").trim(), platform: v.platform || "PlayStation",
-      modalidade: v.modalidade, notes: (v.notes || "").trim() };
+      club_id: /^\d{1,10}$/.test(v.club_id || "") ? v.club_id : "", modalidade: v.modalidade, notes: (v.notes || "").trim() };
     if (p.team.length < 2) return show("Informe o nome do time.");
     if (p.captain_name.length < 2) return show("Informe o nome do capitão.");
     if (p.contact.replace(/\D/g, "").length < 10) return show("Informe um WhatsApp válido, com DDD.");
