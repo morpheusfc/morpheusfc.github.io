@@ -503,3 +503,37 @@ if (page === "amistosos") {
     }
   });
 }
+
+/* Campeonato no menu: com 2 ou mais campeonatos públicos vira um menu para escolher qual abrir (campeonato.html?c=<id>) */
+(async () => {
+  try {
+    const cfg = window.SUPABASE || {};
+    if (!cfg.url || !cfg.key) return;
+    const a = document.querySelector('.links a[href="campeonato.html"]');
+    if (!a) return;
+    const h = cfg.key.startsWith("eyJ") ? { apikey: cfg.key, Authorization: "Bearer " + cfg.key } : { apikey: cfg.key };
+    const r = await fetch(`${cfg.url}/rest/v1/campeonatos?select=id,nome,edicao,formato&publico=eq.true&order=created_at.desc`, { headers: h });
+    if (!r.ok) return;
+    const lista = await r.json();
+    if (lista.length < 2) return;
+    const atual = new URLSearchParams(location.search).get("c") || lista[0].id;
+    const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
+    const menu = document.createElement("div");
+    menu.className = "cp-menu"; menu.hidden = true;
+    menu.innerHTML = lista.map(c => `<a href="campeonato.html?c=${encodeURIComponent(c.id)}"${c.id === atual && page === "campeonato" ? ' class="on"' : ""}>${esc(c.nome)}<small>${c.formato === "pontos" ? "Pontos corridos" : "Mata-mata"}${c.edicao ? " · " + esc(c.edicao) : ""}</small></a>`).join("");
+    document.body.appendChild(menu);
+    a.classList.add("cp-menu-btn"); a.setAttribute("aria-haspopup", "true");
+    const fecha = () => { menu.hidden = true; };
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      if (!menu.hidden) return fecha();
+      const b = a.getBoundingClientRect();
+      menu.hidden = false;
+      menu.style.top = b.bottom + 6 + "px";
+      menu.style.left = Math.max(12, Math.min(b.left, innerWidth - menu.offsetWidth - 12)) + "px";
+    });
+    document.addEventListener("click", e => { if (!menu.contains(e.target) && !a.contains(e.target)) fecha(); });
+    addEventListener("scroll", fecha, { passive: true });
+    addEventListener("resize", fecha);
+  } catch (e) {}
+})();

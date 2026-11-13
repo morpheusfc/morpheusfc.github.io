@@ -473,3 +473,11 @@ nav .btn-sm{white-space:nowrap}
 .pstats .g2 span{display:block;font-size:10.5px;color:var(--muted);letter-spacing:.03em;line-height:1.2}
 .pstats .g2 small{display:block;font-size:10px;color:var(--muted);opacity:.8;margin-top:2px}
 .art-body figure video{width:100%;display:block;border:1px solid var(--line);background:#000;max-height:80vh}
+
+/* Menu Campeonato com vários campeonatos públicos */
+.cp-menu-btn{cursor:pointer}
+.cp-menu-btn::after{content:"";display:inline-block;margin-left:6px;border:4px solid transparent;border-top-color:currentColor;border-bottom:0;vertical-align:middle}
+.cp-menu{position:fixed;z-index:60;min-width:230px;max-width:calc(100vw - 24px);background:#111114;border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 14px 40px rgba(0,0,0,.55)}
+.cp-menu a{display:block;padding:10px 12px;border-radius:8px;font-size:14px;color:var(--text,#fff);white-space:normal}
+.cp-menu a:hover,.cp-menu a.on{background:rgba(255,255,255,.07);color:var(--gold)}
+.cp-menu small{display:block;color:var(--muted);font-size:12px;margin-top:2px}

@@ -86,9 +86,10 @@ async function carregaCampeonato() {
   const h = cfg.key.startsWith("eyJ") ? { apikey: cfg.key, Authorization: "Bearer " + cfg.key } : { apikey: cfg.key };
   const get = async p => { const r = await fetch(`${cfg.url}/rest/v1/${p}`, { headers: h }); if (!r.ok) throw new Error(p + ": " + r.status); return r.json(); };
   try {
-    const cs = await get("campeonatos?select=*&publico=eq.true&order=created_at.desc&limit=1");
+    const cs = await get("campeonatos?select=*&publico=eq.true&order=created_at.desc&limit=50");
     if (!cs.length) return null;
-    const c = cs[0];
+    const pedido = new URLSearchParams(location.search).get("c");
+    const c = cs.find(x => x.id === pedido) || cs[0];
     const [ts, js] = await Promise.all([
       get(`campeonato_times?select=*&campeonato_id=eq.${c.id}&order=created_at.asc`),
       get(`campeonato_jogos?select=*&campeonato_id=eq.${c.id}&order=ordem.asc`)]);
