@@ -520,7 +520,7 @@ if (page === "amistosos") {
     const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
     const menu = document.createElement("div");
     menu.className = "cp-menu"; menu.hidden = true;
-    menu.innerHTML = lista.map(c => `<a href="campeonato.html?c=${encodeURIComponent(c.id)}"${c.id === atual && page === "campeonato" ? ' class="on"' : ""}>${esc(c.nome)}<small>${c.formato === "pontos" ? "Pontos corridos" : "Mata-mata"}${c.edicao ? " · " + esc(c.edicao) : ""}</small></a>`).join("");
+    menu.innerHTML = lista.map(c => `<a href="campeonato.html?c=${encodeURIComponent(c.id)}"${c.id === atual && page === "campeonato" ? ' class="on"' : ""}>${c.formato === "pontos" ? "Brasileirão" : "Copa"}<small>${esc(c.nome)}${c.edicao ? " · " + esc(c.edicao) : ""}</small></a>`).join("");
     document.body.appendChild(menu);
     a.classList.add("cp-menu-btn"); a.setAttribute("aria-haspopup", "true");
     const fecha = () => { menu.hidden = true; };
