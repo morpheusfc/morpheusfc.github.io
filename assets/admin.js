@@ -95,6 +95,7 @@
           <button class="fbtn" data-tab="videos">Vídeos</button>
           <button class="fbtn" data-tab="friendlies">Amistosos <span class="adm-count" id="newCount" hidden></span></button>
           <button class="fbtn" data-tab="recruit">Recrutamento <span class="adm-count" id="recCount" hidden></span></button>
+          <button class="fbtn" data-tab="inscricoes">Inscrições <span class="adm-count" id="insCount" hidden></span></button>
           <button class="fbtn" data-tab="campeonato">Campeonato</button>
         </div>
         <div class="adm-user"><span>${esc(userEmail || "")}</span><button class="fbtn" id="logout">Sair</button></div>
@@ -103,7 +104,7 @@
     qa("[data-tab]").forEach(b => b.onclick = () => { tab = b.dataset.tab; shell(userEmail); });
     qa("[data-tab]").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
     q("#logout").onclick = () => sb.auth.signOut();
-    ({ news: newsView, videos: videosView, friendlies: friendliesView, recruit: recruitView, campeonato: campView }[tab] || newsView)();
+    ({ news: newsView, videos: videosView, friendlies: friendliesView, recruit: recruitView, inscricoes: inscricoesView, campeonato: campView }[tab] || newsView)();
     refreshNewCount();
   }
 
@@ -453,7 +454,7 @@
   const STATUS = { novo: "Novo", confirmado: "Confirmado", recusado: "Recusado", realizado: "Realizado" };
   let amFilter = "";
   async function refreshNewCount(){
-    for (const [sel, table] of [["#newCount", "amistosos"], ["#recCount", "candidaturas"]]) {
+    for (const [sel, table] of [["#newCount", "amistosos"], ["#recCount", "candidaturas"], ["#insCount", "inscricoes_time"]]) {
       const el = q(sel); if (!el) continue;
       const { count, error } = await sb.from(table).select("id", { count: "exact", head: true }).eq("status", "novo");
       if (error || !count) { el.hidden = true; continue; }
@@ -641,6 +642,85 @@
       const { error: e } = await sb.from("candidaturas").delete().eq("id", a.id);
       if (e) return say(errText(e), false);
       recruitView(); refreshNewCount();
+    });
+  }
+
+  /* ---------- inscrições de times (Copa / Brasileirão) ---------- */
+  const STATUS_INS = { novo: "Nova", contatado: "Contatado", confirmado: "Confirmado", recusado: "Recusado" };
+  const MOD_INS = { copa: "Copa (mata-mata)", brasileirao: "Brasileirão (pontos corridos)", ambos: "Copa e Brasileirão" };
+  let insFilter = "";
+  const insMsgs = {
+    contact: a => `Olá, capitão ${a.captain}! Aqui é do Morpheus FC. Recebemos a inscrição do ${a.team} na ${a.modalidade === "ambos" ? "Copa e no Brasileirão" : a.modalidade === "copa" ? "Copa" : "Brasileirão"}. Vamos passar os detalhes do campeonato por aqui. Pode confirmar que o time continua com interesse?`,
+    confirm: a => `Olá, capitão ${a.captain}! Aqui é do Morpheus FC. A vaga do ${a.team} está confirmada na ${a.modalidade === "ambos" ? "Copa e no Brasileirão" : a.modalidade === "copa" ? "Copa" : "Brasileirão"}. Em breve enviamos a data de início e os jogos. Boa sorte!`,
+    decline: a => `Olá, capitão ${a.captain}! Aqui é do Morpheus FC. Obrigado pelo interesse do ${a.team}. Desta vez não conseguiremos incluir o time no campeonato, mas avisamos quando abrir uma nova edição.`
+  };
+
+  async function inscricoesView(){
+    const view = q("#view");
+    view.innerHTML = `<div class="empty-state">Carregando…</div>`;
+    const { data: rows, error } = await sb.from("inscricoes_time").select("*").order("created_at", { ascending: false });
+    if (error) {
+      view.innerHTML = `<div class="panel"><h3>Inscrições ainda não configuradas</h3><p class="sec-sub" style="margin:0">A tabela de inscrições ainda não existe no Supabase. Abra o arquivo <b>supabase-inscricao-time.sql</b>, copie tudo e rode em <b>SQL Editor &gt; New query &gt; Run</b>. Depois recarregue esta página.<br><small>${esc(errText(error))}</small></p></div>`;
+      return;
+    }
+    const groups = { novo: rows.filter(a => a.status === "novo"), contatado: rows.filter(a => a.status === "contatado"),
+      confirmado: rows.filter(a => a.status === "confirmado"), recusado: rows.filter(a => a.status === "recusado"), todos: rows };
+    if (!insFilter) insFilter = groups.novo.length ? "novo" : groups.contatado.length ? "contatado" : "todos";
+    const list = groups[insFilter] || [];
+    const chip = (k, label) => `<button class="fbtn${insFilter === k ? " on" : ""}" data-if="${k}">${label} (${groups[k].length})</button>`;
+    const info = (label, val) => val ? `<div><span>${label}</span><b>${val}</b></div>` : "";
+    view.innerHTML = `
+      <div class="toolbar">${chip("novo", "Novas")}${chip("contatado", "Contatados")}${chip("confirmado", "Confirmados")}${chip("recusado", "Recusados")}${chip("todos", "Todas")}</div>
+      ${list.length ? list.map(a => `
+        <article class="panel am-card st-${esc(a.status)}" data-id="${esc(a.id)}">
+          <div class="am-top"><div><b class="am-team">${esc(a.team)}</b></div><span class="am-pill ${esc(a.status === "contatado" ? "novo" : a.status)}">${STATUS_INS[a.status] || esc(a.status)}</span></div>
+          <div class="am-grid">
+            ${info("Campeonato", esc(MOD_INS[a.modalidade] || a.modalidade))}
+            ${info("Capitão", esc(a.captain) + " · " + esc(a.platform))}
+            <div><span>Contato</span><b>${esc(a.contact)}</b> <button class="fbtn" data-copy="${esc(a.contact)}" type="button">Copiar</button></div>
+            ${info("ID do clube", esc(a.club_id))}
+            ${info("Recebida", esc(fmtDateTime(a.created_at)))}
+          </div>
+          ${a.notes ? `<p class="am-notes">“${esc(a.notes)}”</p>` : ""}
+          <label class="am-adm">Anotação interna (só você vê)<input data-note value="${esc(a.admin_note)}" maxlength="500" placeholder="Ex.: confirmou pelo WhatsApp"></label>
+          <div class="adm-btns am-actions">
+            ${a.status === "novo" ? `<button class="btn btn-gold btn-sm" data-st="contatado">Marcar contatado</button><button class="fbtn" data-st="recusado">Recusar</button>` : ""}
+            ${a.status === "contatado" ? `<button class="btn btn-gold btn-sm" data-st="confirmado">Confirmar vaga</button><button class="fbtn" data-st="recusado">Recusar</button>` : ""}
+            ${a.status === "confirmado" || a.status === "recusado" ? `<button class="fbtn" data-st="novo">Reabrir</button>` : ""}
+            <button class="fbtn" data-msg="contact" type="button">Msg de contato</button>
+            <button class="fbtn" data-msg="confirm" type="button">Msg de confirmação</button>
+            <button class="fbtn" data-msg="decline" type="button">Msg de recusa</button>
+            <button class="fbtn danger" data-delr type="button">Excluir</button>
+          </div>
+        </article>`).join("") : `<div class="empty-state">${insFilter === "novo" ? "Nenhuma inscrição nova no momento." : "Nada por aqui ainda."}</div>`}
+      <div id="msg" hidden></div>`;
+    qa("[data-if]").forEach(b => b.onclick = () => { insFilter = b.dataset.if; inscricoesView(); });
+    const find = el => rows.find(x => x.id === el.closest(".am-card").dataset.id);
+    qa("[data-copy]").forEach(b => b.onclick = async () => { const ok = await copy(b.dataset.copy); b.textContent = ok ? "Copiado!" : "Falhou"; setTimeout(() => { b.textContent = "Copiar"; }, 1500); });
+    qa("[data-msg]").forEach(b => b.onclick = async () => {
+      const ok = await copy(insMsgs[b.dataset.msg](find(b)));
+      const old = b.textContent; b.textContent = ok ? "Copiada!" : "Falhou"; setTimeout(() => { b.textContent = old; }, 1500);
+    });
+    qa("[data-st]").forEach(b => b.onclick = async () => {
+      const a = find(b), st = b.dataset.st;
+      const { error: e } = await sb.from("inscricoes_time").update({ status: st }).eq("id", a.id);
+      if (e) return say(errText(e), false);
+      insFilter = st === "recusado" ? insFilter : st;
+      inscricoesView(); refreshNewCount();
+      if (st === "confirmado") setTimeout(() => say("Vaga confirmada! Lembre de cadastrar o time no campeonato (aba Campeonato)."), 50);
+    });
+    qa("[data-note]").forEach(i => i.onchange = async () => {
+      const a = find(i);
+      const { error: e } = await sb.from("inscricoes_time").update({ admin_note: i.value.trim() }).eq("id", a.id);
+      if (e) return say(errText(e), false);
+      a.admin_note = i.value.trim(); say("Anotação salva.");
+    });
+    qa("[data-delr]").forEach(b => b.onclick = async () => {
+      const a = find(b);
+      if (!confirm(`Excluir a inscrição do ${a.team}? Isso não pode ser desfeito.`)) return;
+      const { error: e } = await sb.from("inscricoes_time").delete().eq("id", a.id);
+      if (e) return say(errText(e), false);
+      inscricoesView(); refreshNewCount();
     });
   }
 

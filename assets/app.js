@@ -504,24 +504,78 @@ if (page === "amistosos") {
   });
 }
 
-/* Campeonato no menu: com 2 ou mais campeonatos públicos vira um menu para escolher qual abrir (campeonato.html?c=<id>) */
+/* ---------- Inscrever time (Copa / Brasileirão) ---------- */
+if (page === "inscricao") {
+  const S = window.SUPABASE || {}, on = !!(S.url && S.key);
+  const headers = extra => Object.assign({ apikey: S.key }, S.key && S.key.startsWith("eyJ") ? { Authorization: "Bearer " + S.key } : {}, extra);
+  const f = $("#inForm"), msg = $("#inMsg"), btn = $("#inSend");
+  const show = (t, ok) => { msg.hidden = false; msg.textContent = t; msg.className = "am-msg " + (ok ? "ok" : "err"); };
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const MOD = { copa: "Copa (mata-mata)", brasileirao: "Brasileirão (pontos corridos)", ambos: "Copa e Brasileirão" };
+  const done = p => {
+    $("#formBox").innerHTML = `<div class="panel am-done">
+      <div class="am-check" aria-hidden="true">✓</div>
+      <h3>Inscrição enviada!</h3>
+      <p class="sec-sub" style="margin:0 0 16px">Recebemos a inscrição do <b>${esc(p.team)}</b>. Vamos falar com o capitão <b>${esc(p.captain)}</b> pelo contato informado.</p>
+      <ul class="am-sum"><li><span>Campeonato</span><b>${esc(MOD[p.modalidade] || "")}</b></li><li><span>Contato</span><b>${esc(p.contact)}</b></li></ul>
+      <button class="btn btn-ghost" type="button" onclick="location.reload()">Inscrever outro time</button></div>`;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  f.addEventListener("submit", async e => {
+    e.preventDefault(); msg.hidden = true;
+    const v = Object.fromEntries(new FormData(f));
+    if (v.website) { done({ team: "seu time", captain: "", contact: "", modalidade: "" }); return; }   /* campo-armadilha para robôs */
+    const p = { team: (v.team || "").trim(), captain: (v.captain || "").trim(), contact: (v.contact || "").trim(), platform: v.platform || "PlayStation",
+      club_id: (v.club_id || "").trim(), modalidade: v.modalidade, notes: (v.notes || "").trim() };
+    if (p.team.length < 2) return show("Informe o nome do time.");
+    if (p.captain.length < 2) return show("Informe o capitão (PSN ou gamertag).");
+    if (p.contact.length < 3) return show("Informe um contato para respondermos (Discord, WhatsApp ou Instagram).");
+    if (!MOD[p.modalidade]) return show("Escolha em qual campeonato quer se inscrever.");
+    const wait = 60000 - (Date.now() - Number(store.get("in_last") || 0));
+    if (wait > 0) return show(`Você acabou de enviar uma inscrição. Aguarde ${Math.ceil(wait / 1000)} segundos para enviar outra.`);
+    const fallback = why => {
+      show(why + " Copie a inscrição abaixo e envie para nós pelo Discord.");
+      const t = `Inscrição no campeonato do Morpheus FC\nTime: ${p.team}\nCapitão: ${p.captain} (${p.platform})\nContato: ${p.contact}\nCampeonato: ${MOD[p.modalidade]}` + (p.club_id ? `\nID do clube: ${p.club_id}` : "") + (p.notes ? `\nObservações: ${p.notes}` : "");
+      msg.insertAdjacentHTML("beforeend", `<br><button class="btn btn-ghost btn-sm" type="button" id="inCopy">Copiar inscrição</button>`);
+      $("#inCopy").onclick = () => { (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { $("#inCopy").textContent = "Copiado!"; }, () => { $("#inCopy").textContent = "Não foi possível copiar"; }); };
+    };
+    if (!on) return fallback("O envio automático ainda não está disponível.");
+    btn.disabled = true; btn.textContent = "Enviando…";
+    try {
+      const r = await fetch(`${S.url}/rest/v1/inscricoes_time`, { method: "POST", headers: headers({ "Content-Type": "application/json", Prefer: "return=minimal" }), body: JSON.stringify(p) });
+      if (r.ok) { store.set("in_last", String(Date.now())); done(p); return; }
+      btn.disabled = false; btn.textContent = "Enviar inscrição";
+      if (r.status === 400) return show("Alguma informação não foi aceita. Confira os campos e tente de novo.");
+      fallback("Não foi possível enviar agora.");
+    } catch (err) {
+      btn.disabled = false; btn.textContent = "Enviar inscrição";
+      fallback("Sem conexão com o servidor.");
+    }
+  });
+}
+
+/* Campeonato no menu: vira um menu com os campeonatos públicos (campeonato.html?c=<id>) e a opção "Inscrever time" */
 (async () => {
   try {
-    const cfg = window.SUPABASE || {};
-    if (!cfg.url || !cfg.key) return;
     const a = document.querySelector('.links a[href="campeonato.html"]');
     if (!a) return;
-    const h = cfg.key.startsWith("eyJ") ? { apikey: cfg.key, Authorization: "Bearer " + cfg.key } : { apikey: cfg.key };
-    const r = await fetch(`${cfg.url}/rest/v1/campeonatos?select=id,nome,edicao,formato&publico=eq.true&order=created_at.desc`, { headers: h });
-    if (!r.ok) return;
-    const lista = await r.json();
-    if (lista.length < 2) return;
-    const atual = new URLSearchParams(location.search).get("c") || lista[0].id;
+    const cfg = window.SUPABASE || {};
+    let lista = [];
+    try {
+      if (cfg.url && cfg.key) {
+        const h = cfg.key.startsWith("eyJ") ? { apikey: cfg.key, Authorization: "Bearer " + cfg.key } : { apikey: cfg.key };
+        const r = await fetch(`${cfg.url}/rest/v1/campeonatos?select=id,nome,edicao,formato&publico=eq.true&order=created_at.desc`, { headers: h });
+        if (r.ok) lista = await r.json();
+      }
+    } catch (e) {}
+    const atual = new URLSearchParams(location.search).get("c") || (lista[0] && lista[0].id);
     const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
     const menu = document.createElement("div");
     menu.className = "cp-menu"; menu.hidden = true;
-    menu.innerHTML = lista.map(c => `<a href="campeonato.html?c=${encodeURIComponent(c.id)}"${c.id === atual && page === "campeonato" ? ' class="on"' : ""}>${c.formato === "pontos" ? "Brasileirão" : "Copa"}<small>${esc(c.nome)}${c.edicao ? " · " + esc(c.edicao) : ""}</small></a>`).join("");
+    menu.innerHTML = lista.map(c => `<a href="campeonato.html?c=${encodeURIComponent(c.id)}"${c.id === atual && page === "campeonato" ? ' class="on"' : ""}>${c.formato === "pontos" ? "Brasileirão" : "Copa"}<small>${esc(c.nome)}${c.edicao ? " · " + esc(c.edicao) : ""}</small></a>`).join("")
+      + `<a href="inscrever-time.html"${page === "inscricao" ? ' class="on"' : ""}>Inscrever time<small>Copa e/ou Brasileirão</small></a>`;
     document.body.appendChild(menu);
+    if (page === "inscricao") { a.classList.add("active"); a.setAttribute("aria-current", "page"); }
     a.classList.add("cp-menu-btn"); a.setAttribute("aria-haspopup", "true");
     const fecha = () => { menu.hidden = true; };
     a.addEventListener("click", e => {

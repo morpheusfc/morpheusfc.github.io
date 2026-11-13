@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inscrever time | Morpheus FC</title>
+<meta name="description" content="Inscreva o seu time na Copa ou no Brasileirão do Morpheus FC, campeonatos de Pro Clubs do EA FC 27.">
+<link rel="canonical" href="https://morpheusfc.com.br/inscrever-time.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Morpheus FC">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Inscrever time | Morpheus FC">
+<meta property="og:description" content="Inscreva o seu time na Copa ou no Brasileirão do Morpheus FC, campeonatos de Pro Clubs do EA FC 27.">
+<meta property="og:url" content="https://morpheusfc.com.br/inscrever-time.html">
+<meta property="og:image" content="https://morpheusfc.com.br/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/escudo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=20261113f">
+</head>
+<body data-page="inscricao">
+<nav id="nav"></nav>
+
+<header class="page-head"><div class="wrap">
+  <div class="eyebrow">Campeonatos Morpheus</div>
+  <h1>Inscrever time</h1>
+  <p>Quer disputar a Copa ou o Brasileirão do Morpheus? Preencha os dados do seu time. Entramos em contato com o capitão pelo contato que você informar.</p>
+</div></header>
+
+<main class="page-body"><div class="wrap amis">
+  <div class="amis-info">
+    <div class="panel">
+      <h3>Como funciona</h3>
+      <ol class="steps">
+        <li><b>Envie a inscrição</b><span>Informe o time, o capitão, o contato e em qual campeonato quer jogar.</span></li>
+        <li><b>Nós respondemos</b><span>Falamos com o capitão pelo contato informado para confirmar a vaga.</span></li>
+        <li><b>Vaga confirmada</b><span>Seu time entra no campeonato e é só esperar a bola rolar.</span></li>
+      </ol>
+      <p class="amis-hours">Copa = mata-mata. Brasileirão = pontos corridos, todos contra todos.</p>
+    </div>
+  </div>
+
+  <div id="formBox">
+    <form class="panel" id="inForm" novalidate>
+      <h3>Inscrição do time</h3>
+      <label><span>Nome do time <span class="req">*</span></span>
+        <input name="team" required maxlength="60" autocomplete="organization" placeholder="Ex.: Os Fantásticos FC">
+      </label>
+      <div class="row2">
+        <label><span>Capitão (PSN / gamertag) <span class="req">*</span></span>
+          <input name="captain" required maxlength="40" autocomplete="off" placeholder="Seu ID no jogo">
+        </label>
+        <label>Plataforma
+          <select name="platform"><option>PlayStation</option><option>Xbox</option><option>PC</option></select>
+        </label>
+      </div>
+      <label><span>Contato <span class="req">*</span></span>
+        <input name="contact" required maxlength="80" autocomplete="off" placeholder="Discord (usuário), WhatsApp ou Instagram">
+        <small>É por aqui que vamos responder. Só a diretoria do Morpheus vê esse dado.</small>
+      </label>
+      <label>ID do clube no jogo (opcional)
+        <input name="club_id" maxlength="20" inputmode="numeric" autocomplete="off" placeholder="Ex.: 37568">
+        <small>Ajuda a gente a acompanhar os resultados do seu time.</small>
+      </label>
+      <label><span>Quero me inscrever na <span class="req">*</span></span>
+        <select name="modalidade">
+          <option value="">Escolha…</option>
+          <option value="copa">Copa (mata-mata)</option>
+          <option value="brasileirao">Brasileirão (pontos corridos)</option>
+          <option value="ambos">Copa e Brasileirão</option>
+        </select>
+      </label>
+      <label>Observações (opcional)
+        <textarea name="notes" rows="3" maxlength="500" placeholder="Horários que o time costuma jogar, dúvidas, etc."></textarea>
+      </label>
+      <div class="hp" aria-hidden="true"><label>Não preencha este campo<input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <button class="btn btn-gold" type="submit" id="inSend">Enviar inscrição</button>
+      <div class="am-msg" id="inMsg" hidden role="alert"></div>
+    </form>
+  </div>
+</div></main>
+
+<footer id="footer"></footer>
+<script src="assets/data.js?v=20261113f"></script>
+<script src="assets/config.js?v=20261113f"></script>
+<script src="assets/app.js?v=20261113f"></script>
+</body>
+</html>
