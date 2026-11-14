@@ -7,7 +7,7 @@
       stats:{casa:[{psn:"Craque1", g:2, a:1, m:1, pos:"F"}], fora:[{psn:"Goleiro2", pos:"G", def:6, gs:2}]}}
    Campos de stats: psn, g (gols), a (assistências), m (1 = melhor em campo), pos (F, M, D ou G), def (defesas) e gs (gols sofridos) para goleiros. */
 const campeonatoDados = [
-  {fase:"grupos", casa:"Morpheus FC", fora:"Toca e passa FC", gc:0, gf:5, hora:"2026-11-13T21:48",
+  {fase:"grupos", casa:"Morpheus FC", fora:"Toca e passa 26", gc:0, gf:5, hora:"2026-11-13T21:48",
    stats:{
     casa:[{psn:"ViboxBeats",g:0,a:0,m:0,pos:"M"},{psn:"Beica97",g:0,a:0,m:0,pos:"F"},{psn:"GabrielGoulartXx",g:0,a:0,m:0,pos:"F"},{psn:"LEOzin117",g:0,a:0,m:0,pos:"M"},{psn:"Maneel444",g:0,a:0,m:0,pos:"D"},{psn:"Habutrers",g:0,a:0,m:0,pos:"M"},{psn:"alice_farias09",g:0,a:0,m:0,pos:"M"}],
     fora:[{psn:"Daanzera-",g:0,a:0,m:0,pos:"M"},{psn:"Seledsdark",g:0,a:0,m:0,pos:"D"},{psn:"Meul-Maridao",g:0,a:0,m:0,pos:"M"},{psn:"DY198802",g:2,a:2,m:1,pos:"F"},{psn:"Facadaj",g:1,a:2,m:0,pos:"M"},{psn:"Marcinhu_0802",g:0,a:0,m:0,pos:"M"},{psn:"Indra019",g:0,a:0,m:0,pos:"D"},{psn:"Lucaobruxo1992",g:2,a:1,m:0,pos:"F"},{psn:"Castro_CRF_",g:0,a:0,m:0,pos:"G",def:2,gs:0}]}},
