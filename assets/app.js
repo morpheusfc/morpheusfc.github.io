@@ -188,8 +188,9 @@ function playerCard(p){
 /* ---------- Páginas ---------- */
 if (page === "inicio") {
   statsStrip($("#stats"));
-  formChips($("#form"), matches);
-  matchRows($("#matches"), matches.slice(0,5));
+  /* destaque: as 5 maiores vitórias (saldo de gols, depois gols marcados, depois mais recente), exibidas da mais recente para a mais antiga */
+  const triunfos = matches.filter(m=>m.r==="V").slice().sort((a,b)=>((b.g[0]-b.g[1])-(a.g[0]-a.g[1])) || (b.g[0]-a.g[0]) || (b.date>a.date?1:-1)).slice(0,5).sort((a,b)=>b.date>a.date?1:-1);
+  matchRows($("#matches"), triunfos);
   leaders($("#leaders"));
   $("#cards").innerHTML = players.filter(p=>p.j>0).slice().sort((a,b)=>b.j-a.j).slice(0,6).map(playerCard).join("");   /* os 6 com mais jogos, igual à ordem padrão do Elenco */
 }
