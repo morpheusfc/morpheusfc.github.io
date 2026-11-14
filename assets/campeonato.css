@@ -214,3 +214,12 @@ html,body{overflow-x:clip}
 .cp-legend3 i{width:14px;height:14px;background:var(--surface-2);border-left:4px solid var(--win)}
 .cp-legend3 .z-camp i{border-left-color:var(--gold)}
 .cp-legend3 .z-bot i{border-left-color:var(--loss,#e5534b)}
+
+/* barra de progresso das inscrições (Brasileirão) */
+.cp-insc{max-width:360px;margin:-6px 0 22px}
+.cp-insc-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px;font-size:13px}
+.cp-insc-top b{color:#fff;font-weight:700}
+.cp-insc-top b small{color:var(--muted);font-size:inherit;font-weight:600}
+.cp-insc-top span{color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.cp-insc-bar{height:10px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.cp-insc-bar i{display:block;height:100%;min-width:6px;border-radius:99px;background:linear-gradient(90deg,#a97a16,#e9b949,#fbe7a6);transition:width .6s ease}

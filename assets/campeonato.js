@@ -214,6 +214,9 @@ async function carregaCampeonato() {
         <div class="eyebrow">${esc(C.edicao)} · ${esc(C.plataformas)}</div>
         <h1>${esc(C.nome)}</h1>
         <p class="cp-slogan">${esc(C.slogan)}</p>
+        ${PONTOS && !C.demo && C.numTimes ? (() => { const n = C.times.length, pc = Math.min(100, Math.round(n / C.numTimes * 100)), falta = Math.max(0, C.numTimes - n);
+          return `<div class="cp-insc"><div class="cp-insc-top"><b>${n}<small>/${C.numTimes}</small> times inscritos</b><span>${falta ? `faltam ${falta} ${falta === 1 ? "vaga" : "vagas"}` : "vagas preenchidas"}</span></div>
+          <div class="cp-insc-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${C.numTimes}" aria-valuenow="${n}"><i style="width:${pc}%"></i></div></div>`; })() : ""}
         <div class="cp-count" id="cpCount" aria-live="off"></div>
       </div>
       <div class="cp-hero-art">${campeao && !(C.fotos && C.fotos.hero) ? `<div class="cp-champ-mini">${TROFEU}<span>Campeão</span>${escudo(campeao, "lg")}<b>${esc(campeao.nome)}</b></div>` : (C.fotos && C.fotos.hero ? "" : TROFEU)}</div>
