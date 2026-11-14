@@ -23,7 +23,7 @@ const players = [
   /*{n:"E. Caveira",p:"ST",o:80,j:9,g:1,a:3,m:0,psn:"Folcs_prime",aka:[]},*/
   {n:"B. Reis",p:"CM",o:79,j:34,g:1,a:9,m:7,psn:"REIS2703",img:"REIS2703.jpg",aka:[]},
   /*{n:"C. Liduenha",p:"ST",o:82,j:8,g:4,a:3,m:1,psn:"",aka:[]},*/
-  {n:"S. Kennedy sfd",p:"GK",o:89,j:55,g:13,a:15,m:5,psn:"JoaoPlay610",img:"joao_gk.jpeg",aka:[]},
+  /*{n:"S. Kennedy sfd",p:"GK",o:89,j:55,g:13,a:15,m:5,psn:"JoaoPlay610",img:"joao_gk.jpeg",aka:[]},*/
   /*{n:"Z. Love",p:"ST",o:83,j:7,g:5,a:1,m:1,psn:"ph_g97",aka:[]},*/
   /*{n:"Ryan",p:"CB",o:84,j:7,g:2,a:0,m:0,psn:"ryanhenrybr2002",aka:[]},*/
   /*{n:"Messi",p:"CB",o:83,j:11,g:1,a:0,m:2,psn:"pipovini",img:"pipovini.jpg",aka:[]},*/
