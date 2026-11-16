@@ -1,4 +1,4 @@
-/* Fonte dos dados: Pro Clubs Tracker (clube 37568, FC 27). Reserva: ProClubsHead, comentado mais abaixo (config). Última atualização: 14/11/2026. */
+/* Fonte dos dados: Pro Clubs Tracker (clube 37568, FC 27). Reserva: ProClubsHead, comentado mais abaixo (config). Última atualização: 16/11/2026. */
 const club = {w:127,d:32,l:110,gf:625,ga:576,games:269,sr:1700};
 /* psn: ID do jogador no PlayStation. Vazio = ainda não informado. p vazio = sem posição (nunca jogou).
    img: nome do arquivo da foto dentro de assets/players/ (ex.: img:"habutre.jpg"). Sem img = silhueta padrão. Ideal: retrato vertical, ~400x480.
@@ -41,7 +41,7 @@ const players = [
   {n:"Landão",p:"CB",o:83,j:26,g:0,a:1,m:2,psn:"Landao_da_massa",img:"Landao.jpg",aka:[]},
   /*{n:"J H O W",p:"CB",o:80,j:5,g:1,a:0,m:0,psn:"X_Jhoow",aka:[]},*/
   /*{n:"t. Jefrey",p:"CM",o:78,j:3,g:0,a:1,m:0,psn:"Farelooso",aka:[]},*/
-  /*{n:"Magrão",p:"CM",o:83,j:3,g:1,a:1,m:0,psn:"MagraoJojelito84",aka:[]},*/
+  {n:"Magrão",p:"CM",o:83,j:3,g:1,a:1,m:0,psn:"MagraoJojelito84",img:"magrao.jpg",aka:[]},
   /*{n:"R. Dotti",p:"CM",o:74,j:9,g:1,a:6,m:1,psn:"Dottizao",aka:[]},*/
   /*{n:"Qrooz",p:"CM",o:82,j:18,g:1,a:3,m:0,psn:"rodrigobqueiroz",aka:[]},*/
   /*{n:"RyanFelix055",p:"",o:0,j:0,g:0,a:0,m:0,psn:"RyanFelix055",aka:[]},*/
