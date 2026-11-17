@@ -54,7 +54,7 @@ const campeonato = (() => {
     demo: true,
     nome: "Copa Nossa Jogatina", edicao: "1ª Edição", slogan: `${N} clubes. Um troféu. Só um campeão.`,
     status: estado, numTimes: N, porGrupo: TG, classificam: 2, formato: PONTOSD ? "pontos" : "grupos",
-    inicio: dia(0, 20),
+    inicio: dia(0, 20), prazos: Object.fromEntries(Array.from({ length: 40 }, (_, i) => [i + 1, dia(i * 2 + 1, 0).slice(0, 10)])),
     plataformas: "PlayStation, Xbox e PC",
     /* Fotos de fundo de cada parte (arquivos dentro de assets/bg/). Vazio = só o visual padrão. Tamanho ideal: 1920 x 900 px, JPG, até 250 KB. */
     fotos: { hero: "", grupos: "", jogos: "", matamata: "", stats: "", premiacao: "", regras: "" },
