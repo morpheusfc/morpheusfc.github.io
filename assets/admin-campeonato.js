@@ -153,6 +153,13 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
           ${jogos.length ? `<button class="fbtn danger" id="apagarJ" type="button">Apagar todos os jogos</button>` : ""}
         </div>
         ${temGrupos || jogos.length ? "" : `<p class="adm-help" style="margin-top:10px">${P ? "Inscreva os times para gerar os jogos." : "Inscreva os times e sorteie os grupos para gerar os jogos."}</p>`}
+        ${P && jg.length ? (() => { const rods = [...new Set(jg.map(x => x.rodada))].sort((a, b) => a - b), pz = cur.prazos || {};
+          return `<details class="cmpa-prazos" style="margin:14px 0"><summary><b>Prazo de cada rodada</b> <small>(aparece abaixo dos confrontos no site)</small></summary>
+            <div class="adm-actions" style="margin:10px 0"><label style="display:flex;gap:6px;align-items:center">1ª rodada termina em <input type="date" id="pzIni"></label>
+              <label style="display:flex;gap:6px;align-items:center">a cada <input type="number" id="pzInt" min="1" max="30" value="7" style="width:64px"> dias</label>
+              <button class="fbtn" id="pzAuto" type="button">Preencher todas</button></div>
+            <div class="cmpa-pz" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px">${rods.map(r => `<label style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span>${r}ª rodada</span><input type="date" data-pz="${r}" value="${esc(pz[r] || "")}"></label>`).join("")}</div>
+            <div class="adm-actions" style="margin-top:10px"><button class="btn btn-gold btn-sm" id="pzSalvar" type="button">Salvar prazos</button></div></details>`; })() : ""}
         ${["grupos", "quartas", "semis", "final"].map(f => { const l = jogos.filter(x => x.fase === f); if (!l.length) return "";
           return `<h4 class="cmpa-fase">${P && f === "grupos" ? "Rodadas" : FASES[f]}</h4>${l.map(x => `
           <div class="cmpa-jogo" data-j="${esc(x.id)}">
@@ -258,6 +265,22 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
       if (er) return say(errText(er), false);
       tela();
     };
+    const pzAuto = q("#pzAuto");
+    if (pzAuto) {
+      pzAuto.onclick = () => {
+        const ini = q("#pzIni").value, passo = Math.max(1, +q("#pzInt").value || 7);
+        if (!ini) return say("Escolha a data em que a 1ª rodada termina.", false);
+        const [y, m, d] = ini.split("-").map(Number);
+        qa("[data-pz]").forEach((inp, i) => { const t = new Date(y, m - 1, d + i * passo); inp.value = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}-${String(t.getDate()).padStart(2, "0")}`; });
+      };
+      q("#pzSalvar").onclick = async () => {
+        const prazos = {}; qa("[data-pz]").forEach(inp => { if (inp.value) prazos[inp.dataset.pz] = inp.value; });
+        const { error: er } = await sb.from("campeonatos").update({ prazos }).eq("id", cur.id);
+        if (er) return say(/prazos/i.test(errText(er)) ? "O banco ainda não tem a coluna de prazos. Rode o arquivo supabase-campeonato-prazos.sql no Supabase (SQL Editor) e tente de novo. (" + errText(er) + ")" : errText(er), false);
+        say("Prazos salvos.", true);
+        cur.prazos = prazos;
+      };
+    }
     const gM = q("#gerarM");
     if (gM) gM.onclick = async () => {
       const rows = chaveamento(grupos(cur.num_times, P)).map(([fase, [a, b]], i) => ({ campeonato_id: cur.id, fase, ordem: 1000 + i, casa_vaga: a, fora_vaga: b }));

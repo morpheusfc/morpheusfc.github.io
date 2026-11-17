@@ -97,7 +97,7 @@ async function carregaCampeonato() {
     const pts = c.formato === "pontos", g = pts ? 1 : (c.num_times <= 10 ? 2 : 4);
     return {
       demo: false, formato: pts ? "pontos" : "grupos", nome: c.nome, edicao: c.edicao, slogan: c.slogan, status: c.status, numTimes: c.num_times, porGrupo: c.num_times / g, classificam: 2,
-      inicio: c.inicio, plataformas: c.plataformas, fotos: c.fotos || {}, premios: c.premios || [], regras: c.regras || [],
+      inicio: c.inicio, prazos: c.prazos || {}, plataformas: c.plataformas, fotos: c.fotos || {}, premios: c.premios || [], regras: c.regras || [],
       times: ts.map(t => ({ id: num[t.id], nome: t.nome, plataforma: t.plataforma, clubId: t.club_id, grupo: pts ? "A" : t.grupo })),
       jogos: js.map(j => ({ id: j.id, fase: j.fase, grupo: pts ? "A" : j.grupo, rodada: j.rodada, data: j.data,
         casa: j.casa ? num[j.casa] : j.casa_vaga, fora: j.fora ? num[j.fora] : j.fora_vaga, gc: j.gols_casa, gf: j.gols_fora, stats: j.stats })),
@@ -272,6 +272,7 @@ async function carregaCampeonato() {
     <div class="toolbar" id="cpFiltro">${(PONTOS ? rodadasLista.map(r => [r, r + "ª rodada"]) : [["grupos", "Fase de grupos"], ["quartas", "Quartas"], ["semis", "Semifinais"], ["final", "Final"]].filter(([k]) => k === "grupos" || fases.includes(k)))
       .map(([k, l]) => `<button class="fbtn${k === faseAtual ? " on" : ""}" data-f="${k}">${l}</button>`).join("")}</div>
     <div class="panel cp-matches" id="cpJogos"></div>
+    <div class="cp-prazo" id="cpPrazo" hidden></div>
   </div></section>`;
 
   const bracketCol = f => `<div class="cp-col"><h4>${FASES[f]}</h4><div class="cp-ties">${mataJogos(f).map(j => { const c = slot(j.casa, f), a = slot(j.fora, f), p = jogou(j);
@@ -358,7 +359,18 @@ async function carregaCampeonato() {
   root.innerHTML = hero + gruposHtml + jogosHtml + (PONTOS ? "" : bracket) + stats + premiacao + regras;
 
   /* filtro de jogos */
-  const desenhaJogos = f => { document.getElementById("cpJogos").innerHTML = C.jogos.filter(j => PONTOS ? j.rodada === +f : j.fase === f).sort((a, b) => (a.data || "9").localeCompare(b.data || "9")).map(jogoRow).join(""); };
+  const desenhaJogos = f => { document.getElementById("cpJogos").innerHTML = C.jogos.filter(j => PONTOS ? j.rodada === +f : j.fase === f).sort((a, b) => (a.data || "9").localeCompare(b.data || "9")).map(jogoRow).join("");
+    /* pontos corridos: prazo para a rodada terminar (definido no painel, aba Campeonato > Jogos) */
+    const pz = document.getElementById("cpPrazo"), iso = PONTOS && C.prazos && C.prazos[f];
+    if (!pz) return;
+    if (!iso) { pz.hidden = true; return; }
+    const [ya, ma, da] = iso.split("-").map(Number), fim = new Date(ya, ma - 1, da, 23, 59, 59), hoje = new Date(), h0 = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+    const dias = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"], dt = `${dias[fim.getDay()]}, ${pad(da)}/${pad(ma)}`;
+    const dif = Math.round((new Date(ya, ma - 1, da) - h0) / 864e5), passou = dif < 0;
+    pz.className = "cp-prazo" + (passou ? " fim" : "");
+    pz.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>${passou ? `A ${f}ª rodada terminou na <b>${dt}</b>.` : dif === 0 ? `A ${f}ª rodada termina <b>hoje</b> (${dt}).` : `A ${f}ª rodada termina na <b>${dt}</b>${dif === 1 ? " (amanhã)" : ""}.`}</span>`;
+    pz.hidden = false;
+  };
   desenhaJogos(faseAtual);
   document.querySelectorAll("#cpFiltro .fbtn").forEach(b => b.onclick = () => { document.querySelectorAll("#cpFiltro .fbtn").forEach(x => x.classList.toggle("on", x === b)); desenhaJogos(b.dataset.f); });
 

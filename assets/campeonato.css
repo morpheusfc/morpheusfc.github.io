@@ -223,3 +223,10 @@ html,body{overflow-x:clip}
 .cp-insc-top span{color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
 .cp-insc-bar{height:10px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
 .cp-insc-bar i{display:block;height:100%;min-width:6px;border-radius:99px;background:linear-gradient(90deg,#a97a16,#e9b949,#fbe7a6);transition:width .6s ease}
+
+/* prazo para finalizar a rodada (pontos corridos) */
+.cp-prazo{display:flex;align-items:center;gap:10px;margin-top:12px;padding:12px 16px;border-radius:12px;background:rgba(233,185,73,.1);border:1px solid rgba(233,185,73,.35);font-size:14px;color:#e9e6f0}
+.cp-prazo svg{flex:none;width:18px;height:18px;color:var(--gold)}
+.cp-prazo b{color:var(--gold)}
+.cp-prazo.fim{background:rgba(255,255,255,.05);border-color:var(--line);color:var(--muted)}
+.cp-prazo.fim b{color:#fff}
