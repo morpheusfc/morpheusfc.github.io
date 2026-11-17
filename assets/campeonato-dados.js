@@ -15,6 +15,10 @@ const campeonatoDados = [
    stats:{
     casa:[{psn:"Beica97",g:2,a:5,m:1,pos:"F"},{psn:"Habutrers",g:5,a:1,m:0,pos:"F"},{psn:"MagraoJojelito84",g:1,a:1,m:0,pos:"M"},{psn:"Maneel444",g:0,a:0,m:0,pos:"D"},{psn:"Landao_da_massa",g:0,a:0,m:0,pos:"M"},{psn:"alice_farias09",g:0,a:0,m:0,pos:"M"}],
     fora:[{psn:"imbernardo7",g:4,a:0,m:0,pos:"F"},{psn:"TheCalistin",g:0,a:3,m:0,pos:"M"},{psn:"Rezendex__",g:0,a:1,m:0,pos:"M"}]}},
+  {fase:"grupos", casa:"Matrix FC", fora:"Nossa Jogatina", gc:6, gf:0, hora:"2026-11-16T23:11",
+   stats:{
+    casa:[{psn:"BILBAU97",g:0,a:1,m:0,pos:"M"},{psn:"rodrigobqueiroz",g:0,a:0,m:0,pos:"M"},{psn:"bombasportmix",g:0,a:0,m:0,pos:"D"},{psn:"Pedrim_el_mago",g:2,a:0,m:0,pos:"F"},{psn:"KALLEN_COUTINHO",g:4,a:1,m:1,pos:"F"},{psn:"The_White-DDD011",g:0,a:1,m:0,pos:"M"},{psn:"King_Arthur_atbs",g:0,a:1,m:0,pos:"M"},{psn:"dtb_mvp",g:0,a:0,m:0,pos:"D"},{psn:"z Alemao 16",g:0,a:1,m:0,pos:"M"},{psn:"pipovini",g:0,a:0,m:0,pos:"D"}],
+    fora:[{psn:"JhonMaxsuell",g:0,a:0,m:0,pos:"F"},{psn:"Rezendex__",g:0,a:0,m:0,pos:"M"},{psn:"imbernardo7",g:0,a:0,m:0,pos:"F"},{psn:"TheCalistin",g:0,a:0,m:0,pos:"M"}]}},
 ];
 
 /* Fotos de fundo padrão do campeonato (arquivos em assets/bg/). Valem para qualquer campeonato; o que você preencher no painel (aba Campeonato > Fotos de fundo) tem prioridade. */
