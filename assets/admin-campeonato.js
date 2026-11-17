@@ -35,8 +35,9 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
   const embaralha = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
   /* jogos todos contra todos de um grupo (método do círculo): devolve [[a,b,rodada], ...] */
-  function todosContraTodos(ts) {
-    const l = ts.slice(); if (l.length % 2) l.push(null);
+  function todosContraTodos(ts, rival) {
+    let l = ts.slice(); if (l.length % 2) l.push(null);
+    if (rival && l.length > 2 && l[0] && l.includes(rival) && rival !== l[0]) { const meio = l.filter(x => x !== l[0] && x !== rival); l = [l[0], ...meio, rival]; }   /* o rival fica na ponta oposta: o círculo o põe contra o 1º time na 1ª rodada */
     const n = l.length, out = [];
     for (let r = 0; r < n - 1; r++) {
       for (let i = 0; i < n / 2; i++) { const a = l[i], b = l[n - 1 - i]; if (a && b) out.push([a, b, r + 1]); }
@@ -152,6 +153,9 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
           ${P || jm.length || !jg.length ? "" : `<button class="btn btn-gold btn-sm" id="gerarM" type="button">Gerar mata-mata</button>`}
           ${jogos.length ? `<button class="fbtn danger" id="apagarJ" type="button">Apagar todos os jogos</button>` : ""}
         </div>
+        ${P && !jg.length && times.length > 2 ? `<div class="adm-actions" style="margin-top:10px"><label style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">Na 1ª rodada, ${esc(times[0].nome)} joga contra:
+          <select id="rivalR1"><option value="">Automático</option>${times.slice(1).map(t => `<option value="${esc(t.id)}">${esc(t.nome)}</option>`).join("")}</select></label>
+          <span class="adm-help">Escolha o confronto já combinado e o calendário é montado a partir dele.</span></div>` : ""}
         ${temGrupos || jogos.length ? "" : `<p class="adm-help" style="margin-top:10px">${P ? "Inscreva os times para gerar os jogos." : "Inscreva os times e sorteie os grupos para gerar os jogos."}</p>`}
         ${P && jg.length ? (() => { const rods = [...new Set(jg.map(x => x.rodada))].sort((a, b) => a - b), pz = cur.prazos || {};
           return `<details class="cmpa-prazos" style="margin:14px 0"><summary><b>Prazo de cada rodada</b> <small>(aparece abaixo dos confrontos no site)</small></summary>
@@ -252,7 +256,8 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
     const gG = q("#gerarG");
     if (gG) gG.onclick = async () => {
       const rows = []; let ordem = 0;
-      letras(cur.num_times, P).forEach(g => todosContraTodos(times.filter(t => P || t.grupo === g)).forEach(([a, b, r]) =>
+      const rivalId = P && q("#rivalR1") ? q("#rivalR1").value : "";
+      letras(cur.num_times, P).forEach(g => todosContraTodos(times.filter(t => P || t.grupo === g), P ? times.find(t => String(t.id) === rivalId) : null).forEach(([a, b, r]) =>
         rows.push({ campeonato_id: cur.id, fase: "grupos", grupo: g, rodada: r, ordem: ordem++, casa: a.id, fora: b.id })));
       if (P && rows.length) {   /* pontos corridos: returno = mesmos confrontos com o mando invertido, depois do último jogo do 1º turno */
         const ida = rows.slice(), nr = Math.max(...ida.map(x => x.rodada));
