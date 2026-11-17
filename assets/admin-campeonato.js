@@ -20,13 +20,13 @@ Pontuação | Vitória vale 3 pontos, empate 1 e derrota 0.
 Desempate | Pontos, saldo de gols, gols marcados e número de vitórias.
 Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apresentar o maior Índice de Eficiência do Goleiro (IEG) durante o campeonato. IEG = Defesas ÷ (Defesas + Gols Sofridos) × 100. O índice representa o percentual de defesas em relação ao total de defesas realizadas e gols sofridos.`;
 
-  const REGRAS_P = REGRAS.replace(/^Formato \|.*$/m, "Formato | Pontos corridos em turno único: todos os clubes se enfrentam uma vez e o campeão é o líder da tabela ao final de todas as rodadas.");
+  const REGRAS_P = REGRAS.replace(/^Formato \|.*$/m, "Formato | Pontos corridos em dois turnos (ida e volta): todos os clubes se enfrentam duas vezes, uma em cada mando, e o campeão é o líder da tabela ao final de todas as rodadas.");
   let selId = null, criando = false;
   const pad = n => String(n).padStart(2, "0");
   const paraCampo = iso => { if (!iso) return ""; const d = new Date(iso); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`; };
   const doCampo = v => v ? new Date(v).toISOString() : null;
   const grupos = (n, p) => p ? 1 : n <= 10 ? 2 : 4;   /* pontos corridos = 1 tabela; 8 times = 2 grupos de 4; 10 = 2 de 5 (semifinais); 12 a 24 = 4 grupos (quartas) */
-  const formato = (n, p) => { if (p) return `${n} times: pontos corridos em turno único, ${n - 1} rodadas e ${n * (n - 1) / 2} jogos; quem somar mais pontos é o campeão`; const g = grupos(n); return `${n} times: ${g} grupos de ${n / g}, ${g * 2} classificados (${g === 2 ? "semifinais" : "quartas de final"})`; };
+  const formato = (n, p) => { if (p) return `${n} times: pontos corridos em ida e volta, ${2 * (n - 1)} rodadas e ${n * (n - 1)} jogos; quem somar mais pontos é o campeão`; const g = grupos(n); return `${n} times: ${g} grupos de ${n / g}, ${g * 2} classificados (${g === 2 ? "semifinais" : "quartas de final"})`; };
   const letras = (n, p) => "ABCD".slice(0, grupos(n, p)).split("");
   const linhas = t => String(t || "").split("\n").map(s => s.trim()).filter(Boolean);
   const paraPremios = t => linhas(t).map(l => { const p = l.split("|").map(s => s.trim()); return [p[0] || "", p[1] || "", p.slice(2).join(" | ")]; }).filter(p => p[1]);
@@ -105,7 +105,7 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
       <form class="panel" id="cform"><h3>${cur ? "Dados do campeonato" : "Novo campeonato"}</h3>
         <div class="row2"><label>Nome<input name="nome" required maxlength="60" value="${esc(c.nome)}"></label><label>Edição<input name="edicao" maxlength="40" value="${esc(c.edicao)}"></label></div>
         <label>Frase de chamada<input name="slogan" maxlength="120" value="${esc(c.slogan)}"></label>
-        <label>Estilo do campeonato<select name="formato"${cur && jogos.length ? " disabled" : ""}><option value="grupos"${cPts ? "" : " selected"}>Mata-mata (fase de grupos + mata-mata)</option><option value="pontos"${cPts ? " selected" : ""}>Pontos corridos (turno único, estilo Brasileirão)</option></select></label>
+        <label>Estilo do campeonato<select name="formato"${cur && jogos.length ? " disabled" : ""}><option value="grupos"${cPts ? "" : " selected"}>Mata-mata (fase de grupos + mata-mata)</option><option value="pontos"${cPts ? " selected" : ""}>Pontos corridos (ida e volta, estilo Brasileirão)</option></select></label>
         ${cur && jogos.length ? `<div class="adm-help">O estilo não pode ser trocado depois que os jogos foram gerados. Para mudar, apague os jogos antes.</div>` : ""}
         <div class="row2">
           <label>Quantidade de times<select name="num_times">${optsNum(cPts, c.num_times)}</select></label>
@@ -148,7 +148,7 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
 
       <div class="panel cmpa-sec"><h3>Jogos</h3>
         <div class="adm-actions">
-          ${jg.length ? "" : `<button class="btn btn-gold btn-sm" id="gerarG" type="button"${temGrupos ? "" : " disabled"}>${P ? "Gerar jogos (todos contra todos, turno único)" : "Gerar jogos da fase de grupos"}</button>`}
+          ${jg.length ? "" : `<button class="btn btn-gold btn-sm" id="gerarG" type="button"${temGrupos ? "" : " disabled"}>${P ? "Gerar jogos (todos contra todos, ida e volta)" : "Gerar jogos da fase de grupos"}</button>`}
           ${P || jm.length || !jg.length ? "" : `<button class="btn btn-gold btn-sm" id="gerarM" type="button">Gerar mata-mata</button>`}
           ${jogos.length ? `<button class="fbtn danger" id="apagarJ" type="button">Apagar todos os jogos</button>` : ""}
         </div>
@@ -247,6 +247,10 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
       const rows = []; let ordem = 0;
       letras(cur.num_times, P).forEach(g => todosContraTodos(times.filter(t => P || t.grupo === g)).forEach(([a, b, r]) =>
         rows.push({ campeonato_id: cur.id, fase: "grupos", grupo: g, rodada: r, ordem: ordem++, casa: a.id, fora: b.id })));
+      if (P && rows.length) {   /* pontos corridos: returno = mesmos confrontos com o mando invertido, depois do último jogo do 1º turno */
+        const ida = rows.slice(), nr = Math.max(...ida.map(x => x.rodada));
+        ida.forEach(x => rows.push({ campeonato_id: cur.id, fase: "grupos", grupo: x.grupo, rodada: x.rodada + nr, ordem: 0, casa: x.fora, fora: x.casa }));
+      }
       if (!rows.length) return say(P ? "Inscreva pelo menos 2 times para gerar os jogos." : "Sorteie os grupos antes: cada grupo precisa de pelo menos 2 times.", false);
       if (P && times.length < cur.num_times && !confirm(`Há ${times.length} de ${cur.num_times} times inscritos. Gerar os jogos assim mesmo? (Se entrar mais um time depois, será preciso apagar e gerar de novo.)`)) return;
       rows.sort((x, y) => x.rodada - y.rodada || x.grupo.localeCompare(y.grupo)).forEach((r, i) => { r.ordem = i; });

@@ -69,7 +69,7 @@ const campeonato = (() => {
       ["🛡️", "Defesa menos vazada", "Clube que sofrer menos gols"]
     ],
     regras: [
-      ["Formato", PONTOSD ? "Pontos corridos em turno único: todos os clubes se enfrentam uma vez e quem somar mais pontos é o campeão." : "Fase de grupos (todos contra todos dentro do grupo), depois " + (N <= 10 ? "" : "quartas de final, ") + "semifinais e final, em jogo único."],
+      ["Formato", PONTOSD ? "Pontos corridos em ida e volta: todos os clubes se enfrentam duas vezes e quem somar mais pontos é o campeão." : "Fase de grupos (todos contra todos dentro do grupo), depois " + (N <= 10 ? "" : "quartas de final, ") + "semifinais e final, em jogo único."],
       ["Os jogos", "Todos os jogos são amistosos entre os clubes, nos horários definidos pela organização."],
       ["Plataformas", "Aberto a todas as plataformas."],
       ["Pontuação", "Vitória vale 3 pontos, empate 1 e derrota 0."],
@@ -243,8 +243,8 @@ async function carregaCampeonato() {
     <div class="cp-legend cp-legend3"><span class="z-camp"><i></i> Campeão (líder)</span>${nTop > 1 ? `<span class="z-top"><i></i> Zona de destaque (2º ao ${nTop}º)</span>` : ""}${nBot ? `<span class="z-bot"><i></i> Zona de rebaixamento (${nBot === 1 ? "último" : "últimos " + nBot})</span>` : ""}</div>`;
   const gruposHtml = PONTOS ? `
   <section class="cp-sec alt" id="grupos">${bg("grupos")}<div class="wrap">${secLista("Pontos corridos", "Classificação")}
-    <p class="sec-sub">Turno único: todos os clubes se enfrentam uma vez. Vitória vale 3 pontos, empate 1. Quem somar mais pontos é o campeão.</p>
-    ${grupos.length ? tabelaPontos : `<div class="panel cp-wait"><b>Inscrições abertas</b><span>Quando as ${C.numTimes} vagas forem preenchidas, os jogos serão definidos: todos contra todos, em ${C.numTimes - 1} rodadas.</span>
+    <p class="sec-sub">Ida e volta: todos os clubes se enfrentam duas vezes, uma em cada mando. Vitória vale 3 pontos, empate 1. Quem somar mais pontos é o campeão.</p>
+    ${grupos.length ? tabelaPontos : `<div class="panel cp-wait"><b>Inscrições abertas</b><span>Quando as ${C.numTimes} vagas forem preenchidas, os jogos serão definidos: todos contra todos, em ida e volta (${2 * (C.numTimes - 1)} rodadas).</span>
       <div class="cp-vagas"><i style="width:${Math.round(C.times.length / C.numTimes * 100)}%"></i></div><span>${C.times.length} de ${C.numTimes} vagas preenchidas</span>
       ${C.times.length ? `<div class="cp-chips">${C.times.map(t => `<span class="cp-tchip">${escudo(t, "sm")}${esc(t.nome)}</span>`).join("")}</div>` : ""}</div>`}
   </div></section>` : `
