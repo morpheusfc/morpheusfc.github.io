@@ -34,11 +34,17 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
   const deArr = (a, n) => (a || []).map(x => x.slice(0, n).join(" | ")).join("\n");
   const embaralha = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
-  /* jogos todos contra todos de um grupo (método do círculo): devolve [[a,b,rodada], ...] */
-  function todosContraTodos(ts, rival) {
-    let l = ts.slice(); if (l.length % 2) l.push(null);
-    if (rival && l.length > 2 && l[0] && l.includes(rival) && rival !== l[0]) { const meio = l.filter(x => x !== l[0] && x !== rival); l = [l[0], ...meio, rival]; }   /* o rival fica na ponta oposta: o círculo o põe contra o 1º time na 1ª rodada */
-    const n = l.length, out = [];
+  /* jogos todos contra todos de um grupo (método do círculo): devolve [[a,b,rodada], ...].
+     fixos = confrontos já combinados para a 1ª rodada, [[timeA, timeB], ...]: o círculo é montado para que eles caiam na rodada 1 (A joga em casa). */
+  function todosContraTodos(ts, fixos) {
+    const resto = ts.slice(); if (resto.length % 2) resto.push(null);
+    const n = resto.length, l = new Array(n).fill(undefined);
+    (fixos || []).forEach(([a, b], i) => {
+      if (i >= n / 2 || !resto.includes(a) || !resto.includes(b) || a === b) return;
+      l[i] = a; l[n - 1 - i] = b; resto.splice(resto.indexOf(a), 1); resto.splice(resto.indexOf(b), 1);
+    });
+    for (let i = 0; i < n; i++) if (l[i] === undefined) l[i] = resto.shift();
+    const out = [];
     for (let r = 0; r < n - 1; r++) {
       for (let i = 0; i < n / 2; i++) { const a = l[i], b = l[n - 1 - i]; if (a && b) out.push([a, b, r + 1]); }
       l.splice(1, 0, l.pop());
@@ -153,9 +159,9 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
           ${P || jm.length || !jg.length ? "" : `<button class="btn btn-gold btn-sm" id="gerarM" type="button">Gerar mata-mata</button>`}
           ${jogos.length ? `<button class="fbtn danger" id="apagarJ" type="button">Apagar todos os jogos</button>` : ""}
         </div>
-        ${P && !jg.length && times.length > 2 ? `<div class="adm-actions" style="margin-top:10px"><label style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">Na 1ª rodada, ${esc(times[0].nome)} joga contra:
-          <select id="rivalR1"><option value="">Automático</option>${times.slice(1).map(t => `<option value="${esc(t.id)}">${esc(t.nome)}</option>`).join("")}</select></label>
-          <span class="adm-help">Escolha o confronto já combinado e o calendário é montado a partir dele.</span></div>` : ""}
+        ${P && !jg.length && times.length > 3 ? `<div style="margin-top:12px"><b>Confrontos já combinados para a 1ª rodada</b> <small class="adm-help">(opcional: o time da esquerda joga em casa; os demais jogos são montados em volta destes)</small>
+          <div id="fixosR1" style="display:grid;gap:8px;margin-top:8px"></div>
+          <div class="adm-actions" style="margin-top:8px"><button class="fbtn" id="fixoAdd" type="button">＋ Adicionar confronto</button></div></div>` : ""}
         ${temGrupos || jogos.length ? "" : `<p class="adm-help" style="margin-top:10px">${P ? "Inscreva os times para gerar os jogos." : "Inscreva os times e sorteie os grupos para gerar os jogos."}</p>`}
         ${P && jg.length ? (() => { const rods = [...new Set(jg.map(x => x.rodada))].sort((a, b) => a - b), pz = cur.prazos || {};
           return `<details class="cmpa-prazos" style="margin:14px 0"><summary><b>Prazo de cada rodada</b> <small>(aparece abaixo dos confrontos no site)</small></summary>
@@ -253,11 +259,26 @@ Melhor goleiro | O prêmio de Melhor Goleiro será concedido ao atleta que apres
       if (jogos.some(x => x.fase === "grupos")) await sb.from("campeonato_jogos").delete().eq("campeonato_id", cur.id);
       tela();
     };
+    const fixoAdd = q("#fixoAdd");
+    if (fixoAdd) {
+      const opts = `<option value="">— time —</option>${times.map(t => `<option value="${esc(t.id)}">${esc(t.nome)}</option>`).join("")}`;
+      const novo = () => { const d = document.createElement("div"); d.className = "fixo-lin"; d.style.cssText = "display:flex;gap:8px;align-items:center;flex-wrap:wrap";
+        d.innerHTML = `<select aria-label="Time da casa">${opts}</select><span>x</span><select aria-label="Time visitante">${opts}</select><button class="fbtn danger" type="button" aria-label="Remover confronto">✕</button>`;
+        d.querySelector("button").onclick = () => d.remove(); q("#fixosR1").appendChild(d); };
+      fixoAdd.onclick = novo; novo(); novo();
+    }
     const gG = q("#gerarG");
     if (gG) gG.onclick = async () => {
       const rows = []; let ordem = 0;
-      const rivalId = P && q("#rivalR1") ? q("#rivalR1").value : "";
-      letras(cur.num_times, P).forEach(g => todosContraTodos(times.filter(t => P || t.grupo === g), P ? times.find(t => String(t.id) === rivalId) : null).forEach(([a, b, r]) =>
+      const fixos = []; const usadosF = new Set();
+      if (P) for (const lin of qa("#fixosR1 .fixo-lin")) {
+        const [sa, sb2] = lin.querySelectorAll("select"); if (!sa.value && !sb2.value) continue;
+        if (!sa.value || !sb2.value || sa.value === sb2.value) return say("Confronto da 1ª rodada incompleto: escolha dois times diferentes (ou deixe os dois em branco).", false);
+        if (usadosF.has(sa.value) || usadosF.has(sb2.value)) return say("Um mesmo time não pode jogar duas vezes na 1ª rodada.", false);
+        usadosF.add(sa.value); usadosF.add(sb2.value);
+        fixos.push([times.find(t => String(t.id) === sa.value), times.find(t => String(t.id) === sb2.value)]);
+      }
+      letras(cur.num_times, P).forEach(g => todosContraTodos(times.filter(t => P || t.grupo === g), P ? fixos : null).forEach(([a, b, r]) =>
         rows.push({ campeonato_id: cur.id, fase: "grupos", grupo: g, rodada: r, ordem: ordem++, casa: a.id, fora: b.id })));
       if (P && rows.length) {   /* pontos corridos: returno = mesmos confrontos com o mando invertido, depois do último jogo do 1º turno */
         const ida = rows.slice(), nr = Math.max(...ida.map(x => x.rodada));
