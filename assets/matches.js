@@ -10,10 +10,6 @@ const row = a => ({n:a[0],pos:a[1],r:a[2],g:a[3],a:a[4],s:a[5],p:a[6],t:a[7],mot
 const mk = (id,date,opp,gf,ga,st,us,them) => ({id,date,opp,g:[gf,ga],r:gf>ga?"V":gf<ga?"D":"E",st,us:us.map(row),them:them.map(row)});
 
 const matches = [
-  mk("980275","2026-11-16T22:20","MATRIX FC",2,7,
-    [[2,7],[2,9],[100,78],[106,106],[80,78],[1,4],[8,13],[30,42],[0,0],[0,0],[6.8,8.2]],
-    [["Maneel444","D",7.6,0,0,0,14,3],["Habutrers","F",7.1,1,0,1,12,1],["Landao_da_massa","M",7,0,0,0,15,2],["alice_farias09","M",6.9,1,1,1,15,0],["MagraoJojelito84","M",6.6,0,0,0,14,1],["Beica97","F",6.3,0,0,0,25,1],["GabrielGoulartXx","M",6.2,0,0,0,11,0]],
-    [["The_White-DDD011","F",10,2,3,3,15,3,1],["King_Arthur_atbs","M",9.9,2,0,3,23,5],["Pedrim_el_mago","F",9.3,2,1,2,17,1],["z Alemao 16","M",7.4,0,0,0,8,2],["BILBAU97","M",7.2,0,0,0,15,0],["dtb_mvp","D",7.2,0,0,0,8,2],["rodrigobqueiroz","M",7.1,1,0,1,12,0],["pipovini","D",7.1,0,0,0,8,0]]),
   mk("790192","2026-11-16T21:56","Nossa Jogatina",8,5,
     [[8,4],[9,5],[89,80],[66,106],[79,91],[7,4],[6,1],[21,14],[0,0],[0,0],[7.4,9.3]],
     [["Beica97","F",10,2,5,2,17,0,1],["Habutrers","F",10,5,1,5,18,4],["MagraoJojelito84","M",7.9,1,1,2,10,1],["Maneel444","D",6.7,0,0,0,10,1],["Landao_da_massa","M",6.6,0,0,0,11,0],["alice_farias09","M",3,0,0,0,0,0]],
