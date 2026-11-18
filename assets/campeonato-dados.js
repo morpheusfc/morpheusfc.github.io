@@ -19,6 +19,10 @@ const campeonatoDados = [
    stats:{
     casa:[{psn:"BILBAU97",g:0,a:1,m:0,pos:"M"},{psn:"rodrigobqueiroz",g:0,a:0,m:0,pos:"M"},{psn:"bombasportmix",g:0,a:0,m:0,pos:"D"},{psn:"Pedrim_el_mago",g:2,a:0,m:0,pos:"F"},{psn:"KALLEN_COUTINHO",g:4,a:1,m:1,pos:"F"},{psn:"The_White-DDD011",g:0,a:1,m:0,pos:"M"},{psn:"King_Arthur_atbs",g:0,a:1,m:0,pos:"M"},{psn:"dtb_mvp",g:0,a:0,m:0,pos:"D"},{psn:"z Alemao 16",g:0,a:1,m:0,pos:"M"},{psn:"pipovini",g:0,a:0,m:0,pos:"D"}],
     fora:[{psn:"JhonMaxsuell",g:0,a:0,m:0,pos:"F"},{psn:"Rezendex__",g:0,a:0,m:0,pos:"M"},{psn:"imbernardo7",g:0,a:0,m:0,pos:"F"},{psn:"TheCalistin",g:0,a:0,m:0,pos:"M"}]}},
+  {fase:"grupos", casa:"Morpheus FC", fora:"TSIIX ESPORTS", gc:2, gf:3, hora:"2026-11-17T21:47",
+   stats:{
+    casa:[{psn:"Beica97",g:2,a:0,m:0,pos:"F"},{psn:"Habutrers",g:0,a:1,m:0,pos:"F"},{psn:"C9_phlipe7",g:0,a:1,m:0,pos:"D"},{psn:"alice_farias09",g:0,a:0,m:0,pos:"M"},{psn:"Landao_da_massa",g:0,a:0,m:0,pos:"M"},{psn:"Trclokko_01",g:0,a:0,m:0,pos:"D"}],
+    fora:[{psn:"Buenexgg",g:0,a:2,m:0,pos:"F"},{psn:"bruninho_lepol",g:1,a:1,m:0,pos:"F"},{psn:"Danevill",g:0,a:0,m:0,pos:"G",def:0,gs:2},{psn:"lczinn009",g:2,a:0,m:0,pos:"M"},{psn:"xXCLT_GUSTAXx",g:0,a:0,m:0,pos:"M"},{psn:"FaelSNTS",g:0,a:0,m:0,pos:"M"},{psn:"Yan_Rueda",g:0,a:0,m:1,pos:"M"},{psn:"LRS_Leleo",g:0,a:0,m:0,pos:"D"},{psn:"DinizTREM",g:0,a:0,m:0,pos:"M"},{psn:"heldinhooof3",g:0,a:0,m:0,pos:"D"},{psn:"Gut0_25",g:0,a:0,m:0,pos:"D"}]}},
 ];
 
 /* Fotos de fundo padrão do campeonato (arquivos em assets/bg/). Valem para qualquer campeonato; o que você preencher no painel (aba Campeonato > Fotos de fundo) tem prioridade. */
