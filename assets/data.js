@@ -1,5 +1,5 @@
-/* Fonte dos dados: Pro Clubs Tracker (clube 37568, FC 27). Reserva: ProClubsHead, comentado mais abaixo (config). Última atualização: 16/11/2026. */
-const club = {w:127,d:32,l:113,gf:627,ga:583,games:272,sr:1639};
+/* Fonte dos dados: Pro Clubs Tracker (clube 37568, FC 27). Reserva: ProClubsHead, comentado mais abaixo (config). Última atualização: 18/11/2026. */
+const club = {w:128,d:33,l:113,gf:634,ga:589,games:274,sr:1652};
 /* psn: ID do jogador no PlayStation. Vazio = ainda não informado. p vazio = sem posição (nunca jogou).
    img: nome do arquivo da foto dentro de assets/players/ (ex.: img:"habutre.jpg"). Sem img = silhueta padrão. Ideal: retrato vertical, ~400x480.
    aka: nomes ANTIGOS do jogador (ex.: aka:["Kakashi"]). Quando alguém troca de nome no jogo, o nome novo vira o "n" e o antigo vai para cá:
