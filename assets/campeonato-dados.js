@@ -35,6 +35,10 @@ const campeonatoDados = [
    stats:{
     casa:[{psn:"CRSNEVES",g:0,a:0,m:0,pos:"M"},{psn:"PEGUEISUATIA_OFF",g:1,a:1,m:0,pos:"M"},{psn:"Mito_L2_sola",g:3,a:0,m:1,pos:"F"},{psn:"lgbzitol",g:0,a:0,m:0,pos:"M"},{psn:"manjubiinha17",g:0,a:0,m:0,pos:"D"},{psn:"knsrj",g:1,a:1,m:0,pos:"M"},{psn:"InashzitoI",g:0,a:0,m:0,pos:"D"},{psn:"bielzzin7x3164",g:0,a:1,m:0,pos:"F"},{psn:"Marzinroth12",g:0,a:0,m:0,pos:"D"},{psn:"yKevinn10",g:0,a:0,m:0,pos:"M"},{psn:"ticozin7",g:0,a:0,m:0,pos:"G",def:2,gs:1}],
     fora:[{psn:"Ikaro_H",g:0,a:0,m:0,pos:"M"},{psn:"Zero_porcento0",g:0,a:0,m:0,pos:"M"},{psn:"Vinicius_P23",g:0,a:0,m:0,pos:"G",def:3,gs:5},{psn:"wPerciani7",g:0,a:0,m:0,pos:"F"},{psn:"djails0n_1994",g:0,a:0,m:0,pos:"D"},{psn:"zAlvess7",g:0,a:0,m:0,pos:"M"},{psn:"Leo3vieira",g:0,a:1,m:0,pos:"D"}]}},
+  {fase:"grupos", casa:"Matrix FC", fora:"Manja Chester", gc:1, gf:0, hora:"2026-11-18T23:17",
+   stats:{
+    casa:[{psn:"Dottizao",g:0,a:0,m:0,pos:"D"},{psn:"rodrigobqueiroz",g:0,a:0,m:0,pos:"M"},{psn:"Pedrim_el_mago",g:0,a:1,m:0,pos:"F"},{psn:"KALLEN_COUTINHO",g:1,a:0,m:0,pos:"F"},{psn:"King_Arthur_atbs",g:0,a:0,m:0,pos:"M"},{psn:"pipovini",g:0,a:0,m:0,pos:"D"}],
+    fora:[{psn:"Malkin-Nego",g:0,a:0,m:0,pos:"M"},{psn:"MATEUSBENATTI",g:0,a:0,m:0,pos:"M"},{psn:"PVENANCIO12",g:0,a:0,m:0,pos:"D"},{psn:"Samurai_no_deshi",g:0,a:0,m:0,pos:"M"},{psn:"Son9183",g:0,a:0,m:0,pos:"F"},{psn:"Lula_Garcia90",g:0,a:0,m:1,pos:"M"},{psn:"Marquinhos056",g:0,a:0,m:0,pos:"D"},{psn:"YuriFR16",g:0,a:0,m:0,pos:"D"},{psn:"Guizinn2355",g:0,a:0,m:0,pos:"M"}]}},
 ];
 
 /* Fotos de fundo padrão do campeonato (arquivos em assets/bg/). Valem para qualquer campeonato; o que você preencher no painel (aba Campeonato > Fotos de fundo) tem prioridade. */
