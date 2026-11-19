@@ -23,6 +23,10 @@ const campeonatoDados = [
    stats:{
     casa:[{psn:"Beica97",g:2,a:0,m:0,pos:"F"},{psn:"Habutrers",g:0,a:1,m:0,pos:"F"},{psn:"C9_phlipe7",g:0,a:1,m:0,pos:"D"},{psn:"alice_farias09",g:0,a:0,m:0,pos:"M"},{psn:"Landao_da_massa",g:0,a:0,m:0,pos:"M"},{psn:"Trclokko_01",g:0,a:0,m:0,pos:"D"}],
     fora:[{psn:"Buenexgg",g:0,a:2,m:0,pos:"F"},{psn:"bruninho_lepol",g:1,a:1,m:0,pos:"F"},{psn:"Danevill",g:0,a:0,m:0,pos:"G",def:0,gs:2},{psn:"lczinn009",g:2,a:0,m:0,pos:"M"},{psn:"xXCLT_GUSTAXx",g:0,a:0,m:0,pos:"M"},{psn:"FaelSNTS",g:0,a:0,m:0,pos:"M"},{psn:"Yan_Rueda",g:0,a:0,m:1,pos:"M"},{psn:"LRS_Leleo",g:0,a:0,m:0,pos:"D"},{psn:"DinizTREM",g:0,a:0,m:0,pos:"M"},{psn:"heldinhooof3",g:0,a:0,m:0,pos:"D"},{psn:"Gut0_25",g:0,a:0,m:0,pos:"D"}]}},
+  {fase:"grupos", casa:"ASCENCION FC", fora:"DESPORTIVO EC", gc:3, gf:0, hora:"2026-11-18T21:44",
+   stats:{
+    casa:[{psn:"Rock_Callboaa",g:1,a:2,m:1,pos:"M"},{psn:"iTz_iRaFFaTx",g:0,a:0,m:0,pos:"M"},{psn:"BR_BRANQUINHO77",g:0,a:0,m:0,pos:"D"},{psn:"Legend130200",g:0,a:0,m:0,pos:"G",def:3,gs:0},{psn:"MagoSeven",g:1,a:0,m:0,pos:"F"},{psn:"AraujoRei11",g:1,a:0,m:0,pos:"F"},{psn:"Failli89",g:0,a:0,m:0,pos:"M"},{psn:"lupe22745",g:0,a:0,m:0,pos:"F"},{psn:"gb21_ffc",g:0,a:0,m:0,pos:"D"}],
+    fora:[{psn:"Ikaro_H",g:0,a:0,m:0,pos:"M"},{psn:"Zero_porcento0",g:0,a:0,m:0,pos:"M"},{psn:"Vinicius_P23",g:0,a:0,m:0,pos:"G",def:0,gs:3},{psn:"wPerciani7",g:0,a:0,m:0,pos:"F"},{psn:"yzGabrielyz",g:0,a:0,m:0,pos:"F"},{psn:"EOODON",g:0,a:0,m:0,pos:"D"},{psn:"djails0n_1994",g:0,a:0,m:0,pos:"D"},{psn:"zAlvess7",g:0,a:0,m:0,pos:"M"},{psn:"Leo3vieira",g:0,a:0,m:0,pos:"D"}]}},
 ];
 
 /* Fotos de fundo padrão do campeonato (arquivos em assets/bg/). Valem para qualquer campeonato; o que você preencher no painel (aba Campeonato > Fotos de fundo) tem prioridade. */
