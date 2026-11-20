@@ -39,6 +39,10 @@ const campeonatoDados = [
    stats:{
     casa:[{psn:"Dottizao",g:0,a:0,m:0,pos:"D"},{psn:"rodrigobqueiroz",g:0,a:0,m:0,pos:"M"},{psn:"Pedrim_el_mago",g:0,a:1,m:0,pos:"F"},{psn:"KALLEN_COUTINHO",g:1,a:0,m:0,pos:"F"},{psn:"King_Arthur_atbs",g:0,a:0,m:0,pos:"M"},{psn:"pipovini",g:0,a:0,m:0,pos:"D"}],
     fora:[{psn:"Malkin-Nego",g:0,a:0,m:0,pos:"M"},{psn:"MATEUSBENATTI",g:0,a:0,m:0,pos:"M"},{psn:"PVENANCIO12",g:0,a:0,m:0,pos:"D"},{psn:"Samurai_no_deshi",g:0,a:0,m:0,pos:"M"},{psn:"Son9183",g:0,a:0,m:0,pos:"F"},{psn:"Lula_Garcia90",g:0,a:0,m:1,pos:"M"},{psn:"Marquinhos056",g:0,a:0,m:0,pos:"D"},{psn:"YuriFR16",g:0,a:0,m:0,pos:"D"},{psn:"Guizinn2355",g:0,a:0,m:0,pos:"M"}]}},
+  {fase:"grupos", casa:"FURIACG", fora:"FerroVelho", gc:2, gf:0, hora:"2026-11-19T22:13",
+   stats:{
+    casa:[{psn:"belinta_leo",g:0,a:0,m:0,pos:"M"},{psn:"PEGUEISUATIA_OFF",g:0,a:0,m:0,pos:"F"},{psn:"crispimz",g:1,a:0,m:0,pos:"M"},{psn:"Mito_L2_sola",g:1,a:1,m:0,pos:"F"},{psn:"Shazam_051",g:0,a:0,m:0,pos:"D"},{psn:"manjubiinha17",g:0,a:0,m:0,pos:"D"},{psn:"knsrj",g:0,a:0,m:0,pos:"M"},{psn:"InashzitoI",g:0,a:0,m:0,pos:"D"},{psn:"Marzinroth12",g:0,a:0,m:0,pos:"M"},{psn:"xandyborges2014",g:0,a:0,m:0,pos:"G",def:2,gs:0},{psn:"deivyd_dvd",g:0,a:0,m:0,pos:"M"}],
+    fora:[{psn:"Felip_Sanches",g:0,a:0,m:0,pos:"F"},{psn:"BARAKA-_-ITU-SP",g:0,a:0,m:0,pos:"M"},{psn:"pedrobarreto21",g:0,a:0,m:0,pos:"G",def:6,gs:2},{psn:"ELIAS-FILIPE55",g:0,a:0,m:0,pos:"F"},{psn:"Kauazinn_pai",g:0,a:0,m:0,pos:"M"},{psn:"vader6663143",g:0,a:0,m:1,pos:"M"},{psn:"Jean_PowerS2",g:0,a:0,m:0,pos:"M"},{psn:"Eafc27matador",g:0,a:0,m:0,pos:"M"}]}},
 ];
 
 /* Fotos de fundo padrão do campeonato (arquivos em assets/bg/). Valem para qualquer campeonato; o que você preencher no painel (aba Campeonato > Fotos de fundo) tem prioridade. */
