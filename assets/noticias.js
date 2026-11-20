@@ -8,6 +8,21 @@
    Fotos ficam na pasta assets/news/. */
 const noticias = [
   {
+    id:"gui-contratado", cover:"gui-contratado.jpg", kicker:"Contratação", title:"Bem-vindo, Gui! Morpheus anuncia o volante H4ppyGui",
+    date:"2026-11-20", author:"Redação Morpheus",
+    summary:"Reforço para o meio-campo: o volante chega com 5 jogos, 4 vitórias, 2 vezes melhor em campo e nota média 9,1.",
+    body:[
+      {video:"gui-contratado.mp4", caption:"Gui (H4ppyGui) chega para reforçar o Morpheus"},
+      "O Morpheus FC tem mais um camisa no elenco: **Gui**, PSN **H4ppyGui**, volante de 80 de overall, é o novo reforço do clube e vai vestir a **camisa 47**. A contratação foi confirmada pela diretoria, e o início dele já mostra por que a Nação Morpheus pode comemorar.",
+      {h:"Estreia de gala"},
+      "Gui entrou em campo na noite de 19/11 e, em cinco jogos, fez **4 vitórias e 1 derrota**, com **1 assistência, 18 desarmes** e **85% de passes certos**. A nota média foi de **9,1**, a mais alta entre quem atuou nas cinco partidas.",
+      "Foram **dois títulos de melhor em campo**: na goleada por 5 a 1 sobre o Marromenos FC, ele recebeu **nota 10**, com 28 passes e 5 desarmes. Na vitória por 5 a 3 sobre o Toca Facil FC, levou **nota 9,5**, de novo com 5 desarmes. Contra o BAPHOME ES (5 a 1), deu a assistência e fechou com nota 9,7. Na vitória sobre o Di Marola City (3 a 0), nota 9,1. O único tropeço do grupo foi a derrota por 2 a 1 para o Club União, em que a nota dele foi 7,2.",
+      {h:"O que esperar"},
+      "Marcação, passe seguro e presença no meio para liberar a frente: o perfil de Gui é o de um volante de equilíbrio, que protege a zaga e começa as jogadas. A amostra ainda é pequena, mas a estreia não poderia ter sido melhor.",
+      "Seja bem-vindo, Gui. **A Nação Morpheus já te abraçou!**",
+    ]
+  },
+  {
     id:"pastor-zaga-blindada", rascunho:true, cover:"pastor-blindado.jpg", kicker:"Destaque", title:"Pastor, o muro do Morpheus: a zaga está blindada",
     date:"2026-11-11", author:"Redação Morpheus",
     summary:"Zagueiro de 87 de overall e 1,96 m, Pastor desarma, passa, assiste e ainda aparece na área para marcar. Atacante nenhum quer encarar.",
