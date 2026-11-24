@@ -1,7 +1,7 @@
 /* Morpheus FC: layout compartilhado e renderizadores. Dados ficam em data.js. */
 const $ = s => document.querySelector(s);
 const page = document.body.dataset.page;
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 /* Formatação do texto das matérias (escapa o HTML primeiro, depois aplica a marcação):
    **negrito**  *itálico*  ++sublinhado++  {ouro|texto} {verde|texto} {vermelho|texto} {violeta|texto}  [texto](https://link)  quebra de linha: \n dentro do texto */
 const fmt = s => esc(s)
@@ -611,9 +611,10 @@ if (page === "inscricao") {
     const menu = document.createElement("div");
     menu.className = "cp-menu"; menu.hidden = true;
     menu.innerHTML = lista.map(c => `<a href="campeonato.html?c=${encodeURIComponent(c.id)}"${c.id === atual && page === "campeonato" ? ' class="on"' : ""}>${c.formato === "pontos" ? "Brasileirão" : "Copa"}<small>${esc(c.nome)}${c.edicao ? " · " + esc(c.edicao) : ""}</small></a>`).join("")
+      + `<a href="hall-da-fama.html"${page === "hall" ? ' class="on"' : ""}>Hall da Fama<small>Campeões e melhores de cada campeonato</small></a>`
       + `<a href="inscrever-time.html"${page === "inscricao" ? ' class="on"' : ""}>Inscrever time<small>Copa e/ou Brasileirão</small></a>`;
     document.body.appendChild(menu);
-    if (page === "inscricao") { a.classList.add("active"); a.setAttribute("aria-current", "page"); }
+    if (page === "inscricao" || page === "hall") { a.classList.add("active"); a.setAttribute("aria-current", "page"); }
     a.classList.add("cp-menu-btn"); a.setAttribute("aria-haspopup", "true");
     const fecha = () => { menu.hidden = true; };
     a.addEventListener("click", e => {
