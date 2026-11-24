@@ -43,10 +43,10 @@ const campeonatoDados = [
    stats:{
     casa:[{psn:"belinta_leo",g:0,a:0,m:0,pos:"M"},{psn:"PEGUEISUATIA_OFF",g:0,a:0,m:0,pos:"F"},{psn:"crispimz",g:1,a:0,m:0,pos:"M"},{psn:"Mito_L2_sola",g:1,a:1,m:0,pos:"F"},{psn:"Shazam_051",g:0,a:0,m:0,pos:"D"},{psn:"manjubiinha17",g:0,a:0,m:0,pos:"D"},{psn:"knsrj",g:0,a:0,m:0,pos:"M"},{psn:"InashzitoI",g:0,a:0,m:0,pos:"D"},{psn:"Marzinroth12",g:0,a:0,m:0,pos:"M"},{psn:"xandyborges2014",g:0,a:0,m:0,pos:"G",def:2,gs:0},{psn:"deivyd_dvd",g:0,a:0,m:0,pos:"M"}],
     fora:[{psn:"Felip_Sanches",g:0,a:0,m:0,pos:"F"},{psn:"BARAKA-_-ITU-SP",g:0,a:0,m:0,pos:"M"},{psn:"pedrobarreto21",g:0,a:0,m:0,pos:"G",def:6,gs:2},{psn:"ELIAS-FILIPE55",g:0,a:0,m:0,pos:"F"},{psn:"Kauazinn_pai",g:0,a:0,m:0,pos:"M"},{psn:"vader6663143",g:0,a:0,m:1,pos:"M"},{psn:"Jean_PowerS2",g:0,a:0,m:0,pos:"M"},{psn:"Eafc27matador",g:0,a:0,m:0,pos:"M"}]}},
-  {fase:"grupos", casa:"Morpheus FC", fora:"Club União", gc:1, gf:2, hora:"2026-11-19T22:25",
+  {fase:"grupos", casa:"Morpheus FC", fora:"Club União", gc:0, gf:1, hora:"2026-11-23T21:53",
    stats:{
-    casa:[{psn:"ViboxBeats",g:0,a:0,m:0,pos:"M"},{psn:"Beica97",g:1,a:0,m:0,pos:"F"},{psn:"H4ppyGui",g:0,a:0,m:0,pos:"M"},{psn:"Maneel444",g:0,a:0,m:0,pos:"D"},{psn:"alice_farias09",g:0,a:0,m:0,pos:"M"},{psn:"Landao_da_massa",g:0,a:1,m:0,pos:"M"}],
-    fora:[{psn:"DaSilva019",g:0,a:0,m:0,pos:"F"},{psn:"EVARISTO 420",g:1,a:0,m:1,pos:"M"},{psn:"FabioKadabra",g:0,a:0,m:0,pos:"M"},{psn:"van-_-wilker",g:0,a:0,m:0,pos:"M"},{psn:"JandsonDias",g:1,a:0,m:0,pos:"M"},{psn:"Renildo_santos",g:0,a:0,m:0,pos:"M"},{psn:"Wallasmorais94",g:0,a:0,m:0,pos:"D"},{psn:"seven_five88",g:0,a:0,m:0,pos:"D"}]}},
+    casa:[{psn:"Beica97",g:0,a:0,m:0,pos:"F"},{psn:"Diegomengo0313",g:0,a:0,m:1,pos:"M"},{psn:"Maneel444",g:0,a:0,m:0,pos:"D"},{psn:"Habutrers",g:0,a:0,m:0,pos:"M"},{psn:"daniloqc84",g:0,a:0,m:0,pos:"F"},{psn:"alice_farias09",g:0,a:0,m:0,pos:"M"},{psn:"Landao_da_massa",g:0,a:0,m:0,pos:"M"}],
+    fora:[{psn:"EVARISTO 420",g:1,a:0,m:0,pos:"F"},{psn:"FabioKadabra",g:0,a:0,m:0,pos:"M"},{psn:"van-_-wilker",g:0,a:0,m:0,pos:"M"},{psn:"JandsonDias",g:0,a:0,m:0,pos:"M"},{psn:"CarlsEd12",g:0,a:0,m:0,pos:"G",def:3,gs:0},{psn:"Jeffinho96_",g:0,a:0,m:0,pos:"D"},{psn:"Renildo_santos",g:0,a:1,m:0,pos:"M"},{psn:"Wallasmorais94",g:0,a:0,m:0,pos:"D"},{psn:"Dnzin2003",g:0,a:0,m:0,pos:"D"}]}},
 ];
 
 /* Fotos de fundo padrão do campeonato (arquivos em assets/bg/). Valem para qualquer campeonato; o que você preencher no painel (aba Campeonato > Fotos de fundo) tem prioridade. */
