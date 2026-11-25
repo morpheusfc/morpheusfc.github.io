@@ -51,6 +51,10 @@ const campeonatoDados = [
    stats:{
     casa:[{psn:"BILBAU97",g:0,a:0,m:0,pos:"M"},{psn:"rodrigobqueiroz",g:0,a:0,m:0,pos:"M"},{psn:"ph_g97",g:0,a:1,m:0,pos:"F"},{psn:"bombasportmix",g:0,a:0,m:0,pos:"D"},{psn:"Pedrim_el_mago",g:0,a:0,m:0,pos:"M"},{psn:"KALLEN_COUTINHO",g:1,a:0,m:0,pos:"F"},{psn:"The_White-DDD011",g:0,a:0,m:0,pos:"D"},{psn:"King_Arthur_atbs",g:0,a:0,m:0,pos:"M"},{psn:"pipovini",g:0,a:0,m:0,pos:"D"}],
     fora:[{psn:"PEDROJUNQUE",g:1,a:0,m:0,pos:"M"},{psn:"rafaelcds-",g:0,a:2,m:0,pos:"F"},{psn:"Vinirobis",g:2,a:0,m:0,pos:"F"},{psn:"bbtoken",g:0,a:1,m:0,pos:"D"},{psn:"Godoyy41",g:0,a:0,m:1,pos:"M"},{psn:"shamandoban",g:0,a:0,m:0,pos:"D"},{psn:"matheuschavao3",g:0,a:0,m:0,pos:"M"},{psn:"Cabo_Santos-",g:0,a:0,m:0,pos:"M"},{psn:"FabricioNeutroo",g:0,a:0,m:0,pos:"M"}]}},
+  {fase:"grupos", casa:"Club União", fora:"FURIACG", gc:0, gf:3, hora:"2026-11-24T21:55",
+   stats:{
+    casa:[{psn:"DaSilva019",g:0,a:0,m:0,pos:"F"},{psn:"EVARISTO 420",g:0,a:0,m:0,pos:"M"},{psn:"CABOCLO DOI",g:0,a:0,m:0,pos:"D"},{psn:"van-_-wilker",g:0,a:0,m:0,pos:"M"},{psn:"CarlsEd12",g:0,a:0,m:0,pos:"G",def:5,gs:3},{psn:"NielyMorales",g:0,a:0,m:0,pos:"M"},{psn:"Ishiyama27",g:0,a:0,m:0,pos:"M"},{psn:"Jeffinho96_",g:0,a:0,m:0,pos:"D"},{psn:"Renildo_santos",g:0,a:0,m:0,pos:"M"},{psn:"Wallasmorais94",g:0,a:0,m:0,pos:"D"},{psn:"Dnzin2003",g:0,a:0,m:0,pos:"D"}],
+    fora:[{psn:"Mito_L2_sola",g:0,a:1,m:0,pos:"F"},{psn:"lgbzitol",g:0,a:0,m:0,pos:"M"},{psn:"Shazam_051",g:0,a:0,m:0,pos:"D"},{psn:"manjubiinha17",g:0,a:0,m:0,pos:"D"},{psn:"knsrj",g:0,a:0,m:0,pos:"M"},{psn:"InashzitoI",g:0,a:0,m:0,pos:"D"},{psn:"bielzzin7x3164",g:2,a:0,m:0,pos:"F"},{psn:"Marzinroth12",g:0,a:0,m:0,pos:"M"},{psn:"yKevinn10",g:1,a:1,m:0,pos:"M"},{psn:"xandyborges2014",g:0,a:0,m:0,pos:"G",def:1,gs:0},{psn:"deivyd_dvd",g:0,a:0,m:1,pos:"M"}]}},
 ];
 
 /* Fotos de fundo padrão do campeonato (arquivos em assets/bg/). Valem para qualquer campeonato; o que você preencher no painel (aba Campeonato > Fotos de fundo) tem prioridade. */
