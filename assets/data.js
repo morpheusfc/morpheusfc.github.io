@@ -6,13 +6,13 @@ const club = {w:146,d:33,l:122,gf:719,ga:642,games:301,sr:1904};
         assim a atualização com o tracker junta tudo no mesmo card (foto, PSN, histórico) e a busca do Elenco acha pelos dois nomes. */
 /* Jogadores entre comentários (linhas começando com barra e asterisco) saíram do time ou não jogam há dias: ficam fora do site. Para voltar, tire o comentário da linha. A atualização com o tracker não os traz de volta. */
 const players = [
-  {n:"Leo",p:"ST",o:81,j:235,g:50,a:36,m:5,psn:"LEOzin117",img:"leo.jpeg",aka:[]},
+  /*{n:"Leo",p:"ST",o:81,j:235,g:50,a:36,m:5,psn:"LEOzin117",img:"leo.jpeg",aka:[]},*/
   {n:"Habutre",p:"ST",o:85,j:253,g:159,a:108,m:26,psn:"Habutrers",img:"Habutre.jpeg",aka:[]},
   {n:"Beiça",p:"ST",o:84,j:253,g:249,a:116,m:35,psn:"Beica97",img:"will.jpg",aka:["Bll4ck"]},
   {n:"Vibox Beats",p:"CM",o:85,j:176,g:13,a:19,m:29,psn:"ViboxBeats",img:"vibox.jpeg",aka:[]},
   /*{n:"dtb",p:"ST",o:82,j:76,g:42,a:23,m:6,psn:"dtb_mvp",img:"dtb_mvp.jpg",aka:[]},*/
   {n:"TIAO",p:"CB",o:79,j:102,g:5,a:8,m:3,psn:"Trclokko_01",img:"trclokko_01.jpg",aka:[]},
-  {n:"LZ",p:"CB",o:85,j:68,g:4,a:2,m:6,psn:"LuizzCrazy",img:"luiz.jpeg",aka:[]},
+  /*{n:"LZ",p:"CB",o:85,j:68,g:4,a:2,m:6,psn:"LuizzCrazy",img:"luiz.jpeg",aka:[]},*/
   {n:"Saul",p:"CM",o:82,j:164,g:47,a:99,m:3,psn:"alice_farias09",img:"saul.jpeg",aka:[]},
   {n:"Pastor",p:"CB",o:74,j:148,g:19,a:18,m:12,psn:"Maneel444",img:"pastor.jpeg",aka:[]},
   /*{n:"Kakashi",p:"CM",o:84,j:50,g:10,a:28,m:5,psn:"italo121rds",aka:[]},*/
@@ -21,7 +21,7 @@ const players = [
   /*{n:"Pedrim",p:"ST",o:82,j:14,g:11,a:9,m:3,psn:"Pedrim_el_mago",img:"Pedrim_el_mago.jpg",aka:[]},*/
   /*{n:"Floren",p:"CM",o:78,j:10,g:0,a:0,m:0,psn:"",aka:[]},*/
   /*{n:"E. Caveira",p:"ST",o:80,j:9,g:1,a:3,m:0,psn:"Folcs_prime",aka:[]},*/
-  {n:"B. Reis",p:"CM",o:79,j:34,g:1,a:9,m:7,psn:"REIS2703",img:"REIS2703.jpg",aka:[]},
+  /*{n:"B. Reis",p:"CM",o:79,j:34,g:1,a:9,m:7,psn:"REIS2703",img:"REIS2703.jpg",aka:[]},*/
   /*{n:"C. Liduenha",p:"ST",o:82,j:8,g:4,a:3,m:1,psn:"",aka:[]},*/
   /*{n:"S. Kennedy sfd",p:"GK",o:89,j:55,g:13,a:15,m:5,psn:"JoaoPlay610",img:"joao_gk.jpeg",aka:[]},*/
   /*{n:"Z. Love",p:"ST",o:83,j:7,g:5,a:1,m:1,psn:"ph_g97",aka:[]},*/
@@ -41,7 +41,7 @@ const players = [
   {n:"Landão",p:"CB",o:83,j:40,g:2,a:4,m:2,psn:"Landao_da_massa",img:"Landao.jpg",aka:[]},
   /*{n:"J H O W",p:"CB",o:80,j:5,g:1,a:0,m:0,psn:"X_Jhoow",aka:[]},*/
   /*{n:"t. Jefrey",p:"CM",o:78,j:3,g:0,a:1,m:0,psn:"Farelooso",aka:[]},*/
-  {n:"Magrão",p:"CM",o:83,j:15,g:2,a:3,m:1,psn:"MagraoJojelito84",img:"magrao.jpg",aka:[]},
+  /*{n:"Magrão",p:"CM",o:83,j:15,g:2,a:3,m:1,psn:"MagraoJojelito84",img:"magrao.jpg",aka:[]},*/
   {n:"H4ppyGui",p:"CM",o:80,j:5,g:0,a:1,m:2,psn:"H4ppyGui",aka:[]},
   {n:"Diegomengo0313",p:"CM",o:81,j:7,g:0,a:0,m:2,psn:"Diegomengo0313",aka:[]},
   {n:"daniloqc84",p:"CM",o:77,j:9,g:2,a:3,m:0,psn:"daniloqc84",aka:[]},
