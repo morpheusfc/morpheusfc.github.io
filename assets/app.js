@@ -611,7 +611,6 @@ if (page === "inscricao") {
     const menu = document.createElement("div");
     menu.className = "cp-menu"; menu.hidden = true;
     menu.innerHTML = lista.map(c => `<a href="campeonato.html?c=${encodeURIComponent(c.id)}"${c.id === atual && page === "campeonato" ? ' class="on"' : ""}>${c.formato === "pontos" ? "Brasileirão" : "Copa"}<small>${esc(c.nome)}${c.edicao ? " · " + esc(c.edicao) : ""}</small></a>`).join("")
-      + `<a href="hall-da-fama.html"${page === "hall" ? ' class="on"' : ""}>Hall da Fama<small>Campeões e melhores de cada campeonato</small></a>`
       + `<a href="inscrever-time.html"${page === "inscricao" ? ' class="on"' : ""}>Inscrever time<small>Copa e/ou Brasileirão</small></a>`;
     document.body.appendChild(menu);
     if (page === "inscricao" || page === "hall") { a.classList.add("active"); a.setAttribute("aria-current", "page"); }
