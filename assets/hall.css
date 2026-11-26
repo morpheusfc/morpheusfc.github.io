@@ -85,3 +85,10 @@
 @media(max-width:1000px){.hf-cards{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.hf-cards{gap:12px}.hf-big b{font-size:44px}.hf-ribbon{font-size:14px;letter-spacing:.08em}.hf-head-r{width:100%}}
 @media(prefers-reduced-motion:reduce){.hf-taca{animation:none}.hf-card{transition:none}}
+
+/* empate na liderança: nomes no lugar da foto */
+.hf-empate{position:absolute;inset:42px 0 0 0;z-index:3;margin:0;padding:4px 12px 10px;list-style:none;display:flex;flex-direction:column;justify-content:safe center;gap:4px;overflow:auto}
+.hf-empate li{display:flex;align-items:center;gap:8px;min-width:0;font-size:13px;font-weight:600}
+.hf-empate li span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hf-empate .hf-shield{width:20px;height:20px;font-size:9.5px}
+@media (max-width:600px){.hf-empate{gap:2px;padding:2px 8px 8px}.hf-empate li{font-size:11px;gap:5px}.hf-empate .hf-shield{width:16px;height:16px;font-size:8px}}

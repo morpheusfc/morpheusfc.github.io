@@ -52,7 +52,16 @@
     ? `<img src="${esc(imgSrc(p.foto))}" alt="${esc(p.psn)}" loading="lazy" onerror="this.remove()">${`<div class="hf-sil">${SILHUETA}</div>`}`
     : `<div class="hf-sil">${SILHUETA}</div>`;
 
+  /* mais de um líder: lista os nomes no lugar da foto */
+  const empateHtml = (cat, p) => { const [bv, bl] = cat.big(p.stats || {});
+    return `<article class="hf-card parcial"><div class="hf-ribbon"><i>${cat.ico}</i>${cat.nome}</div>
+      <div class="hf-foto"><ul class="hf-empate">${p.empate.map(x => `<li>${escudo(x.time, "sm")}<span>${esc(x.psn)}</span></li>`).join("")}</ul>${p.parcial ? `<span class="hf-lider">Empate na liderança</span>` : ""}</div>
+      <div class="hf-info"><h4>Empate</h4><span class="hf-clube">${p.empate.length} jogadores</span></div>
+      <div class="hf-big"><b>${esc(bv)}</b><span>${esc(+bv === 1 ? bl.replace(/^vezes/, "vez") : bl)}</span></div></article>`;
+  };
+
   const cardHtml = (cat, p) => {
+    if (p && p.empate && p.empate.length) return empateHtml(cat, p);
     if (!p || !p.psn) return `<article class="hf-card vazio"><div class="hf-ribbon"><i>${cat.ico}</i>${cat.nome}</div>
       <div class="hf-foto">${`<div class="hf-sil">${SILHUETA}</div>`}</div>
       <div class="hf-info"><h4>A definir</h4><span class="hf-clube">Ainda sem vencedor</span></div></article>`;
@@ -74,7 +83,7 @@
     const tipo = c.tipo === "brasileirao" ? "Brasileirão" : "Copa";
     return `<section class="hf-sala" id="${esc(c.id)}">${fundo}
       <div class="wrap">
-        <header class="hf-head"><div><span class="hf-tag ${c.tipo}">${tipo}</span><h2>${esc(c.nome)}</h2>${c.edicao ? `<p>${esc(c.edicao)}</p>` : ""}</div>
+        <header class="hf-head"><div><span class="hf-tag ${c.tipo}">${tipo}</span><h2>${esc(c.nome)}</h2>${(t => t ? `<p>${esc(t)}</p>` : "")([c.edicao, !fim && c.ate ? `Parciais até ${c.ate}` : ""].filter(Boolean).join(" · "))}</div>
           <div class="hf-head-r"><span class="hf-status ${fim ? "fim" : "live"}"><i></i>${fim ? "Encerrado" : "Em andamento"}</span>${c.link ? `<a class="btn btn-ghost btn-sm" href="${esc(c.link)}">Ver campeonato</a>` : ""}</div></header>
         <div class="hf-palco">${taca}${campeao}</div>
         <div class="hf-cards">${CATS.map(cat => cardHtml(cat, (c.premios || {})[cat.k])).join("")}</div>
