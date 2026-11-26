@@ -65,25 +65,20 @@
 .hf-sil svg{width:70%;height:auto;fill:rgba(233,185,73,.16)}
 .hf-lider{position:absolute;top:10px;right:10px;z-index:3;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:99px;color:var(--win);border:1px solid rgba(61,220,151,.5);background:rgba(8,8,10,.8)}
 .hf-info{display:grid;gap:6px;justify-items:center;text-align:center;padding:0 12px;margin-top:-34px;position:relative;z-index:3}
-.hf-info h4{font-family:var(--font-display);font-weight:800;font-size:clamp(22px,2.4vw,28px);letter-spacing:.02em;line-height:1.05;overflow-wrap:anywhere;text-shadow:0 2px 12px rgba(0,0,0,.8)}
-.hf-clube{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#d9d6e0;min-width:0}
-.hf-big{display:grid;justify-items:center;padding:12px 12px 4px}
-.hf-big b{font-family:var(--font-display);font-size:54px;font-weight:800;line-height:1;color:var(--gold)}
-.hf-big span{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center}
-.hf-mini{display:flex;justify-content:space-around;gap:8px;margin:12px 12px 16px;padding-top:12px;border-top:1px solid var(--line)}
-.hf-mini div{text-align:center}
-.hf-mini b{display:block;font-family:var(--font-display);font-size:22px;line-height:1}
-.hf-mini span{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.hf-info h4{font-family:var(--font-body);font-weight:700;font-size:12px;line-height:1.35;overflow-wrap:anywhere;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.hf-clube,.hf-traco{font-family:var(--font-body);font-size:12px;font-weight:500;letter-spacing:0;color:#d9d6e0}
+.hf-clube{display:inline-block}
+.hf-big{display:grid;justify-items:center;padding:10px 12px 4px}
+.hf-big b{font-family:var(--font-display);font-size:40px;font-weight:800;line-height:1;color:var(--gold)}
+.hf-big span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center}
 .hf-card.vazio{border-color:var(--line);opacity:.8}
 .hf-card.vazio:hover{transform:none;box-shadow:0 18px 40px rgba(0,0,0,.5);border-color:var(--line)}
 .hf-card.vazio .hf-ribbon{background:var(--surface-2);color:var(--muted)}
 .hf-card.vazio .hf-info{margin-bottom:22px}
 .hf-card.vazio .hf-info h4{color:var(--muted)}
 
-.hf-shield{--h:40;display:inline-grid;place-items:center;flex:none;width:24px;height:24px;border-radius:7px 7px 12px 12px;font-family:var(--font-display);font-weight:800;font-size:11px;letter-spacing:.04em;color:#fff;background:linear-gradient(160deg,hsl(var(--h) 62% 48%),hsl(var(--h) 66% 26%));border:1px solid hsl(var(--h) 70% 62% / .55);box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
-
 @media(max-width:1000px){.hf-cards{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:520px){.hf-cards{gap:12px}.hf-big b{font-size:44px}.hf-ribbon{font-size:14px;letter-spacing:.08em}.hf-head-r{width:100%}}
+@media(max-width:520px){.hf-cards{gap:12px}.hf-big b{font-size:32px}.hf-info{padding:0 6px}.hf-info h4,.hf-clube,.hf-traco{font-size:10px}.hf-ribbon{font-size:14px;letter-spacing:.08em}.hf-head-r{width:100%}}
 @media(prefers-reduced-motion:reduce){.hf-taca{animation:none}.hf-card{transition:none}}
 
 /* empate na liderança: nomes no lugar da foto (a área cresce para caber todos) */
@@ -91,7 +86,14 @@
 .hf-card.empate .hf-foto::after{display:none}
 .hf-card.empate .hf-info{margin-top:0;padding-top:10px}
 .hf-empate{position:relative;z-index:3;margin:0;padding:44px 12px 8px;list-style:none;display:grid;gap:4px}
-.hf-empate li{display:flex;align-items:center;gap:8px;min-width:0;font-size:13px;font-weight:600}
-.hf-empate li span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hf-empate .hf-shield{width:20px;height:20px;font-size:9.5px}
-@media (max-width:600px){.hf-empate{padding:44px 8px 6px}.hf-empate li{font-size:11px;gap:5px}.hf-empate .hf-shield{width:16px;height:16px;font-size:8px}}
+.hf-empate li{min-width:0;font-size:11px;font-weight:700;text-align:center;line-height:1.3;overflow-wrap:anywhere}
+.hf-empate li .hf-clube,.hf-empate li .hf-traco{font-size:inherit}
+@media (max-width:600px){.hf-empate{padding:44px 6px 6px;gap:6px}.hf-empate li{font-size:9.5px}}
+.hf-big{padding-bottom:16px}
+/* arte pronta (9:16): aparece inteira, sem texto por cima */
+.hf-card.arte .hf-foto{aspect-ratio:941/1672}
+.hf-card.arte .hf-foto::after{display:none}
+.hf-card.arte .hf-info{margin-top:12px}
+.hf-card.arte>.hf-lider{position:static;align-self:center;margin-top:12px}
+.hf-card.arte>.hf-lider+.hf-info{margin-top:8px}
+.hf-cards:has(.hf-card.arte){align-items:start}

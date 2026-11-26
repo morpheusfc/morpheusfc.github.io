@@ -11,8 +11,9 @@
      premios : { artilheiro, garcom, mvp, goleiro }, cada um { psn, time, foto, parcial, stats }
        foto    : card/imagem do jogador (arquivo em assets/hall/ ou em assets/players/ com "players/nome.jpg"). Ideal 3:4 (ex.: 600x800).
        parcial : true = ainda é o líder atual, não o vencedor final (mostra "Líder atual")
+       arte    : true = a foto é uma arte pronta (9:16): aparece inteira, com o nome abaixo
        empate  : [{ psn, time }] no lugar de psn/time quando há mais de um líder
-       stats   : artilheiro {g, a, j} · garcom {a, g, j} · mvp {m, g, a, j} · goleiro {def, gs, j}  (g gols, a assistências, m vezes melhor em campo, j jogos, def defesas, gs gols sofridos)
+       stats   : o card mostra só o número do prêmio: artilheiro {g} · garcom {a} · mvp {m} · goleiro {def, gs} (vira o IEG)
    Prêmio sem jogador ainda = "A definir". */
 const hallDaFama = [
   { id: "copa-begin", tipo: "copa", nome: "Copa Begin", edicao: "1ª Edição", status: "andamento", ate: "26/11",

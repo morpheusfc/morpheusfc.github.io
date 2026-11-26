@@ -23,9 +23,8 @@
   ];
   const lista = (demo ? DEMO : (typeof hallDaFama !== "undefined" ? hallDaFama : [])).slice();
 
-  const cor = n => { let h = 0; for (const c of String(n)) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
-  const sigla = n => String(n).split(/\s+/).filter(w => w.length > 2 || /^[A-Z]/.test(w)).slice(0, 2).map(w => w[0]).join("").toUpperCase() || String(n).slice(0, 2).toUpperCase();
-  const escudo = (nome, cls = "") => `<span class="hf-shield ${cls}" style="--h:${cor(nome)}">${esc(sigla(nome))}</span>`;
+  /* "nome - clube" na mesma linha (se não couber, o traço fica com o nome e o clube desce inteiro) */
+  const comClube = (nome, time) => `${esc(nome)}${time ? `<span class="hf-traco">&nbsp;-</span> <span class="hf-clube">${esc(time)}</span>` : ""}`;
   const num = v => (v === undefined || v === null || v === "") ? "–" : String(v);
   const imgSrc = f => /^https?:\/\//.test(f) ? f : /^players\//.test(f) ? `assets/${f}?v=${ASSET_V}` : media("hall", f);
 
@@ -33,10 +32,10 @@
   const ieg = s => s && (s.def || 0) + (s.gs || 0) ? (s.def / (s.def + s.gs) * 100).toFixed(1).replace(".", ",") : null;
 
   const CATS = [
-    { k: "artilheiro", ico: "⚽", nome: "Artilheiro", big: s => [num(s.g), "gols"], mini: [["a", "assist."], ["j", "jogos"]] },
-    { k: "garcom", ico: "🎯", nome: "Garçom", big: s => [num(s.a), "assistências"], mini: [["g", "gols"], ["j", "jogos"]] },
-    { k: "mvp", ico: "⭐", nome: "MVP", big: s => [num(s.m), "vezes melhor em campo"], mini: [["g", "gols"], ["a", "assist."], ["j", "jogos"]] },
-    { k: "goleiro", ico: "🧤", nome: "Melhor goleiro", big: s => [ieg(s) ? ieg(s) + "%" : "–", "de eficiência (IEG)"], mini: [["def", "defesas"], ["gs", "sofridos"], ["j", "jogos"]] }
+    { k: "artilheiro", ico: "⚽", nome: "Artilheiro", big: s => [num(s.g), "gols"] },
+    { k: "garcom", ico: "🎯", nome: "Garçom", big: s => [num(s.a), "assistências"] },
+    { k: "mvp", ico: "⭐", nome: "MVP", big: s => [num(s.m), "vezes melhor em campo"] },
+    { k: "goleiro", ico: "🧤", nome: "Melhor goleiro", big: s => [ieg(s) ? ieg(s) + "%" : "–", "de eficiência (IEG)"] }
   ];
 
   const TROFEU = id => `<svg class="hf-taca" viewBox="0 0 120 140" role="img" aria-label="Taça">
@@ -55,8 +54,8 @@
   /* mais de um líder: lista os nomes no lugar da foto */
   const empateHtml = (cat, p) => { const [bv, bl] = cat.big(p.stats || {});
     return `<article class="hf-card parcial empate"><div class="hf-ribbon"><i>${cat.ico}</i>${cat.nome}</div>
-      <div class="hf-foto"><ul class="hf-empate">${p.empate.map(x => `<li>${escudo(x.time, "sm")}<span>${esc(x.psn)}</span></li>`).join("")}</ul>${p.parcial ? `<span class="hf-lider">Empate</span>` : ""}</div>
-      <div class="hf-info"><h4>Empate</h4><span class="hf-clube">${p.empate.length} jogadores</span></div>
+      <div class="hf-foto"><ul class="hf-empate">${p.empate.map(x => `<li><span>${comClube(x.psn, x.time)}</span></li>`).join("")}</ul>${p.parcial ? `<span class="hf-lider">Empate</span>` : ""}</div>
+      <div class="hf-info"><h4>${comClube("Empate", `${p.empate.length} jogadores`)}</h4></div>
       <div class="hf-big"><b>${esc(bv)}</b><span>${esc(+bv === 1 ? bl.replace(/^vezes/, "vez") : bl)}</span></div></article>`;
   };
 
@@ -66,11 +65,11 @@
       <div class="hf-foto">${`<div class="hf-sil">${SILHUETA}</div>`}</div>
       <div class="hf-info"><h4>A definir</h4><span class="hf-clube">Ainda sem vencedor</span></div></article>`;
     const s = p.stats || {}, [bv, bl] = cat.big(s);
-    return `<article class="hf-card${p.parcial ? " parcial" : ""}"><div class="hf-ribbon"><i>${cat.ico}</i>${cat.nome}</div>
-      <div class="hf-foto">${fotoHtml(p, cat)}${p.parcial ? `<span class="hf-lider">Líder atual</span>` : ""}</div>
-      <div class="hf-info"><h4>${esc(p.psn)}</h4>${p.time ? `<span class="hf-clube">${escudo(p.time, "sm")}${esc(p.time)}</span>` : ""}</div>
-      <div class="hf-big"><b>${esc(bv)}</b><span>${esc(bl)}</span></div>
-      <div class="hf-mini">${cat.mini.map(([k, l]) => `<div><b>${esc(num(s[k]))}</b><span>${l}</span></div>`).join("")}</div></article>`;
+    const selo = p.parcial ? `<span class="hf-lider">Líder atual</span>` : "";
+    return `<article class="hf-card${p.parcial ? " parcial" : ""}${p.arte ? " arte" : ""}"><div class="hf-ribbon"><i>${cat.ico}</i>${cat.nome}</div>
+      <div class="hf-foto">${fotoHtml(p, cat)}${p.arte ? "" : selo}</div>${p.arte ? selo : ""}
+      <div class="hf-info"><h4>${comClube(p.psn, p.time)}</h4></div>
+      <div class="hf-big"><b>${esc(bv)}</b><span>${esc(bl)}</span></div></article>`;
   };
 
   const salaHtml = (c, i) => {
