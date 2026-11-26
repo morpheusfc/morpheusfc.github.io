@@ -64,11 +64,11 @@
 .hf-sil{position:absolute;inset:0;display:grid;place-items:end center;z-index:0}
 .hf-sil svg{width:70%;height:auto;fill:rgba(233,185,73,.16)}
 .hf-lider{position:absolute;top:10px;right:10px;z-index:3;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:99px;color:var(--win);border:1px solid rgba(61,220,151,.5);background:rgba(8,8,10,.8)}
-.hf-info{display:grid;gap:6px;justify-items:center;text-align:center;padding:0 12px;margin-top:-34px;position:relative;z-index:3}
+.hf-info{display:grid;gap:6px;justify-items:center;text-align:center;padding:0 12px;margin-top:-24px;position:relative;z-index:3}
 .hf-info h4{font-family:var(--font-body);font-weight:700;font-size:12px;line-height:1.35;overflow-wrap:anywhere;text-shadow:0 2px 12px rgba(0,0,0,.8)}
 .hf-clube,.hf-traco{font-family:var(--font-body);font-size:12px;font-weight:500;letter-spacing:0;color:#d9d6e0}
 .hf-clube{display:inline-block}
-.hf-big{display:grid;justify-items:center;padding:10px 12px 4px}
+.hf-big{display:grid;justify-items:center;padding:10px 12px 4px;position:relative;z-index:3}
 .hf-big b{font-family:var(--font-display);font-size:40px;font-weight:800;line-height:1;color:var(--gold)}
 .hf-big span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center}
 .hf-card.vazio{border-color:var(--line);opacity:.8}
