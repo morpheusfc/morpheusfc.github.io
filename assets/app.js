@@ -240,7 +240,7 @@ if (page === "recrutamento") {
   const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
 
   const summary = p => `Candidatura para o Morpheus FC\nID: ${p.psn} (${p.platform})` + (p.nick ? `\nNome: ${p.nick}` : "")
-    + `\nPosição: ${p.pos}` + (p.pos_alt ? ` / ${p.pos_alt}` : "") + `\nContato: ${p.contact}`
+    + `\nPosição: ${p.pos}` + (p.pos_alt ? ` / ${p.pos_alt}` : "") + `\nTelefone: ${p.contact}`
     + (p.availability ? `\nHorários: ${p.availability}` : "") + (p.experience ? `\nExperiência: ${p.experience}` : "")
     + (p.previous_club ? `\nÚltimo clube: ${p.previous_club}` : "") + (p.clips ? `\nLances: ${p.clips}` : "") + (p.message ? `\nSobre: ${p.message}` : "");
 
@@ -248,11 +248,19 @@ if (page === "recrutamento") {
     $("#recBox").innerHTML = `<div class="panel am-done">
       <div class="am-check" aria-hidden="true">✓</div>
       <h3>Candidatura enviada!</h3>
-      <p class="sec-sub" style="margin:0 0 16px">Obrigado, <b>${esc(p.nick || p.psn)}</b>! A diretoria vai analisar e falar com você pelo contato informado para combinar o teste.</p>
-      <ul class="am-sum"><li><span>ID</span><b>${esc(p.psn)}</b></li><li><span>Posição</span><b>${esc(p.pos)}${p.pos_alt ? " / " + esc(p.pos_alt) : ""}</b></li><li><span>Contato</span><b>${esc(p.contact)}</b></li></ul>
+      <p class="sec-sub" style="margin:0 0 16px">Obrigado, <b>${esc(p.nick || p.psn)}</b>! A diretoria vai analisar e falar com você pelo telefone informado para combinar o teste.</p>
+      <ul class="am-sum"><li><span>ID</span><b>${esc(p.psn)}</b></li><li><span>Posição</span><b>${esc(p.pos)}${p.pos_alt ? " / " + esc(p.pos_alt) : ""}</b></li><li><span>Telefone</span><b>${esc(p.contact)}</b></li></ul>
       <button class="btn btn-ghost" type="button" onclick="location.reload()">Enviar outra candidatura</button></div>`;
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  /* telefone: o campo só aceita números (DDD + número); ao colar com +55, o código do país sai */
+  f.contact.addEventListener("input", e => {
+    let d = f.contact.value.replace(/\D/g, "");
+    if (e.inputType !== "insertText" && d.length >= 12 && d.startsWith("55")) d = d.slice(2);
+    d = d.slice(0, 11);
+    if (d !== f.contact.value) f.contact.value = d;
+  });
 
   f.addEventListener("submit", async e => {
     e.preventDefault(); msg.hidden = true;
@@ -263,7 +271,7 @@ if (page === "recrutamento") {
       clips: (v.clips||"").trim(), message: (v.message||"").trim() };
     if (p.psn.length < 2) return show("Informe o seu ID (PSN ou gamertag).");
     if (!p.pos) return show("Escolha a posição em que você quer jogar.");
-    if (p.contact.length < 3) return show("Informe um contato para falarmos com você (Discord, WhatsApp ou Instagram).");
+    if (!/^[1-9]{2}\d{8,9}$/.test(p.contact)) return show("Informe um telefone válido: DDD + número, só números.");
     if (p.clips && !/^https?:\/\/\S+$/i.test(p.clips)) return show("O link dos lances precisa começar com https://");
     if (p.pos_alt && p.pos_alt === p.pos) p.pos_alt = "";
     const wait = (R.cooldownSegundos || 60) * 1000 - (Date.now() - Number(store.get("rec_last") || 0));
