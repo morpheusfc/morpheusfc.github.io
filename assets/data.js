@@ -45,7 +45,7 @@ const players = [
   {n:"H4ppyGui",p:"CM",o:80,j:5,g:0,a:1,m:2,psn:"H4ppyGui",aka:[]},
   {n:"Diegomengo0313",p:"CM",o:81,j:7,g:0,a:0,m:2,psn:"Diegomengo0313",aka:[]},
   {n:"daniloqc84",p:"CM",o:77,j:10,g:3,a:4,m:1,psn:"daniloqc84",aka:[]},
-  {n:"TonBPC",p:"ST",o:80,j:5,g:0,a:0,m:0,psn:"TonBPC",aka:[]},
+  /*{n:"TonBPC",p:"ST",o:80,j:5,g:0,a:0,m:0,psn:"TonBPC",aka:[]},*/
   {n:"PeuIvo27",p:"CM",o:81,j:3,g:0,a:0,m:1,psn:"PeuIvo27",aka:[]},
   {n:"MicheLs_32",p:"CB",o:86,j:2,g:0,a:0,m:0,psn:"MicheLs_32",aka:[]},
   {n:"igorferreiragc",p:"CB",o:82,j:5,g:0,a:1,m:0,psn:"igorferreiragc",aka:[]},
