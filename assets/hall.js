@@ -54,8 +54,8 @@
 
   /* mais de um líder: lista os nomes no lugar da foto */
   const empateHtml = (cat, p) => { const [bv, bl] = cat.big(p.stats || {});
-    return `<article class="hf-card parcial"><div class="hf-ribbon"><i>${cat.ico}</i>${cat.nome}</div>
-      <div class="hf-foto"><ul class="hf-empate">${p.empate.map(x => `<li>${escudo(x.time, "sm")}<span>${esc(x.psn)}</span></li>`).join("")}</ul>${p.parcial ? `<span class="hf-lider">Empate na liderança</span>` : ""}</div>
+    return `<article class="hf-card parcial empate"><div class="hf-ribbon"><i>${cat.ico}</i>${cat.nome}</div>
+      <div class="hf-foto"><ul class="hf-empate">${p.empate.map(x => `<li>${escudo(x.time, "sm")}<span>${esc(x.psn)}</span></li>`).join("")}</ul>${p.parcial ? `<span class="hf-lider">Empate</span>` : ""}</div>
       <div class="hf-info"><h4>Empate</h4><span class="hf-clube">${p.empate.length} jogadores</span></div>
       <div class="hf-big"><b>${esc(bv)}</b><span>${esc(+bv === 1 ? bl.replace(/^vezes/, "vez") : bl)}</span></div></article>`;
   };
