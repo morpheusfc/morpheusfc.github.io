@@ -8,6 +8,22 @@
    Fotos ficam na pasta assets/news/. */
 const noticias = [
   {
+    id:"pettmant-contratado", cover:"pettmant-contratado.jpg", kicker:"Contratação", title:"Bem-vindo, Pettmant! Morpheus anuncia o paredão",
+    date:"2026-11-27", author:"Redação Morpheus",
+    summary:"Um dos melhores goleiros da atualidade veste a camisa do Morpheus: 89 de overall e 32 defesas nos 4 primeiros jogos.",
+    body:[
+      {video:"pettmant-contratado.mp4", caption:"Pettmant, o novo paredão do Morpheus"},
+      "O gol do Morpheus FC tem dono. O clube anuncia a contratação de **Pettmant**, goleiro de **89 de overall** e um dos melhores da atualidade, que chega para vestir a **camisa 1**. A Nação Morpheus pedia segurança debaixo das traves, e a resposta veio em grande estilo.",
+      {h:"Estreia de quem não pede licença"},
+      "Pettmant entrou em campo na noite de 26/11 e, em quatro partidas, somou **3 vitórias e 32 defesas**, uma média de **8 por jogo**.",
+      "Logo de cara, contra o BL TORRE, foram **11 defesas** na vitória por 5 a 2. No amistoso contra o Manja Chester, **5 defesas** para segurar o 2 a 1. E contra o Tropa do Sheyd veio a atuação de gala: **10 defesas**, nenhum gol sofrido, vitória por 3 a 0 e **nota 8,1**.",
+      "Na última partida da noite, a derrota por 7 a 1 para o Icetracht Gelo, o goleiro ainda evitou um estrago maior, com mais **6 defesas**.",
+      {h:"O que esperar"},
+      "Reflexo, presença e a calma de quem sabe o que faz: com Pettmant, a defesa ganha um líder e o ataque ganha liberdade para jogar. Quem quiser balançar a rede do Morpheus vai ter que trabalhar dobrado.",
+      "Seja bem-vindo, Pettmant. **A Nação Morpheus já te abraçou!**",
+    ]
+  },
+  {
     id:"gui-contratado", cover:"gui-contratado.jpg", kicker:"Contratação", title:"Bem-vindo, Gui! Morpheus anuncia o volante H4ppyGui",
     date:"2026-11-20", author:"Redação Morpheus",
     summary:"Reforço para o meio-campo: o volante chega com 5 jogos, 4 vitórias, 2 vezes melhor em campo e nota média 9,1.",
