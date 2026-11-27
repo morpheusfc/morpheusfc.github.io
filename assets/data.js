@@ -42,15 +42,15 @@ const players = [
   /*{n:"J H O W",p:"CB",o:80,j:5,g:1,a:0,m:0,psn:"X_Jhoow",aka:[]},*/
   /*{n:"t. Jefrey",p:"CM",o:78,j:3,g:0,a:1,m:0,psn:"Farelooso",aka:[]},*/
   /*{n:"Magrão",p:"CM",o:83,j:15,g:2,a:3,m:1,psn:"MagraoJojelito84",img:"magrao.jpg",aka:[]},*/
-  {n:"H4ppyGui",p:"CM",o:80,j:5,g:0,a:1,m:2,psn:"H4ppyGui",aka:[]},
-  {n:"Diegomengo0313",p:"CM",o:81,j:8,g:0,a:0,m:2,psn:"Diegomengo0313",aka:[]},
-  {n:"daniloqc84",p:"CM",o:77,j:10,g:3,a:4,m:1,psn:"daniloqc84",aka:[]},
+  {n:"H4ppyGui",p:"CM",o:80,j:5,g:0,a:1,m:2,psn:"H4ppyGui",img:"gui.jpg",aka:[]},
+  {n:"Diegomengo0313",p:"CM",o:81,j:8,g:0,a:0,m:2,psn:"Diegomengo0313",img:"diego.jpg",aka:[]},
+  {n:"daniloqc84",p:"CM",o:77,j:10,g:3,a:4,m:1,psn:"daniloqc84",img:"dan.jpg",aka:[]},
   /*{n:"TonBPC",p:"ST",o:80,j:5,g:0,a:0,m:0,psn:"TonBPC",aka:[]},*/
-  {n:"PeuIvo27",p:"CM",o:81,j:3,g:0,a:0,m:1,psn:"PeuIvo27",aka:[]},
-  {n:"MicheLs_32",p:"CB",o:86,j:2,g:0,a:0,m:0,psn:"MicheLs_32",aka:[]},
-  {n:"igorferreiragc",p:"CB",o:82,j:7,g:1,a:2,m:0,psn:"igorferreiragc",aka:[]},
-  {n:"Panka1791",p:"ST",o:80,j:10,g:2,a:5,m:1,psn:"Panka1791",aka:[]},
-  {n:"Pettmant",p:"GK",o:89,j:3,g:0,a:0,m:0,psn:"Pettmant",aka:[]},
+  {n:"PeuIvo27",p:"CM",o:81,j:3,g:0,a:0,m:1,psn:"PeuIvo27",img:"peu.jpg",aka:[]},
+  {n:"MicheLs_32",p:"CB",o:86,j:2,g:0,a:0,m:0,psn:"MicheLs_32",img:"michel.jpg",aka:[]},
+  {n:"igorferreiragc",p:"CB",o:82,j:7,g:1,a:2,m:0,psn:"igorferreiragc",img:"igor.jpg",aka:[]},
+  {n:"Panka1791",p:"ST",o:80,j:10,g:2,a:5,m:1,psn:"Panka1791",img:"panka.jpg",aka:[]},
+  {n:"Pettmant",p:"GK",o:89,j:3,g:0,a:0,m:0,psn:"Pettmant",img:"pett.jpg",aka:[]},
   /*{n:"R. Dotti",p:"CM",o:74,j:9,g:1,a:6,m:1,psn:"Dottizao",aka:[]},*/
   /*{n:"Qrooz",p:"CM",o:82,j:18,g:1,a:3,m:0,psn:"rodrigobqueiroz",aka:[]},*/
   /*{n:"RyanFelix055",p:"",o:0,j:0,g:0,a:0,m:0,psn:"RyanFelix055",aka:[]},*/
