@@ -55,6 +55,10 @@ const campeonatoDados = [
    stats:{
     casa:[{psn:"DaSilva019",g:0,a:0,m:0,pos:"F"},{psn:"EVARISTO 420",g:0,a:0,m:0,pos:"M"},{psn:"CABOCLO DOI",g:0,a:0,m:0,pos:"D"},{psn:"van-_-wilker",g:0,a:0,m:0,pos:"M"},{psn:"CarlsEd12",g:0,a:0,m:0,pos:"G",def:5,gs:3},{psn:"NielyMorales",g:0,a:0,m:0,pos:"M"},{psn:"Ishiyama27",g:0,a:0,m:0,pos:"M"},{psn:"Jeffinho96_",g:0,a:0,m:0,pos:"D"},{psn:"Renildo_santos",g:0,a:0,m:0,pos:"M"},{psn:"Wallasmorais94",g:0,a:0,m:0,pos:"D"},{psn:"Dnzin2003",g:0,a:0,m:0,pos:"D"}],
     fora:[{psn:"Mito_L2_sola",g:0,a:1,m:0,pos:"F"},{psn:"lgbzitol",g:0,a:0,m:0,pos:"M"},{psn:"Shazam_051",g:0,a:0,m:0,pos:"D"},{psn:"manjubiinha17",g:0,a:0,m:0,pos:"D"},{psn:"knsrj",g:0,a:0,m:0,pos:"M"},{psn:"InashzitoI",g:0,a:0,m:0,pos:"D"},{psn:"bielzzin7x3164",g:2,a:0,m:0,pos:"F"},{psn:"Marzinroth12",g:0,a:0,m:0,pos:"M"},{psn:"yKevinn10",g:1,a:1,m:0,pos:"M"},{psn:"xandyborges2014",g:0,a:0,m:0,pos:"G",def:1,gs:0},{psn:"deivyd_dvd",g:0,a:0,m:1,pos:"M"}]}},
+  {fase:"grupos", casa:"Morpheus FC", fora:"Manja Chester", gc:2, gf:1, hora:"2026-11-26T23:16",
+   stats:{
+    casa:[{psn:"Beica97",g:1,a:0,m:0,pos:"F"},{psn:"Diegomengo0313",g:0,a:0,m:0,pos:"M"},{psn:"Pettmant",g:0,a:0,m:0,pos:"G",def:5,gs:1},{psn:"Maneel444",g:0,a:0,m:0,pos:"D"},{psn:"Habutrers",g:0,a:1,m:0,pos:"F"},{psn:"alice_farias09",g:0,a:1,m:0,pos:"M"},{psn:"Landao_da_massa",g:0,a:0,m:0,pos:"M"},{psn:"Panka1791",g:1,a:0,m:0,pos:"M"},{psn:"igorferreiragc",g:0,a:0,m:0,pos:"M"},{psn:"Trclokko_01",g:0,a:0,m:0,pos:"D"}],
+    fora:[{psn:"MATEUSBENATTI",g:0,a:0,m:0,pos:"M"},{psn:"PVENANCIO12",g:0,a:0,m:0,pos:"D"},{psn:"Son9183",g:0,a:0,m:0,pos:"F"},{psn:"Lula_Garcia90",g:0,a:0,m:0,pos:"M"},{psn:"MatheuszinDJ",g:0,a:0,m:0,pos:"D"},{psn:"YuriFR16",g:0,a:0,m:0,pos:"D"},{psn:"seven_five88",g:1,a:0,m:0,pos:"D"},{psn:"Guizinn2355",g:0,a:1,m:1,pos:"F"}]}}
 ];
 
 /* Fotos de fundo padrão do campeonato (arquivos em assets/bg/). Valem para qualquer campeonato; o que você preencher no painel (aba Campeonato > Fotos de fundo) tem prioridade. */
