@@ -66,7 +66,11 @@ const campeonatoDados = [
   {fase:"grupos", casa:"Club União", fora:"ASCENCION FC", gc:3, gf:2, hora:"2026-11-27T21:55",
    stats:{
     casa:[{psn:"EVARISTO 420",g:0,a:1,m:0,pos:"F"},{psn:"CABOCLO DOI",g:0,a:0,m:0,pos:"M"},{psn:"JosephDrogas",g:1,a:0,m:0,pos:"M"},{psn:"FabioKadabra",g:0,a:0,m:0,pos:"M"},{psn:"van-_-wilker",g:0,a:0,m:0,pos:"M"},{psn:"JandsonDias",g:1,a:1,m:1,pos:"M"},{psn:"CarlsEd12",g:0,a:0,m:0,pos:"G",def:0,gs:2},{psn:"NielyMorales",g:1,a:0,m:0,pos:"F"},{psn:"Dnzin2003",g:0,a:0,m:0,pos:"D"},{psn:"Moises_lacerdaaa",g:0,a:0,m:0,pos:"D"},{psn:"Ale_M0raiss",g:0,a:0,m:0,pos:"D"}],
-    fora:[{psn:"B_I_E_L_27",g:0,a:0,m:0,pos:"M"},{psn:"Rock_Callboaa",g:0,a:2,m:0,pos:"M"},{psn:"ghFelipegh",g:0,a:0,m:0,pos:"F"},{psn:"BR_BRANQUINHO77",g:0,a:0,m:0,pos:"D"},{psn:"MagoSeven",g:0,a:0,m:0,pos:"F"},{psn:"AraujoRei11",g:1,a:0,m:0,pos:"F"},{psn:"Failli89",g:0,a:0,m:0,pos:"D"}]}}
+    fora:[{psn:"B_I_E_L_27",g:0,a:0,m:0,pos:"M"},{psn:"Rock_Callboaa",g:0,a:2,m:0,pos:"M"},{psn:"ghFelipegh",g:0,a:0,m:0,pos:"F"},{psn:"BR_BRANQUINHO77",g:0,a:0,m:0,pos:"D"},{psn:"MagoSeven",g:0,a:0,m:0,pos:"F"},{psn:"AraujoRei11",g:1,a:0,m:0,pos:"F"},{psn:"Failli89",g:0,a:0,m:0,pos:"D"}]}},
+  {fase:"grupos", casa:"Club União", fora:"Matrix FC", gc:1, gf:1, hora:"2026-11-27T22:32",
+   stats:{
+    casa:[{psn:"EVARISTO 420",g:1,a:0,m:0,pos:"F"},{psn:"JosephDrogas",g:0,a:1,m:0,pos:"M"},{psn:"CarlsEd12",g:0,a:0,m:0,pos:"G",def:0,gs:1}],
+    fora:[{psn:"rodrigobqueiroz",g:0,a:1,m:0,pos:"M"}]}}
 ];
 
 /* Fotos de fundo padrão do campeonato (arquivos em assets/bg/). Valem para qualquer campeonato; o que você preencher no painel (aba Campeonato > Fotos de fundo) tem prioridade. */
