@@ -7,14 +7,14 @@ const club = {w:155,d:36,l:124,gf:759,ga:667,games:315,sr:1967};
 /* Jogadores entre comentários (linhas começando com barra e asterisco) saíram do time ou não jogam há dias: ficam fora do site. Para voltar, tire o comentário da linha. A atualização com o tracker não os traz de volta. */
 const players = [
   /*{n:"Leo",p:"ST",o:81,j:235,g:50,a:36,m:5,psn:"LEOzin117",img:"leo.jpeg",aka:[]},*/
-  {n:"Habutre",p:"ST",o:85,j:267,g:169,a:114,m:28,psn:"Habutrers",img:"Habutre.jpeg",aka:[]},
-  {n:"Beiça",p:"ST",o:84,j:258,g:250,a:117,m:35,psn:"Beica97",img:"will.jpg",aka:["Bll4ck"]},
-  {n:"Vibox Beats",p:"CM",o:85,j:188,g:18,a:23,m:30,psn:"ViboxBeats",img:"vibox.jpeg",aka:[]},
+  {n:"Habutre",p:"ST",o:86,j:267,g:169,a:114,m:28,psn:"Habutrers",img:"Habutre.jpeg",aka:[]},
+  {n:"Beiça",p:"ST",o:81,j:258,g:250,a:117,m:35,psn:"Beica97",img:"will.jpg",aka:["Bll4ck"]},
+  {n:"Vibox Beats",p:"CM",o:83,j:188,g:18,a:23,m:30,psn:"ViboxBeats",img:"vibox.jpeg",aka:[]},
   /*{n:"dtb",p:"ST",o:82,j:76,g:42,a:23,m:6,psn:"dtb_mvp",img:"dtb_mvp.jpg",aka:[]},*/
-  {n:"TIAO",p:"CB",o:79,j:107,g:5,a:8,m:3,psn:"Trclokko_01",img:"trclokko_01.jpg",aka:[]},
+  {n:"TIAO",p:"CB",o:83,j:107,g:5,a:8,m:3,psn:"Trclokko_01",img:"trclokko_01.jpg",aka:[]},
   /*{n:"LZ",p:"CB",o:85,j:68,g:4,a:2,m:6,psn:"LuizzCrazy",img:"luiz.jpeg",aka:[]},*/
-  {n:"Saul",p:"CM",o:82,j:178,g:55,a:105,m:4,psn:"alice_farias09",img:"saul.jpeg",aka:[]},
-  {n:"Pastor",p:"CB",o:74,j:160,g:24,a:19,m:13,psn:"Maneel444",img:"pastor.jpeg",aka:[]},
+  {n:"Saul",p:"CM",o:84,j:178,g:55,a:105,m:4,psn:"alice_farias09",img:"saul.jpeg",aka:[]},
+  {n:"Pastor",p:"CB",o:84,j:160,g:24,a:19,m:13,psn:"Maneel444",img:"pastor.jpeg",aka:[]},
   /*{n:"Kakashi",p:"CM",o:84,j:50,g:10,a:28,m:5,psn:"italo121rds",aka:[]},*/
   {n:"G. Arrascaeta",p:"CB",o:83,j:56,g:19,a:46,m:10,psn:"King_Arthur_atbs",img:"Arthur.jpg",aka:[]},
   /*{n:"Gabriel",p:"ST",o:85,j:3,g:2,a:1,m:0,psn:"GabrielGoulartXx",aka:[]},*/
@@ -38,19 +38,19 @@ const players = [
   {n:"Top Road",p:"CM",o:84,j:13,g:2,a:7,m:0,psn:"ArcoffH",img:"ArcoffH.jpg",aka:[]},
   /*{n:"Bruxa",p:"ST",o:82,j:5,g:2,a:1,m:0,psn:"KALLEN_COUTINHO",aka:[]},*/
   /*{n:"Rukawa",p:"CM",o:78,j:2,g:0,a:0,m:0,psn:"oiRukawa",aka:[]},*/
-  {n:"Landão",p:"CB",o:83,j:50,g:2,a:4,m:2,psn:"Landao_da_massa",img:"Landao.jpg",aka:[]},
+  {n:"Landão",p:"CB",o:84,j:50,g:2,a:4,m:2,psn:"Landao_da_massa",img:"Landao.jpg",aka:[]},
   /*{n:"J H O W",p:"CB",o:80,j:5,g:1,a:0,m:0,psn:"X_Jhoow",aka:[]},*/
   /*{n:"t. Jefrey",p:"CM",o:78,j:3,g:0,a:1,m:0,psn:"Farelooso",aka:[]},*/
   /*{n:"Magrão",p:"CM",o:83,j:15,g:2,a:3,m:1,psn:"MagraoJojelito84",img:"magrao.jpg",aka:[]},*/
   {n:"H4ppyGui",p:"CM",o:80,j:9,g:1,a:1,m:4,psn:"H4ppyGui",img:"gui.jpg",aka:[]},
-  {n:"Diegomengo0313",p:"CM",o:81,j:8,g:0,a:0,m:2,psn:"Diegomengo0313",img:"diego.jpg",aka:[]},
-  {n:"daniloqc84",p:"CM",o:77,j:10,g:3,a:4,m:1,psn:"daniloqc84",img:"dan.jpg",aka:[]},
+  {n:"Diegomengo0313",p:"CM",o:82,j:8,g:0,a:0,m:2,psn:"Diegomengo0313",img:"diego.jpg",aka:[]},
+  {n:"daniloqc84",p:"CM",o:78,j:10,g:3,a:4,m:1,psn:"daniloqc84",img:"dan.jpg",aka:[]},
   /*{n:"TonBPC",p:"ST",o:80,j:5,g:0,a:0,m:0,psn:"TonBPC",aka:[]},*/
   {n:"PeuIvo27",p:"CM",o:81,j:3,g:0,a:0,m:1,psn:"PeuIvo27",img:"peu.jpg",aka:[]},
   {n:"MicheLs_32",p:"CB",o:86,j:2,g:0,a:0,m:0,psn:"MicheLs_32",img:"michel.jpg",aka:[]},
-  {n:"igorferreiragc",p:"CB",o:82,j:7,g:1,a:2,m:0,psn:"igorferreiragc",img:"igor.jpg",aka:[]},
+  {n:"igorferreiragc",p:"CB",o:83,j:7,g:1,a:2,m:0,psn:"igorferreiragc",img:"igor.jpg",aka:[]},
   {n:"Panka1791",p:"ST",o:80,j:14,g:2,a:6,m:1,psn:"Panka1791",img:"panka.jpg",aka:[]},
-  {n:"Pettmant",p:"GK",o:89,j:7,g:0,a:0,m:0,psn:"Pettmant",img:"pett.jpg",aka:[]},
+  {n:"Pettmant",p:"GK",o:84,j:7,g:0,a:0,m:0,psn:"Pettmant",img:"pett.jpg",aka:[]},
   {n:"Gremista l7l",p:"ST",o:82,j:4,g:5,a:2,m:1,psn:"Gremista l7l",aka:[]},
   /*{n:"R. Dotti",p:"CM",o:74,j:9,g:1,a:6,m:1,psn:"Dottizao",aka:[]},*/
   /*{n:"Qrooz",p:"CM",o:82,j:18,g:1,a:3,m:0,psn:"rodrigobqueiroz",aka:[]},*/
