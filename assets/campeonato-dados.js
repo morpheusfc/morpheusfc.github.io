@@ -58,7 +58,15 @@ const campeonatoDados = [
   {fase:"grupos", casa:"Morpheus FC", fora:"Manja Chester", gc:2, gf:1, hora:"2026-11-26T23:16",
    stats:{
     casa:[{psn:"Beica97",g:1,a:0,m:0,pos:"F"},{psn:"Diegomengo0313",g:0,a:0,m:0,pos:"M"},{psn:"Pettmant",g:0,a:0,m:0,pos:"G",def:5,gs:1},{psn:"Maneel444",g:0,a:0,m:0,pos:"D"},{psn:"Habutrers",g:0,a:1,m:0,pos:"F"},{psn:"alice_farias09",g:0,a:1,m:0,pos:"M"},{psn:"Landao_da_massa",g:0,a:0,m:0,pos:"M"},{psn:"Panka1791",g:1,a:0,m:0,pos:"M"},{psn:"igorferreiragc",g:0,a:0,m:0,pos:"M"},{psn:"Trclokko_01",g:0,a:0,m:0,pos:"D"}],
-    fora:[{psn:"MATEUSBENATTI",g:0,a:0,m:0,pos:"M"},{psn:"PVENANCIO12",g:0,a:0,m:0,pos:"D"},{psn:"Son9183",g:0,a:0,m:0,pos:"F"},{psn:"Lula_Garcia90",g:0,a:0,m:0,pos:"M"},{psn:"MatheuszinDJ",g:0,a:0,m:0,pos:"D"},{psn:"YuriFR16",g:0,a:0,m:0,pos:"D"},{psn:"seven_five88",g:1,a:0,m:0,pos:"D"},{psn:"Guizinn2355",g:0,a:1,m:1,pos:"F"}]}}
+    fora:[{psn:"MATEUSBENATTI",g:0,a:0,m:0,pos:"M"},{psn:"PVENANCIO12",g:0,a:0,m:0,pos:"D"},{psn:"Son9183",g:0,a:0,m:0,pos:"F"},{psn:"Lula_Garcia90",g:0,a:0,m:0,pos:"M"},{psn:"MatheuszinDJ",g:0,a:0,m:0,pos:"D"},{psn:"YuriFR16",g:0,a:0,m:0,pos:"D"},{psn:"seven_five88",g:1,a:0,m:0,pos:"D"},{psn:"Guizinn2355",g:0,a:1,m:1,pos:"F"}]}},
+  {fase:"grupos", casa:"União XI", fora:"FerroVelho", gc:3, gf:1, hora:"2026-11-27T00:04",
+   stats:{
+    casa:[{psn:"Filype_Fera",g:1,a:0,m:1,pos:"D"},{psn:"D1gu1nhoGAmer34",g:0,a:0,m:0,pos:"M"},{psn:"Edipo32",g:0,a:0,m:0,pos:"G",def:3,gs:1},{psn:"LucasCobret",g:0,a:0,m:0,pos:"M"},{psn:"Caio Peixoto624",g:0,a:0,m:0,pos:"F"},{psn:"Henrique_Brab0",g:0,a:0,m:0,pos:"D"},{psn:"ArthurGMPlay",g:0,a:0,m:0,pos:"M"},{psn:"Chieza5056",g:0,a:2,m:0,pos:"M"},{psn:"crvgfbzzin",g:1,a:0,m:0,pos:"D"},{psn:"troca_dividida7",g:0,a:0,m:0,pos:"M"},{psn:"ruudgull1t",g:1,a:0,m:0,pos:"F"}],
+    fora:[{psn:"Felip_Sanches",g:0,a:0,m:0,pos:"F"},{psn:"WLDaVasco",g:0,a:1,m:0,pos:"M"},{psn:"AndreOliveira151",g:0,a:0,m:0,pos:"D"},{psn:"Murillo_ou_prime",g:0,a:0,m:0,pos:"G",def:7,gs:3},{psn:"LEOZAOJR07",g:0,a:0,m:0,pos:"D"},{psn:"yzGabrielyz",g:1,a:0,m:0,pos:"M"},{psn:"RYAN_ilusorio9",g:0,a:0,m:0,pos:"F"},{psn:"vader6663143",g:0,a:0,m:0,pos:"M"},{psn:"Carecaaa10_",g:0,a:0,m:0,pos:"M"},{psn:"Jean_PowerS2",g:0,a:0,m:0,pos:"M"}]}},
+  {fase:"grupos", casa:"Club União", fora:"ASCENCION FC", gc:3, gf:2, hora:"2026-11-27T21:55",
+   stats:{
+    casa:[{psn:"EVARISTO 420",g:0,a:1,m:0,pos:"F"},{psn:"CABOCLO DOI",g:0,a:0,m:0,pos:"M"},{psn:"JosephDrogas",g:1,a:0,m:0,pos:"M"},{psn:"FabioKadabra",g:0,a:0,m:0,pos:"M"},{psn:"van-_-wilker",g:0,a:0,m:0,pos:"M"},{psn:"JandsonDias",g:1,a:1,m:1,pos:"M"},{psn:"CarlsEd12",g:0,a:0,m:0,pos:"G",def:0,gs:2},{psn:"NielyMorales",g:1,a:0,m:0,pos:"F"},{psn:"Dnzin2003",g:0,a:0,m:0,pos:"D"},{psn:"Moises_lacerdaaa",g:0,a:0,m:0,pos:"D"},{psn:"Ale_M0raiss",g:0,a:0,m:0,pos:"D"}],
+    fora:[{psn:"B_I_E_L_27",g:0,a:0,m:0,pos:"M"},{psn:"Rock_Callboaa",g:0,a:2,m:0,pos:"M"},{psn:"ghFelipegh",g:0,a:0,m:0,pos:"F"},{psn:"BR_BRANQUINHO77",g:0,a:0,m:0,pos:"D"},{psn:"MagoSeven",g:0,a:0,m:0,pos:"F"},{psn:"AraujoRei11",g:1,a:0,m:0,pos:"F"},{psn:"Failli89",g:0,a:0,m:0,pos:"D"}]}}
 ];
 
 /* Fotos de fundo padrão do campeonato (arquivos em assets/bg/). Valem para qualquer campeonato; o que você preencher no painel (aba Campeonato > Fotos de fundo) tem prioridade. */
