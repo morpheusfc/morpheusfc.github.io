@@ -3,12 +3,12 @@
    ts: gols nas ultimas 10 temporadas do tracker, da mais antiga para a atual (ultima posicao). */
 const estat = {
   "LEOzin117":{wr:45,pp:79,pm:2514,sp:26,tk:132,tp:29,cs:3,ts:[0,2,0,0,1,1,1,0,1,1]},
-  "Habutrers":{wr:49,pp:83,pm:4332,sp:41,tk:371,tp:22,cs:0,ts:[2,2,2,1,0,1,3,3,5,5]},
+  "Habutrers":{wr:50,pp:83,pm:4390,sp:42,tk:374,tp:22,cs:0,ts:[2,2,3,1,1,2,2,6,4,4]},
   "Beica97":{wr:48,pp:80,pm:3311,sp:41,tk:108,tp:15,cs:0,ts:[6,4,5,1,2,7,2,1,3,3]},
-  "ViboxBeats":{wr:57,pp:80,pm:2840,sp:28,tk:253,tp:49,cs:1,ts:[0,0,0,0,0,0,1,2,2,2]},
-  "alice_farias09":{wr:48,pp:75,pm:3072,sp:33,tk:102,tp:20,cs:0,ts:[0,0,0,1,2,2,1,2,0,0]},
-  "Maneel444":{wr:45,pp:84,pm:2057,sp:22,tk:188,tp:51,cs:14,ts:[1,0,0,0,0,0,3,1,0,0]},
-  "Trclokko_01":{wr:45,pp:75,pm:1185,sp:9,tk:114,tp:25,cs:5,ts:[0,0,0,0,0,0,0,0,0,0]},
+  "ViboxBeats":{wr:57,pp:80,pm:2902,sp:28,tk:258,tp:49,cs:1,ts:[0,0,0,0,0,0,1,2,2,2]},
+  "alice_farias09":{wr:50,pp:75,pm:3115,sp:34,tk:106,tp:20,cs:0,ts:[0,0,1,2,2,3,0,2,1,1]},
+  "Maneel444":{wr:46,pp:84,pm:2090,sp:23,tk:189,tp:51,cs:15,ts:[1,0,0,3,1,0,0,1,0,0]},
+  "Trclokko_01":{wr:46,pp:75,pm:1210,sp:9,tk:115,tp:25,cs:5,ts:[0,0,0,0,0,0,0,0,0,0]},
   "dtb_mvp":{wr:55,pp:78,pm:902,sp:45,tk:74,tp:42,cs:1,ts:[1,1,0,0,1,0,0,1,5,5]},
   "LuizzCrazy":{wr:45,pp:73,pm:489,sp:12,tk:92,tp:29,cs:7,ts:[0,1,0,0,0,0,0,0,0,0]},
   "King_Arthur_atbs":{wr:55,pp:76,pm:920,sp:36,tk:83,tp:34,cs:0,ts:[2,0,1,0,2,0,0,1,0,0]},
@@ -25,13 +25,14 @@ const estat = {
   "easpbra1736":{wr:100,pp:85,pm:47,sp:50,tk:6,tp:31,cs:0,ts:[0,0,0,0,0,0,1,0,0,0]},
   "smokefxz":{wr:50,pp:80,pm:32,sp:50,tk:1,tp:50,cs:0,ts:[0,0,0,0,0,0,1,0,0,0]},
   "I Didico I":{wr:50,pp:75,pm:9,sp:0,tk:3,tp:50,cs:0,ts:[0,0,0,0,0,0,0,0,0,0]},
-  "H4ppyGui":{wr:80,pp:85,pm:122,sp:0,tk:18,tp:66,cs:0,ts:[0,0,0,0,0,0,0,0,0,0]},
+  "H4ppyGui":{wr:88,pp:86,pm:191,sp:100,tk:32,tp:58,cs:0,ts:[0,0,0,0,0,0,1,0,0,0]},
   "Diegomengo0313":{wr:62,pp:82,pm:138,sp:0,tk:13,tp:50,cs:0,ts:[0,0,0,0,0,0,0,0,0,0]},
   "daniloqc84":{wr:50,pp:81,pm:160,sp:60,tk:19,tp:31,cs:1,ts:[1,1,0,0,0,0,0,0,1,1]},
   "TonBPC":{wr:40,pp:72,pm:83,sp:0,tk:2,tp:18,cs:0,ts:[0,0,0,0,0,0,0,0,0,0]},
   "PeuIvo27":{wr:33,pp:94,pm:51,sp:0,tk:6,tp:35,cs:0,ts:[0,0,0,0,0,0,0,0,0,0]},
   "MicheLs_32":{wr:50,pp:88,pm:22,sp:0,tk:3,tp:42,cs:0,ts:[0,0,0,0,0,0,0,0,0,0]},
   "igorferreiragc":{wr:71,pp:80,pm:127,sp:20,tk:5,tp:22,cs:0,ts:[0,0,0,0,0,0,0,0,1,1]},
-  "Panka1791":{wr:50,pp:70,pm:136,sp:20,tk:6,tp:40,cs:0,ts:[0,0,1,0,0,0,1,0,0,0]},
-  "Pettmant":{wr:66,pp:80,pm:17,sp:0,tk:0,tp:0,cs:1,ts:[0,0,0,0,0,0,0,0,0,0]}
+  "Panka1791":{wr:64,pp:72,pm:178,sp:20,tk:9,tp:50,cs:0,ts:[0,0,1,0,0,0,1,0,0,0]},
+  "Pettmant":{wr:85,pp:80,pm:29,sp:0,tk:0,tp:0,cs:2,ts:[0,0,0,0,0,0,0,0,0,0]},
+  "Gremista l7l":{wr:100,pp:86,pm:51,sp:83,tk:2,tp:15,cs:0,ts:[0,0,0,0,0,1,1,2,1,1]}
 };
